@@ -14,6 +14,7 @@ use App\Models\MaktabCategory;
 use App\Models\Package;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -34,13 +35,13 @@ class BookingController extends Controller
      */
     public function create_step_1(Request $request)
     {
-        $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->get();
-        $booking_offices = CompanyBookingOffice::select('id', 'booking_office_name', 'company_id')->get();
+        // $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->get();
+        $booking_offices = CompanyBookingOffice::select('id', 'booking_office_name', 'company_id')->where('company_id',auth()->user()->company_id)->get();
         $agents = Agent::select('id', 'agent_name')->get();
         $request->session()->forget('booking');
         $request->session()->forget('applications');
 
-        return view('admin.booking.create', compact('companies', 'booking_offices', 'agents'));
+        return view('admin.booking.create', compact( 'booking_offices', 'agents'));
     }
 
     /**
@@ -53,7 +54,7 @@ class BookingController extends Controller
         // dd($request->agent_name);
         $booking = new Booking();
         $booking->booking_number = time();
-        $booking->company_id = $request->company_id;
+        $booking->company_id = auth()->user()->company_id;
         $booking->booking_office_id = $request->booking_office_id;
         $booking->client_country = $request->client_country;
         $booking->booking_nature = $request->booking_nature;
@@ -135,6 +136,8 @@ class BookingController extends Controller
     public function store_step_3(Request $request)
     {
 
+        // dd($request->all());
+
         $booking = $request->session()->get('booking');
         $applications = $request->session()->get('applications', []);
 
@@ -171,6 +174,22 @@ class BookingController extends Controller
         $application->arrival_airport_ksa_id = $request->arrival_airport_ksa_id;
         $application->arrival_date_ksa = $request->arrival_date_ksa;
 
+        $qurbani_fee=0;
+        $ticket_cost=0;
+
+        if($request->qurbani=='INCLUDED'){
+            $qurbani_fee=800;
+        }
+        if($request->ticket!=0){
+            $ticket = Ticket::where('id', $request->ticket)->select('ticket_cost')->first();
+            $ticket_cost=$ticket->ticket_cost;
+        }
+
+        $package=Package::where('id',$booking->package_id)->select('cost_per_person')->first();
+        $cost_per_person = $package->cost_per_person;
+
+        $final_cost_per_person = $cost_per_person + $qurbani_fee + $ticket_cost;
+        $application->cost_per_person= $final_cost_per_person;
 
         if($application->is_contact_person){
             $booking->contact_name = $application->given_name;
@@ -179,21 +198,23 @@ class BookingController extends Controller
         }
 
 
-        // if ($request->hasfile('attachment_passport')) {
-        //     $application->attachment_passport = '/storage/' . $request->attachment_passport->storeAs('application', 'passport-' . $request->application_number .'.png', 'public');
-        // }
-        // if ($request->hasfile('attachment_cnic')) {
-        //     $application->attachment_cnic = '/storage/' . $request->attachment_cnic->storeAs('application', 'cnic-' . $request->application_number .'.png', 'public');
-        // }
-        // if ($request->hasfile('attachment_picture')) {
-        //     $application->attachment_picture = '/storage/' . $request->attachment_picture->storeAs('application', 'picture-' . $request->application_number .'.png', 'public');
-        // }
-        // if ($request->hasfile('attachment_medical')) {
-        //     $application->attachment_medical = '/storage/' . $request->attachment_medical->storeAs('application', 'medical-' . $request->application_number .'.png', 'public');
-        // }
-        // if ($request->hasfile('attachment_other')) {
-        //     $application->attachment_other = '/storage/' . $request->attachment_other->storeAs('application', 'other-' . $request->application_number .'.png', 'public');
-        // }
+        if ($request->hasfile('attachment_passport')) {
+            $application->attachment_passport = '/storage/' . $request->attachment_passport->storeAs('application/'.$request->application_number, 'passport-' . $request->application_number .'.png', 'public');
+        }
+        if ($request->hasfile('attachment_cnic')) {
+            $application->attachment_cnic = '/storage/' . $request->attachment_cnic->storeAs('application/'.$request->application_number, 'cnic-' . $request->application_number .'.png', 'public');
+        }
+        if ($request->hasfile('attachment_picture')) {
+            $application->attachment_picture = '/storage/' . $request->attachment_picture->storeAs('application/'.$request->application_number, 'picture-' . $request->application_number .'.png', 'public');
+        }
+        if ($request->hasfile('attachment_medical')) {
+            $extension = $request->file('attachment_medical')->extension();
+            $application->attachment_medical = '/storage/' . $request->attachment_medical->storeAs('application/'.$request->application_number, 'medical-' . $request->application_number . ".".$extension, 'public');
+        }
+        if ($request->hasfile('attachment_other')) {
+            $extension = $request->file('attachment_other')->extension();
+            $application->attachment_other = '/storage/' . $request->attachment_other->storeAs('application/'.$request->application_number, 'other-' . $request->application_number . "." . $extension, 'public');
+        }
 
         $applications[]=$application;
 
@@ -220,6 +241,56 @@ class BookingController extends Controller
     public function create_step_4()
     {
         return view('admin.booking.create');
+    }
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store_step_4(Request $request)
+    {
+        $booking = $request->session()->get('booking');
+        $applications = $request->session()->get('applications', []);
+
+       DB::transaction(function() use ($booking,$applications,$request){
+            $booking->discount = $request->discount ?? 0;
+            $booking->net_total = $request->net_total;
+            $booking->commission = $request->commission;
+            $booking->grand_total = $request->grand_total;
+            $booking->created_by = auth()->user()->id;
+
+            unset($booking->contact_person);
+
+
+
+            if ($booking->save()) {
+                foreach ($applications as $application) {
+                    $application->mehram_name = $application->mehram_name ?? "";
+                    $application->mehram_relation = $application->mehram_relation ?? "";
+                    if ($application->room_sharing == '') {
+                        $application->aziziya_room_sharing = '';
+                        $application->makkah_room_sharing = '';
+                        $application->madinah_room_sharing = '';
+                    } else {
+                        $application->aziziya_room_sharing = $application->room_sharing;
+                        $application->makkah_room_sharing = $application->room_sharing;
+                        $application->madinah_room_sharing = $application->room_sharing;
+                    }
+                    $application->room_sharing = $application->room_sharing ?? "";
+                    $application->booking_id = $booking->id;
+
+
+
+                    unset($application->is_contact_person);
+                    unset($application->room_sharing);
+                    $application->created_by = auth()->user()->id;
+
+                    $application->save();
+                }
+            }
+       });
+        return redirect()->route('complete-list');
     }
 
     /**

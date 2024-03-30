@@ -27,12 +27,14 @@
             </a>
             <div class="collapse" id="bookings">
               <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('create-booking-step-1')}}" class="nav-link">Add Bookings</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('bookings')}}" class="nav-link">Edit Booking</a>
-                </li>
+                @if (Auth::user()->role=="COMPANY")
+                  <li class="nav-item">
+                    <a href="{{route('create-booking-step-1')}}" class="nav-link">Add Bookings</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('bookings')}}" class="nav-link">Edit Booking</a>
+                  </li>
+                @endif
                 <li class="nav-item">
                   <a href="{{route('complete-list')}}" class="nav-link">Booking List</a>
                 </li>
@@ -48,6 +50,7 @@
               </ul>
             </div>
           </li>
+           @if (Auth::user()->role=="ADMIN")
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#companies" role="button" aria-expanded="false" aria-controls="bookings">
               <i class="link-icon" data-feather="calendar"></i>
@@ -57,7 +60,7 @@
             <div class="collapse" id="companies">
               <ul class="nav sub-menu">
                 <li class="nav-item">
-                  <a href="{{route('create-booking-step-1')}}" class="nav-link">Add Company</a>
+                  <a href="{{route('companies.create')}}" class="nav-link">Add Company</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{route('companies.index')}}" class="nav-link">Company List</a>
@@ -82,6 +85,7 @@
               </ul>
             </div>
           </li>
+          @endif
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#accounts" role="button" aria-expanded="false" aria-controls="accounts">
               <i class="link-icon" data-feather="book"></i>

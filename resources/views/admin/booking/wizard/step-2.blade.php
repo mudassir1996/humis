@@ -164,9 +164,9 @@
 
     <div class="row">
         <div class="col-lg-12 text-right">
-            <a href="{{ route('create-booking-step-1') }}" class="btn btn-light">
+            {{-- <a href="{{ route('create-booking-step-1') }}" class="btn btn-light">
                 Go Back
-            </a>
+            </a> --}}
             <button type="submit" class="btn btn-primary">
                 Save & Next
             </button>

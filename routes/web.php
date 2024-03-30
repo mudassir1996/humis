@@ -33,16 +33,8 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
-    Route::get('/bookings/view-details', [BookingController::class, 'view_details'])->name('view-booking-details');
-    Route::get('/bookings/create-booking-step-1', [BookingController::class, 'create_step_1'])->name('create-booking-step-1');
-    Route::post('/bookings/store-booking-step-1', [BookingController::class, 'store_step_1'])->name('store-booking-step-1');
-    Route::get('/bookings/create-booking-step-2', [BookingController::class, 'create_step_2'])->name('create-booking-step-2');
-    Route::post('/bookings/store-booking-step-2', [BookingController::class, 'store_step_2'])->name('store-booking-step-2');
-    Route::get('/bookings/create-booking-step-3', [BookingController::class, 'create_step_3'])->name('create-booking-step-3');
-    Route::post('/bookings/store-booking-step-3', [BookingController::class, 'store_step_3'])->name('store-booking-step-3');
-    Route::get('/bookings/create-booking-step-4', [BookingController::class, 'create_step_4'])->name('create-booking-step-4');
-    Route::get('/bookings/complete-list', [BookingController::class, 'complete_list'])->name('complete-list');
+    
+    
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications');
     
     Route::get('/reciepts/view-details', [RecieptController::class, 'view_details'])->name('view-reciept-details');
@@ -55,11 +47,31 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/documents/madinah-hotel', [DocumentController::class, 'madinah_hotel_documents'])->name('madinah-hotel-documents');
     Route::get('/documents/aziziyah-hotel', [DocumentController::class, 'aziziyah_hotel_documents'])->name('aziziyah-hotel-documents');
     Route::get('/documents/visa-ticket', [DocumentController::class, 'visa_ticket'])->name('visa-ticket');
-    
-    Route::get('/companies/{id}/booking-offices', [CompanyController::class, 'getBookingOffices']);
-    Route::resource('/companies', CompanyController::class);
+    Route::get('/bookings/complete-list', [BookingController::class, 'complete_list'])->name('complete-list');
+
     Route::get('/packages/{id}/get-details', [PackageController::class, 'getPackageDetails']);
-    Route::resource('/packages', PackageController::class);
+    Route::middleware(['company'])->group(function () {
+        Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+        Route::get('/bookings/create-booking-step-1', [BookingController::class, 'create_step_1'])->name('create-booking-step-1');
+        Route::post('/bookings/store-booking-step-1', [BookingController::class, 'store_step_1'])->name('store-booking-step-1');
+        Route::get('/bookings/create-booking-step-2', [BookingController::class, 'create_step_2'])->name('create-booking-step-2');
+        Route::post('/bookings/store-booking-step-2', [BookingController::class, 'store_step_2'])->name('store-booking-step-2');
+        Route::get('/bookings/create-booking-step-3', [BookingController::class, 'create_step_3'])->name('create-booking-step-3');
+        Route::post('/bookings/store-booking-step-3', [BookingController::class, 'store_step_3'])->name('store-booking-step-3');
+        Route::get('/bookings/create-booking-step-4', [BookingController::class, 'create_step_4'])->name('create-booking-step-4');
+        Route::post('/bookings/store-booking-step-4', [BookingController::class, 'store_step_4'])->name('store-booking-step-4');
+        Route::get('/bookings/view-details', [BookingController::class, 'view_details'])->name('view-booking-details');
+
+
+    });
+
+
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/companies/{id}/booking-offices', [CompanyController::class, 'getBookingOffices']);
+        Route::resource('/companies', CompanyController::class);
+        Route::resource('/packages', PackageController::class);
+
+    });
 
 
     // Route::get('/booking-summary/maktab', [BookingSummaryController::class, 'maktab_summary'])->name('booking-maktab-summary');

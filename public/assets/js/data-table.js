@@ -10,7 +10,8 @@ $(function() {
       "iDisplayLength": 10,
       "language": {
         search: ""
-      }
+      },
+      order: [[0, 'desc']]
     });
     $('#dataTableExample').each(function() {
       var datatable = $(this);

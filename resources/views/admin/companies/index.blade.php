@@ -15,10 +15,15 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Companies List</h3>
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
+                        {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
+                        </button> --}}
+                       <a href="{{route('companies.create')}}">
+                         <button type="button" class="btn btn-outline-primary">
+                            <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
                         </button>
+                       </a>
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -27,6 +32,7 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Company Name</th>
                                     <th>Company Contact</th>
                                     <th>Status</th>
@@ -36,6 +42,7 @@
                             <tbody>
                                 @foreach ($companies as $company)
                                     <tr>
+                                        <td>{{$company->id}}</td>
                                         <td>{{$company->company_name}}</td>
                                         <td>{{$company->company_contact}}</td>
                                         <td>{{ucfirst($company->company_status)}}</td>

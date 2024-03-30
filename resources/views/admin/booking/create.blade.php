@@ -227,6 +227,50 @@
 
         </script>
 
+    @elseif (Route::currentRouteName() == 'create-booking-step-4')
+        {{-- <script src="{{ asset('assets/vendors/inputmask/jquery.inputmask.min.js') }}"></script>
+        <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+         --}}
+        <script>
+            $('#discount').on('keyup', function() {
+                let discount = $(this).val();
+                if (discount=="") {
+                    discount=0;
+                }
+                let total_cost = $("#total_cost").val();
+                let final_cost = total_cost - discount;
+                 let commission = $("#commission").val();
+
+                $("#net_cost").text(final_cost);
+                $("#net_total").val(final_cost);
+                // $("#total_cost_preview").text(final_cost+commission);
+                // $("#total_cost").val(final_cost+commission);
+
+            });
+
+            // let total_cost = $("#total_cost");
+            // let commission = $("#commission");
+            // let total_cost_preview = $("#total_cost_preview");
+
+            // $(document).ready(()=>{
+            //     let total_cost = parstInt($("#total_cost").val());
+            //     let commission = parstInt($("#commission").val());
+
+            //     $("#total_cost_preview").text(parstInt(total_cost+commission));
+            //     $("#total_cost").val(total_cost+commission);
+            // });
+            // $('#discount').on('keyup', function() {
+            //     let discount = $(this).val();
+            //     if (discount=="") {
+            //         discount=0;
+            //     }
+            //     let net_cost = parseInt(total_cost.val()) -parseInt(discount);
+            //     $("#net_cost").text(net_cost);
+            //     let final_cost = parseInt(net_cost)+parseInt(commission.val());
+            //     total_cost.val(final_cost);
+            //     $("#total_cost_preview").text(final_cost);
+            // });
+        </script>
 
         <!-- end plugin js for this page -->
     @endif

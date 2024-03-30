@@ -7,7 +7,7 @@
     @endphp
     <div class="row mb-3 justify-content-between align-items-center">
         <div class="col-lg-6 col-12">
-            <h3>Hujjaj information {{ isset($applications) ? count($applications) : 1 }}/{{ $booking->num_of_hujjaj }}</h3>
+            <h3>Hujjaj information {{ isset($applications) ? count($applications)+1 : 1 }}/{{ $booking->num_of_hujjaj }}</h3>
         </div>
         <div class="col-lg-6 text-lg-right col-12 py-3">
             <h6 class="mb-1">Booking #{{ $booking->booking_number }}</h6>
@@ -22,17 +22,18 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Surname</label>
-                <input id="agent-name" class="form-control" placeholder="Enter Surname" name="surname" type="text">
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group">
                 <label class="control-label">Given Name</label>
                 <input id="agent-name" class="form-control" placeholder="Enter Given Name" name="given_name"
                     type="text">
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="control-label">Surname</label>
+                <input id="agent-name" class="form-control" placeholder="Enter Surname" name="surname" type="text">
+            </div>
+        </div>
+        
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -167,7 +168,7 @@
             </div>
         </div>
     </div>
-    @if ($booking->contact_person == 1)
+    @if ($booking->contact_name == "")
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
@@ -376,7 +377,8 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Scan of Passport</label>
-                <input type="file" id="passportDropify" class="border" name="attachment_passport" data-max-file-size="500K" />
+                <input type="file" id="passportDropify" class="border" name="attachment_passport"  />
+                {{-- data-max-file-size="500K" --}}
                 {{-- data-default-file="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png" --}}
                 {{-- data-allowed-file-extensions="png jpg" --}}
             </div>
@@ -384,8 +386,9 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Scan of CNIC/NICOP</label>
-                <input type="file" id="cnicDropify" class="border" name="attachment_cnic" data-min-file-size="5K"
-                    data-max-file-size="12K" />
+                {{-- data-min-file-size="5K"
+                    data-max-file-size="12K" --}}
+                <input type="file" id="cnicDropify" class="border" name="attachment_cnic"  />
             </div>
         </div>
     </div>
@@ -393,14 +396,16 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Picture</label>
-                <input type="file" id="pictureDropify" class="border" name="attachment_picture" data-min-file-size="5K"
-                    data-max-file-size="12K" data-max-width="165" data-max-height="185" />
+                <input type="file" id="pictureDropify" class="border" name="attachment_picture" />
+                {{-- data-min-file-size="5K"
+                    data-max-file-size="12K" data-max-width="165" data-max-height="185"  --}}
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Medical Certificate</label>
-                <input type="file" id="medicalDropify" class="border" name="attachment_medical" data-min-file-size="500K" />
+                {{-- data-min-file-size="500K" --}}
+                <input type="file" id="medicalDropify" class="border" name="attachment_medical"  />
             </div>
         </div>
     </div>
@@ -408,7 +413,8 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Other Attachments</label>
-                <input type="file" id="otherDropify" class="border" name="attachment_other" data-min-file-size="500K" />
+                {{-- data-min-file-size="500K" --}}
+                <input type="file" id="otherDropify" class="border" name="attachment_other"  />
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <form class="step-1" method="POST" action="{{route('store-booking-step-1')}}">
     @csrf
     <div class="row">
-        <div class="col-lg-6">
+        {{-- <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Company</label>
                 <select class="select2-single" name="company_id" id="companyDropdown">
@@ -11,17 +11,17 @@
                     @endforeach
                 </select>
             </div>
-        </div>
+        </div> --}}
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Booking Office Country</label>
-                <select class="select2-single" name="booking_office_id" id="bookingOfficeDropdown">
-                    <option></option>
+                <select class="select2-single" name="booking_office_id">
+                    @foreach ($booking_offices as $booking_offices)
+                        <option value="{{ $booking_offices->id }}">{{ $booking_offices->booking_office_name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Client Country</label>
@@ -33,7 +33,10 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-6">
+    </div>
+    <div class="row">
+        
+        <div class="col-lg-12">
             <div class="form-group">
                 <label class="control-label">Booking Nature</label>
                 <select class="select2-single" id="booking-nature" name="booking_nature">
@@ -59,8 +62,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Agent Commission</label>
-                <input id="agent-name" class="form-control" name="agent_commission" placeholder="Enter Agent Commission"
-                    name="agent-name" type="text">
+                <input id="agent-name" class="form-control" name="agent_commission" placeholder="Enter Agent Commission" type="text">
             </div>
         </div>
     </div>

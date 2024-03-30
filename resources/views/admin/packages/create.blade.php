@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/dropify/dist/dropify.min.css') }}">
 @endsection
 @section('content')
-<div class="d-flex justify-content-center align-items-center flex-wrap grid-margin">
+    <div class="d-flex justify-content-center align-items-center flex-wrap grid-margin">
         <h4>Create New Package</h4>
     </div>
     <div class="row justify-content-center">
@@ -14,8 +14,23 @@
                 <div class="card-body">
                     <form class="step-2">
                         @csrf
-                       
+
                         <div id="standard_package">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Package Name</label>
+                                        <input id="package-name" class="form-control" placeholder="Enter Package Name" name="package_name" type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Cost Per Person</label>
+                                        <input id="cost_per_person" class="form-control" readonly placeholder="0" name="cost_per_person" type="text">
+                                    </div>
+                                </div>
+
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -154,7 +169,7 @@
 
                         <div class="row">
                             <div class="col-lg-12 text-right">
-                               
+
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>

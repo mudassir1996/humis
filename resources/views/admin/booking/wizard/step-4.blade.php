@@ -1,4 +1,5 @@
-<form class="step-3">
+<form class="step-3" method="post" action="{{route('store-booking-step-4')}}">
+    @csrf
     <div class="row mb-3 justify-content-between align-items-center">
         <div class="col-lg-6 col-12">
             <h3>Final Cost Details</h3>
@@ -7,6 +8,8 @@
     @php
         $booking = request()->session()->get('booking');
         $applications = request()->session()->get('applications', []);
+        $total_cost = 0;
+        $total_cost_per_person = 0;
     @endphp
 
     <div class="row">
@@ -18,11 +21,17 @@
                 </thead>
                 <tbody>
                     @foreach ($applications as $application)
+                        @php
+                            $total_cost_per_person += $application->cost_per_person;
+                        @endphp
                         <tr>
-                            <td>{{$application->given_name." ".$application->surname}}</td>
-                            <td>SAR 33,515</td>
+                            <td>{{ $application->given_name . ' ' . $application->surname }}</td>
+                            <td>SAR {{ $application->cost_per_person }}</td>
                         </tr>
                     @endforeach
+                    @php
+                        $total_cost += $total_cost_per_person;
+                    @endphp
                 </tbody>
             </table>
         </div>
@@ -34,21 +43,24 @@
             <div class="form-group row align-items-center justify-content-between">
                 <label for="exampleInputUsername2" class="col-sm-7 col-4">Discount</label>
                 <div class="col-sm-5 col-8">
-                    <input type="number" class="form-control" id="exampleInputUsername2" placeholder="Enter Discount">
+                    <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter Discount">
 
                 </div>
             </div>
             <div class="form-group row align-items-center justify-content-between">
                 <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Cost Per Person</label>
                 <div class="col-sm-5 col-8 text-right">
-                    SAR <span id="net_cost">33515</span>
+                    SAR <span id="net_cost">{{ $total_cost }}</span>
+                    <input type="hidden" class="form-control" value="{{ $total_cost }}" id="net_total" name="net_total">
+
                 </div>
             </div>
             <div class="form-group row align-items-center justify-content-between">
                 <label for="exampleInputUsername2" class="col-sm-7 col-4">Commission</label>
                 <div class="col-sm-5 col-8">
-                    <input type="number" class="form-control" {{$booking->booking_nature=='WOA'?'disabled':''}} id="exampleInputUsername2"
-                        placeholder="Enter Commission" value="{{$booking->agent_commission*$booking->num_of_hujjaj}}">
+                    <input type="number" name="commission" class="form-control" {{ $booking->booking_nature == 'WOA' ? 'disabled' : '' }}
+                        id="commission" placeholder="Enter Commission"
+                        value="{{ $booking->agent_commission * $booking->num_of_hujjaj }}">
 
                 </div>
             </div>
@@ -60,8 +72,8 @@
                                 <h5>Total</h5>
                             </td>
                             <td class="text-bold-800 text-right">
-                                <h5>SAR {{33515*$booking->num_of_hujjaj}}</h5>
-                                <input type="hidden" id="total" />
+                                <input type="hidden" class="form-control" value="{{ $total_cost+$booking->agent_commission * $booking->num_of_hujjaj }}" id="total_cost" name="grand_total">
+                                <h5>SAR <span id="total_cost_preview">{{ $total_cost+$booking->agent_commission * $booking->num_of_hujjaj }}</span></h5>
                             </td>
                         </tr>
                     </tbody>
@@ -74,15 +86,15 @@
 
     <div class="row">
         <div class="col-lg-12 text-right">
-            <a href="{{ route('create-booking-step-2') }}" class="btn btn-light">
+            {{-- <a href="{{ route('create-booking-step-2') }}" class="btn btn-light">
                 Go Back
-            </a>
-            {{-- <button type="submit" class="btn btn-primary">
-                Save & Next
-            </button> --}}
-            <a href="{{ route('bookings') }}" class="btn btn-primary">
+            </a> --}}
+            <button type="submit" class="btn btn-primary">
                 Save
-            </a>
+            </button>
+            {{-- <a href="{{ route('bookings') }}" class="btn btn-primary">
+                Save
+            </a> --}}
         </div>
     </div>
 </form>
