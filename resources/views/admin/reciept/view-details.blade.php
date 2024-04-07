@@ -15,6 +15,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Booking Details</h3>
+                        <a class="btn btn-primary text-white" href="{{route('reciepts.create',['booking_id'=>$booking->id])}}">
+                            <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Generate New Receipt</span>
+                            </a>
                         {{-- <div>
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
@@ -30,15 +33,15 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Booking No.
-                                    <span>545445</span>
+                                    <span>{{$booking->booking_number}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact Name
-                                    <span>ABC</span>
+                                    <span>{{$booking->contact_name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact No.
-                                    <span>32323323</span>
+                                    <span>{{$booking->contact_mobile}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -46,20 +49,19 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Amount Recievable 
-                                    <span>12,000,000</span>
+                                    <span>{{$booking->total_receivable}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Amount Paid 
-                                    <span>600,000</span>
+                                    <span>{{$booking->amount_received}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Balance Recievable
-                                    <span>600,000</span>
+                                    <span>{{$booking->balance_receivable}}</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -95,13 +97,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 3; $i++)
+                                @foreach($reciept_vouchers as $reciept_voucher)
                                     <tr>
-                                        <td>{{ $i + 1 }}</td>
-                                        <td>38392932</td>
-                                        <td>14/02/2024</td>
-                                        <td>Cash</td>
-                                        <td>600,000</td>
+                                        <td>{{$reciept_voucher->id}}</td>
+                                        <td>{{$reciept_voucher->reciept_number}}</td>
+                                        <td>{{$reciept_voucher->reciept_date}}</td>
+                                        <td>{{$reciept_voucher->payment_mode}}</td>
+                                        <td>{{$reciept_voucher->amount}}</td>
 
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm">
@@ -109,7 +111,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @endfor
+                                @endforeach
 
                             </tbody>
                         </table>

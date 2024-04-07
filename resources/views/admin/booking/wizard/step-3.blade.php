@@ -46,7 +46,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Passport No.</label>
-                <input id="agent-name" class="form-control" placeholder="Enter Passport No." data-inputmask-alias="999999999999" name="passport"
+                <input id="agent-name" class="form-control" placeholder="Enter Passport No." name="passport"
                     type="text">
             </div>
         </div>
@@ -125,9 +125,8 @@
                 <label class="control-label">Fiqah</label>
                 <select class="select2-single" name="fiqah">
                     <option></option>
-                    <option value="Hanafi">Hanafi</option>
-                    <option value="Maliki">Maliki</option>
-                    <option value="Shafii">Shafii</option>
+                    <option value="Sunni">Sunni</option>
+                    <option value="Shia">Shia</option>
                     
                 </select>
             </div>
@@ -198,11 +197,8 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Relation with Mehram</label>
-                    <select class="select2-single" name="mehram_relation">
-                        <option></option>
-                        <option value="TX">Father</option>
-                        <option value="NY">New York</option>
-                    </select>
+                    <input class="form-control" placeholder="Enter Relation" name="mehram_relation"
+                        type="text">
                 </div>
             </div>
         </div>
@@ -221,16 +217,8 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Relation with Nominee</label>
-                <input id="agent-name" class="form-control" placeholder="Enter Name" name="nominee_relation"
+                <input id="agent-name" class="form-control" placeholder="Enter Relation" name="nominee_relation"
                     type="text">
-                {{-- <select class="select2-single" name="nominee_relation">
-                    <option></option>
-                    <option value="TX">Texas</option>
-                    <option value="NY">New York</option>
-                    <option value="FL">Florida</option>
-                    <option value="KN">Kansas</option>
-                    <option value="HW">Hawaii</option>
-                </select> --}}
             </div>
         </div>
     </div>
@@ -316,6 +304,34 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
+                <label class="control-label">Departure Airport (KSA)</label>
+                <select class="select2-single" name="departure_airport_ksa_id">
+                    <option></option>
+                    @foreach ($ksa_airports as $ksa_airport)
+                        <option value="{{ $ksa_airport->id }}">{{ $ksa_airport->airport_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        
+
+
+    </div>
+    <div class="row">
+        
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="control-label">Arrival Airport (KSA)</label>
+                <select class="select2-single" name="arrival_airport_ksa_id">
+                    <option></option>
+                    @foreach ($ksa_airports as $ksa_airport)
+                        <option value="{{ $ksa_airport->id }}">{{ $ksa_airport->airport_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
                 <label class="control-label">Arival Airport</label>
                 <select class="select2-single" name="arrival_airport_pk_id">
                     <option></option>
@@ -331,35 +347,19 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Departure Airport (KSA)</label>
-                <select class="select2-single" name="departure_airport_ksa_id">
-                    <option></option>
-                    @foreach ($ksa_airports as $ksa_airport)
-                        <option value="{{ $ksa_airport->id }}">{{ $ksa_airport->airport_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label class="control-label">Arrival Airport (KSA)</label>
-                <select class="select2-single" name="arrival_airport_ksa_id">
-                    <option></option>
-                    @foreach ($ksa_airports as $ksa_airport)
-                        <option value="{{ $ksa_airport->id }}">{{ $ksa_airport->airport_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-
-
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group">
                 <label class="control-label">Arrival Date (KSA)</label>
                 <div class="input-group date datepicker" id="datePickerArrival">
                     <input type="text" class="form-control" name="arrival_date_ksa"><span class="input-group-addon"><i
+                            data-feather="calendar"></i></span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="control-label">Departure Date (KSA)</label>
+                <div class="input-group date datepicker" id="datePickerDeparture">
+                    <input type="text" class="form-control" name="departure_date_ksa"><span class="input-group-addon"><i
                             data-feather="calendar"></i></span>
                 </div>
                 

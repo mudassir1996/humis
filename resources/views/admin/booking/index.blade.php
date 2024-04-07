@@ -28,6 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>S.No</th>
+                                    <th>Company Name</th>
                                     <th>Booking No.</th>
                                     <th>Surname</th>
                                     <th>Given Name</th>
@@ -36,14 +37,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 10; $i++)
+                                 @foreach ($bookings as $booking)
                                     <tr>
-                                        <td>{{$i+1}}</td>
-                                        <td>38392932</td>
-                                        <td>ABC</td>
-                                        <td>XYZ</td>
-                                        <td>Silver</td>
-                                        <td>
+                                        <td>{{$booking->id }}</td>
+                                        <td>{{$booking->company_name}}</td>
+                                        <td>{{$booking->booking_number}}</td>
+                                        <td>{{$booking->contact_surname}}</td>
+                                        <td>{{$booking->contact_name}}</td>
+                                        <td>{{$booking->package_name}}</td>
+                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
@@ -53,19 +55,19 @@
                                                     </i>
                                                 </button>
                                                 <div class="dropdown-menu border rounded" aria-labelledby="dropdownMenuButton3">
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i data-feather="edit-2"
-                                                            class="icon-md mr-2"></i> <span class="">Edit</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="{{route('view-booking-details')}}"><i data-feather="eye"
+                                                    <a class="dropdown-item d-flex align-items-center p-2" href="{{route('view-booking-details',$booking->id)}}"><i data-feather="eye"
                                                             class="icon-md mr-2"></i> <span class="">View Detail</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="{{route('reciepts.create')}}"><i data-feather="file-text"
+                                                    <a class="dropdown-item d-flex align-items-center p-2" href="{{route('reciepts.create',['booking_id'=>$booking->id])}}"><i data-feather="file-text"
                                                             class="icon-md mr-2 "></i> <span class="">Generate Receipt</span></a>
 
                 
                                                 </div>
                                             </div>
                                         </td>
+                                        
                                     </tr>
-                                @endfor
+                                @endforeach
+                                
 
                             </tbody>
                         </table>

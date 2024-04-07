@@ -27,14 +27,12 @@
             </a>
             <div class="collapse" id="bookings">
               <ul class="nav sub-menu">
-                @if (Auth::user()->role=="COMPANY")
                   <li class="nav-item">
                     <a href="{{route('create-booking-step-1')}}" class="nav-link">Add Bookings</a>
                   </li>
                   <li class="nav-item">
                     <a href="{{route('bookings')}}" class="nav-link">Edit Booking</a>
                   </li>
-                @endif
                 <li class="nav-item">
                   <a href="{{route('complete-list')}}" class="nav-link">Booking List</a>
                 </li>

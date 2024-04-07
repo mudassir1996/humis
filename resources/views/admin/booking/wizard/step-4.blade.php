@@ -72,8 +72,8 @@
                                 <h5>Total</h5>
                             </td>
                             <td class="text-bold-800 text-right">
-                                <input type="hidden" class="form-control" value="{{ $total_cost+$booking->agent_commission * $booking->num_of_hujjaj }}" id="total_cost" name="grand_total">
-                                <h5>SAR <span id="total_cost_preview">{{ $total_cost+$booking->agent_commission * $booking->num_of_hujjaj }}</span></h5>
+                                <input type="hidden" class="form-control" value="{{ $total_cost}}" id="total_cost" name="grand_total">
+                                <h5>PKR <span id="total_cost_preview">{{ $total_cost }}</span></h5>
                             </td>
                         </tr>
                     </tbody>

@@ -50,20 +50,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bookings/complete-list', [BookingController::class, 'complete_list'])->name('complete-list');
 
     Route::get('/packages/{id}/get-details', [PackageController::class, 'getPackageDetails']);
-    Route::middleware(['company'])->group(function () {
-        Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
-        Route::get('/bookings/create-booking-step-1', [BookingController::class, 'create_step_1'])->name('create-booking-step-1');
-        Route::post('/bookings/store-booking-step-1', [BookingController::class, 'store_step_1'])->name('store-booking-step-1');
-        Route::get('/bookings/create-booking-step-2', [BookingController::class, 'create_step_2'])->name('create-booking-step-2');
-        Route::post('/bookings/store-booking-step-2', [BookingController::class, 'store_step_2'])->name('store-booking-step-2');
-        Route::get('/bookings/create-booking-step-3', [BookingController::class, 'create_step_3'])->name('create-booking-step-3');
-        Route::post('/bookings/store-booking-step-3', [BookingController::class, 'store_step_3'])->name('store-booking-step-3');
-        Route::get('/bookings/create-booking-step-4', [BookingController::class, 'create_step_4'])->name('create-booking-step-4');
-        Route::post('/bookings/store-booking-step-4', [BookingController::class, 'store_step_4'])->name('store-booking-step-4');
-        Route::get('/bookings/view-details', [BookingController::class, 'view_details'])->name('view-booking-details');
+    Route::post('/packages/calculate-pricing', [PackageController::class, 'calculatePackagePricing']);
 
-
-    });
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+    Route::get('/bookings/create-booking-step-1', [BookingController::class, 'create_step_1'])->name('create-booking-step-1');
+    Route::post('/bookings/store-booking-step-1', [BookingController::class, 'store_step_1'])->name('store-booking-step-1');
+    Route::get('/bookings/create-booking-step-2', [BookingController::class, 'create_step_2'])->name('create-booking-step-2');
+    Route::post('/bookings/store-booking-step-2', [BookingController::class, 'store_step_2'])->name('store-booking-step-2');
+    Route::get('/bookings/create-booking-step-3', [BookingController::class, 'create_step_3'])->name('create-booking-step-3');
+    Route::post('/bookings/store-booking-step-3', [BookingController::class, 'store_step_3'])->name('store-booking-step-3');
+    Route::get('/bookings/create-booking-step-4', [BookingController::class, 'create_step_4'])->name('create-booking-step-4');
+    Route::post('/bookings/store-booking-step-4', [BookingController::class, 'store_step_4'])->name('store-booking-step-4');
+    Route::get('/bookings/{id}/view-details', [BookingController::class, 'view_details'])->name('view-booking-details');
 
 
     Route::middleware(['admin'])->group(function () {

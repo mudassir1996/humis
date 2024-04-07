@@ -20,9 +20,9 @@
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button>
-                            <a class="btn btn-primary text-white" href="{{route('reciepts.create')}}">
+                            {{-- <a class="btn btn-primary text-white" href="{{route('reciepts.create')}}">
                             <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
@@ -43,22 +43,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 10; $i++)
+                                @foreach ($bookings as $booking)
                                     <tr>
-                                        <td>38392932</td>
-                                        <td>5</td>
-                                        <td>ABC</td>
-                                        <td>03155254856</td>
-                                        <td>1,200,000</td>
-                                        <td>600,000</td>
-                                        <td>600,000</td>
+                                        <td>{{$booking->booking_number}}</td>
+                                        <td>{{$booking->num_of_hujjaj}}</td>
+                                        <td>{{$booking->contact_name}}</td>
+                                        <td>{{$booking->contact_mobile}}</td>
+                                        <td>{{$booking->total_receivable}}</td>
+                                        <td>{{$booking->amount_received}}</td>
+                                        <td>{{$booking->balance_receivable}}</td>
                                         <td>
-                                            <a type="button" class="btn btn-primary btn-sm text-white" href="{{route('view-reciept-details')}}">
+                                            <a type="button" class="btn btn-primary btn-sm text-white" href="{{route('view-reciept-details',['booking_id'=>$booking->id])}}">
                                                 View Details
                                             </a>
                                         </td>
                                     </tr>
-                                @endfor
+                                @endforeach
 
                             </tbody>
                         </table>

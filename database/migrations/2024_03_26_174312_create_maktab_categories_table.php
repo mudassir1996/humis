@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string("maktab_name");
             $table->float("maktab_cost");
             $table->enum("maktab_status",['ACTIVE','INACTIVE']);
+            $table->float("profit");
+            $table->float("ksa_expense");
+            $table->float("pk_expense");
             $table->integer('created_by');
             $table->timestamps();
         });

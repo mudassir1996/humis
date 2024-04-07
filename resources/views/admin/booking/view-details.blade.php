@@ -24,27 +24,50 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Company
-                                    <span>ABC</span>
+                                    <span>{{$initial_info->company_name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Booking Office Country
-                                    <span>ABC</span>
+                                    <span>{{$initial_info->booking_office_name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Client Country
-                                    <span>Pakistan</span>
+                                    <span>{{$initial_info->client_country}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Booking Nature
-                                    <span>Without Agent</span>
+                                    <span>{{$initial_info->booking_nature=='WA'?'With Agent':'Without Agent'}}</span>
+                                </li>
+                                @if ($initial_info->booking_nature=='WA')
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Agent Name
+                                    <span>{{$initial_info->agent_name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Agent Commission
+                                    <span>{{$initial_info->agent_commission}}</span>
+                                </li>
+                                @endif
+                                
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Number of Hujjaj
-                                    <span>5</span>
+                                    <span>{{$initial_info->num_of_hujjaj}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Individual/Family
-                                    <span>Family</span>
+                                    <span>{{$initial_info->companion}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Contact Given Name
+                                    <span>{{$initial_info->contact_name}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Contact Surname
+                                    <span>{{$initial_info->contact_surname}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Contact Mobile
+                                    <span>{{$initial_info->contact_mobile}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -142,17 +165,19 @@
                                     <th>Given Name</th>
                                     <th>Surname</th>
                                     <th>Passport</th>
+                                    <th>Gender</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 3; $i++)
+                                @foreach ($applications as $application)
                                     <tr>
-                                        <td>38392932</td>
-                                        <td>232223</td>
-                                        <td>ABC</td>
-                                        <td>ABC</td>
-                                        <td>32323</td>
+                                        <td>{{$application->booking_number}}</td>
+                                        <td>{{$application->application_number}}</td>
+                                        <td>{{$application->given_name}}</td>
+                                        <td>{{$application->surname}}</td>
+                                        <td>{{$application->passport}}</td>
+                                        <td>{{$application->gender}}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
@@ -175,10 +200,10 @@
                                                     <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
+                                                    {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="eye" class="icon-md mr-2"></i> <span
                                                             class="">View Detail</span></a>
-                                                    {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
+                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="file-text" class="icon-md mr-2 "></i> <span
                                                             class="">Generate Receipt</span></a> --}}
 
@@ -187,7 +212,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endfor
+                                @endforeach
 
                             </tbody>
                         </table>
@@ -216,18 +241,12 @@
                                             <th>Per Haji Cost</th>
                                         </thead>
                                         <tbody>
+                                            @foreach ($applications as $application)
                                             <tr>
-                                                <td>Usama Qureshi</td>
-                                                <td>PKR 30,000,000</td>
+                                                <td>{{$application->given_name." ".$application->surname}}</td>
+                                                <td>PKR {{$application->cost_per_person}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Usama Qureshi</td>
-                                                <td>PKR 30,000,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Usama Qureshi</td>
-                                                <td>PKR 30,000,000</td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -238,14 +257,20 @@
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Discount</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            PKR 4,000.00
+                                            PKR {{$initial_info->discount}}
                                         </div>
                                     </div>
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Cost Per
                                             Person</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            PKR 14,900.00
+                                            PKR {{$initial_info->net_total}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-center justify-content-between">
+                                        <label for="exampleInputUsername2" class="col-sm-7 col-4">Commission</label>
+                                        <div class="col-sm-5 col-8 text-right">
+                                            PKR {{$initial_info->commission}}
                                         </div>
                                     </div>
                                     {{-- <div class="form-group row align-items-center justify-content-between">
@@ -264,7 +289,7 @@
                                                         <h5>Total</h5>
                                                     </td>
                                                     <td class="text-bold-800 text-right">
-                                                        <h5>PKR 12,000.00</h5>
+                                                        <h5>PKR {{$initial_info->grand_total}}</h5>
                                                         <input type="hidden" id="total" />
                                                     </td>
                                                 </tr>

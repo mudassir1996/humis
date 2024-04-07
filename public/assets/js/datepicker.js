@@ -42,4 +42,14 @@ $(function() {
     });
     $('#datePickerArrival').datepicker('setDate', today);
   }
+  if ($('#datePickerDeparture').length) {
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    $('#datePickerDeparture').datepicker({
+      format: "mm/dd/yyyy",
+      todayHighlight: true,
+      autoclose: true
+    });
+    $('#datePickerDeparture').datepicker('setDate', today);
+  }
 });

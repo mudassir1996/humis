@@ -118,8 +118,7 @@
         <!-- end plugin js for this page -->
     @elseif (Route::currentRouteName() == 'create-booking-step-2')
         <script>
-            function disableFields(disable = true){
-                $('#cost_per_person').prop('disabled', disable);
+            function disableFields(disable = true) {
                 $('#maktab_category').prop('disabled', disable);
                 $('#duration_of_stay').prop('disabled', disable);
                 $('#nature').prop('disabled', disable);
@@ -132,14 +131,14 @@
                 $('#special_transport').prop('disabled', disable);
             }
 
-            $(document).ready(()=>{
+            $(document).ready(() => {
                 disableFields(true);
                 $('#packageDropdown').prop('disabled', true);
             })
 
             $("#package_type").on('change', function() {
                 var package_type = $(this).val();
-                if (package_type=='STANDARD') {
+                if (package_type == 'STANDARD') {
                     disableFields(true);
                     $('#package_name_field').show();
                     $('#packageDropdown').val("");
@@ -147,7 +146,7 @@
                     $('#packageDropdown').prop('disabled', false);
 
 
-                } else if (package_type=='CUSTOM') {
+                } else if (package_type == 'CUSTOM') {
                     $('#packageDropdown').val("");
                     $('#packageDropdown').trigger("change");
                     $('#package_name_field').hide();
@@ -157,7 +156,7 @@
 
             $('#packageDropdown').on('change', function() {
                 var package_id = $(this).val();
-                
+
                 if (package_id) {
                     $.ajax({
                         url: '/packages/' + package_id + '/get-details',
@@ -191,11 +190,44 @@
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching booking offices:', error);
-                            
+
                         }
                     });
                 }
             });
+
+
+            function getPackagePricing() {
+                if ($("#package_type").val() == 'CUSTOM') {
+
+                    const postData = {
+                        "_token": "{{ csrf_token() }}",
+                       "maktab_category_id" : $('#maktab_category').val(),
+                       "aziziya_accommodation_id" : $('#aziziya_accommodation_id').val(),
+                       "madinah_accommodation_id" : $('#madinah_accommodation_id').val(),
+                       "makkah_accommodation_id" : $('#makkah_accommodation_id').val(),
+                       "madinah_room_sharing" : $('#madinah_room_sharing').val(),
+                       "makkah_room_sharing" : $('#makkah_room_sharing').val(),
+                       "food_type_id" : $('#food_type_id').val(),
+                       "special_transport" : $('#special_transport').val(),
+                    }
+                    $.ajax({
+                        url: '/packages/calculate-pricing',
+                        type: 'POST',
+                        data:postData,
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#cost_per_person').val(data.package_cost);
+
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching booking offices:', error);
+
+                        }
+                    });
+                }
+
+            }
         </script>
     @elseif (Route::currentRouteName() == 'create-booking-step-3')
         <!-- plugin js for this page -->
@@ -210,23 +242,21 @@
         <script src="{{ asset('assets/js/dropify.js') }}"></script>
 
         <script>
-            $(document).ready(()=>{
+            $(document).ready(() => {
                 $("#mehram_details").hide();
             })
-             $('#gender').on('change', function() {
+            $('#gender').on('change', function() {
                 var gender = $(this).val();
                 if (gender == 'Female') {
                     $("#mehram_details").show();
-                    
-                }else{
+
+                } else {
                     $("#mehram_details").hide();
 
                 }
 
             })
-
         </script>
-
     @elseif (Route::currentRouteName() == 'create-booking-step-4')
         {{-- <script src="{{ asset('assets/vendors/inputmask/jquery.inputmask.min.js') }}"></script>
         <script src="{{ asset('assets/js/inputmask.js') }}"></script>
@@ -234,12 +264,12 @@
         <script>
             $('#discount').on('keyup', function() {
                 let discount = $(this).val();
-                if (discount=="") {
-                    discount=0;
+                if (discount == "") {
+                    discount = 0;
                 }
                 let total_cost = $("#total_cost").val();
                 let final_cost = total_cost - discount;
-                 let commission = $("#commission").val();
+                let commission = $("#commission").val();
 
                 $("#net_cost").text(final_cost);
                 $("#net_total").val(final_cost);

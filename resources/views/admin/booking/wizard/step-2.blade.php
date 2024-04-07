@@ -24,7 +24,7 @@
     <div class="form-group row">
         <label for="exampleInputUsername1" class="col-sm-5 col-form-label">Cost Per Person</label>
         <div class="col-sm-7">
-            <input id="cost_per_person" class="form-control" placeholder="Enter Cost Per Person" name="agent-name"
+            <input id="cost_per_person" class="form-control" name="cost_per_person" readonly placeholder="Enter Cost Per Person" name="agent-name"
                 type="text">
         </div>
     </div>
@@ -35,7 +35,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Maktab Category</label>
-                    <select class="select2-single" id="maktab_category">
+                    <select class="select2-single" id="maktab_category" name="maktab_category_id" onchange="getPackagePricing()">
                         <option></option>
                         @foreach ($maktab_categories as $maktab_category)
                             <option value="{{ $maktab_category->id }}">{{ $maktab_category->maktab_name }}</option>
@@ -63,17 +63,21 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Nature</label>
-                    <select class="select2-single" id="nature">
+                    <select class="select2-single" id="nature" name="nature">
                         <option></option>
                         <option value="FIX">Fix</option>
                         <option value="SHIFTING">Shifting</option>
                     </select>
                 </div>
             </div>
+
+
+
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Aziziah Accomodation</label>
-                    <select class="select2-single" id="aziziya_accommodation_id">
+                    <select class="select2-single" name="aziziya_accommodation_id" id="aziziya_accommodation_id" onchange="getPackagePricing()">
                         <option></option>
                         @foreach ($aziziyah_accomodations as $aziziyah_accomodation)
                             <option value="{{ $aziziyah_accomodation->id }}">{{ $aziziyah_accomodation->hotel_name }}</option>
@@ -86,7 +90,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Makkah Accomodation</label>
-                    <select class="select2-single" id="makkah_accommodation_id">
+                    <select class="select2-single" name="makkah_accommodation_id" id="makkah_accommodation_id" onchange="getPackagePricing()">
                         <option></option>
                         @foreach ($makkah_accomodations as $makkah_accomodation)
                             <option value="{{ $makkah_accomodation->id }}">{{ $makkah_accomodation->hotel_name }}</option>
@@ -94,10 +98,13 @@
                     </select>
                 </div>
             </div>
+
+
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Makkah Room Sharing Capacity</label>
-                    <select class="select2-single" id="makkah_room_sharing">
+                    <select class="select2-single" name="makkah_room_sharing" id="makkah_room_sharing" onchange="getPackagePricing()">
                         <option></option>
                         <option value="SHARING">Sharing</option>
                         <option value="TRIPLE">Triple</option>
@@ -112,7 +119,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Madinah Accomodation</label>
-                    <select class="select2-single" id="madinah_accommodation_id">
+                    <select class="select2-single" name="madinah_accommodation_id" id="madinah_accommodation_id" onchange="getPackagePricing()">
                         <option></option>
                         @foreach ($madinah_accomodations as $madinah_accomodation)
                             <option value="{{ $madinah_accomodation->id }}">{{ $madinah_accomodation->hotel_name }}</option>
@@ -120,10 +127,11 @@
                     </select>
                 </div>
             </div>
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Madinah Room Sharing Capacity</label>
-                    <select class="select2-single" id="madinah_room_sharing">
+                    <select class="select2-single" name="madinah_room_sharing" id="madinah_room_sharing" onchange="getPackagePricing()">
                         <option></option>
                         <option value="SHARING">Sharing</option>
                         <option value="TRIPLE">Triple</option>
@@ -134,12 +142,14 @@
             </div>
 
 
-        </div>
+        </div>            
+
+
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Food</label>
-                    <select class="select2-single" id="food_type_id">
+                    <select class="select2-single" name="food_type_id" id="food_type_id" onchange="getPackagePricing()">
                         <option></option>
                          @foreach ($food_types as $food_type)
                             <option value="{{ $food_type->id }}">{{ $food_type->food_type_name }}</option>
@@ -147,10 +157,11 @@
                     </select>
                 </div>
             </div>
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Special Transport</label>
-                    <select class="select2-single" id="special_transport">
+                    <select class="select2-single" name="special_transport" id="special_transport" onchange="getPackagePricing()">
                         <option></option>
                         <option value="INCLUDED">Included</option>
                         <option value="NOT_INCLUDED">Not Included</option>

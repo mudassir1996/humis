@@ -32,19 +32,19 @@
                                     <th>Given Name</th>
                                     <th>Surname</th>
                                     <th>Passport</th>
-                                    <th>Package</th>
+                                    <th>Gender</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 10; $i++)
+                                @foreach ($applications as $application)
                                     <tr>
-                                        <td>38392932</td>
-                                        <td>232223</td>
-                                        <td>ABC</td>
-                                        <td>ABC</td>
-                                        <td>32323</td>
-                                        <td>Silver</td>
+                                        <td>{{$application->booking_number}}</td>
+                                        <td>{{$application->application_number}}</td>
+                                        <td>{{$application->given_name}}</td>
+                                        <td>{{$application->surname}}</td>
+                                        <td>{{$application->passport}}</td>
+                                        <td>{{$application->gender}}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
@@ -79,7 +79,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endfor
+                                @endforeach
 
                             </tbody>
                         </table>

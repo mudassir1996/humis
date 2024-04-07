@@ -1,28 +1,34 @@
-<form class="step-1" method="POST" action="{{route('store-booking-step-1')}}">
+<form class="step-1" method="POST" action="{{ route('store-booking-step-1') }}">
     @csrf
     <div class="row">
-        {{-- <div class="col-lg-6">
-            <div class="form-group">
-                <label class="control-label">Company</label>
-                <select class="select2-single" name="company_id" id="companyDropdown">
-                    <option></option>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
-                    @endforeach
-                </select>
+        @if (Auth::user()->role == 'ADMIN')
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label">Company</label>
+                    <select class="select2-single" name="company_id" id="companyDropdown">
+                        <option></option>
+                        @foreach ($companies as $company)
+                            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div> --}}
+        @endif
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Booking Office Country</label>
-                <select class="select2-single" name="booking_office_id">
-                    @foreach ($booking_offices as $booking_offices)
-                        <option value="{{ $booking_offices->id }}">{{ $booking_offices->booking_office_name }}</option>
-                    @endforeach
+                <select class="select2-single" name="booking_office_id" id="bookingOfficeDropdown">
+                    @if (Auth::user()->role == 'ADMIN')
+                        @foreach ($booking_offices as $booking_offices)
+                            <option value="{{ $booking_offices->id }}">{{ $booking_offices->booking_office_name }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
         </div>
-        <div class="col-lg-6">
+        
+        <div class=" {{Auth::user()->role == 'ADMIN'?'col-lg-12':'col-lg-6'}}">
             <div class="form-group">
                 <label class="control-label">Client Country</label>
                 <select class="select2-single" name="client_country">
@@ -35,7 +41,7 @@
         </div>
     </div>
     <div class="row">
-        
+
         <div class="col-lg-12">
             <div class="form-group">
                 <label class="control-label">Booking Nature</label>
@@ -62,7 +68,8 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Agent Commission</label>
-                <input id="agent-name" class="form-control" name="agent_commission" placeholder="Enter Agent Commission" type="text">
+                <input id="cost_per_person" class="form-control" name="agent_commission" placeholder="Enter Agent Commission"
+                    type="text">
             </div>
         </div>
     </div>
@@ -90,7 +97,8 @@
             <div class="form-group">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" id="contact-person" value="0" name="contact_person" checked>
+                        <input type="checkbox" class="form-check-input" id="contact-person" value="0"
+                            name="contact_person" checked>
                         Contact Person Same as Haji </label>
                 </div>
             </div>
