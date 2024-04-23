@@ -110,7 +110,7 @@
                                             <option></option>
                                             <option value="SHARING">Sharing</option>
                                             <option value="TRIPLE">Triple</option>
-                                            <option value="QUAD">Quad Double</option>
+                                            <option value="DOUBLE">Double</option>
                                         </select>
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@
                                             <option></option>
                                             <option value="SHARING">Sharing</option>
                                             <option value="TRIPLE">Triple</option>
-                                            <option value="QUAD">Quad Double</option>
+                                            <option value="DOUBLE">Double</option>
                                         </select>
                                     </div>
                                 </div>

@@ -15,10 +15,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Applications List</h3>
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
+                        {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
-                        </button>
+                        </button> --}}
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -33,18 +33,24 @@
                                     <th>Surname</th>
                                     <th>Passport</th>
                                     <th>Gender</th>
+                                    <th>Visa/Ticket</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($applications as $application)
                                     <tr>
-                                        <td>{{$application->booking_number}}</td>
-                                        <td>{{$application->application_number}}</td>
-                                        <td>{{$application->given_name}}</td>
-                                        <td>{{$application->surname}}</td>
-                                        <td>{{$application->passport}}</td>
-                                        <td>{{$application->gender}}</td>
+                                        <td>{{ $application->booking_number }}</td>
+                                        <td>{{ $application->application_number }}</td>
+                                        <td>{{ $application->given_name }}</td>
+                                        <td>{{ $application->surname }}</td>
+                                        <td>{{ $application->passport }}</td>
+                                        <td>{{ $application->gender }}</td>
+                                        <td>
+                                            <a class="text-primary" target="_blank"
+                                                href="{{ route('visa-ticket', ['application_id' => $application->id]) }}">View/Upload</a>
+
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
@@ -67,14 +73,11 @@
                                                     <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
+                                                    
+                                                    <a class="dropdown-item d-flex align-items-center p-2"
+                                                        href="{{ route('view-application-details', $application->id) }}"><i
                                                             data-feather="eye" class="icon-md mr-2"></i> <span
                                                             class="">View Detail</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
-                                                            data-feather="file-text" class="icon-md mr-2 "></i> <span
-                                                            class="">Generate Receipt</span></a> --}}
-
-
                                                 </div>
                                             </div>
                                         </td>

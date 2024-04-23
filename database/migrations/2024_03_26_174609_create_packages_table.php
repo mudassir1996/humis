@@ -22,9 +22,9 @@ return new class extends Migration
             $table->integer("aziziya_accommodation_id");
             $table->integer("makkah_accommodation_id");
             $table->integer("madinah_accommodation_id");
-            $table->enum("aziziya_room_sharing",['SHARING', 'TIPPLE','QUAD']);
-            $table->enum("makkah_room_sharing",['SHARING', 'TIPPLE','QUAD']);
-            $table->enum("madinah_room_sharing",['SHARING', 'TIPPLE','QUAD']);
+            $table->enum("aziziya_room_sharing",['SHARING', 'TRIPLE','DOUBLE']);
+            $table->enum("makkah_room_sharing",['SHARING', 'TRIPLE','DOUBLE']);
+            $table->enum("madinah_room_sharing",['SHARING', 'TRIPLE','DOUBLE']);
             $table->integer("food_type_id");
             $table->enum("special_transport",['INCLUDED','NOT_INCLUDED']);
             $table->enum("package_status",['ACTIVE','INACTIVE']);

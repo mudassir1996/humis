@@ -58,6 +58,9 @@
 @section('scripts')
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="{{asset('assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
+	<script src="{{asset('assets/js/form-validation.js')}}"></script>
+
     @if (Route::currentRouteName() == 'create-booking-step-1')
         <!-- plugin js for this page -->
         <script>

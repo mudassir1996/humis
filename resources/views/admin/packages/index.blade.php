@@ -15,10 +15,11 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Packages List</h3>
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
-                            data-target="#filterModal">
-                            <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
-                        </button>
+                        <a href="{{ route('packages.create') }}">
+                            <button type="button" class="btn btn-outline-primary">
+                                <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
+                            </button>
+                        </a>
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -65,9 +66,21 @@
                                                 </button>
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
+                                                    <a class="dropdown-item d-flex align-items-center p-2" href="{{ route('packages.edit', $package->id) }}"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
+                                                            <form action="{{ route('packages.destroy', $package->id) }}"
+                                                        id="delete_item_from{{ $package->id }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a type="button" class="dropdown-item d-flex align-items-center p-2"
+                                                            title="Delete"
+                                                            onclick="deleteConfirmation('delete_item_from{{ $package->id }}')"><i
+                                                                data-feather="trash-2" class="icon-md mr-2"></i> <span
+                                                                class="">Delete</span></a>
+
+
+                                                    </form>
                                                     {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="eye" class="icon-md mr-2"></i> <span
                                                             class="">View Detail</span></a>

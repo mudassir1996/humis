@@ -19,11 +19,11 @@
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button> --}}
-                       <a href="{{route('companies.create')}}">
-                         <button type="button" class="btn btn-outline-primary">
-                            <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
-                        </button>
-                       </a>
+                        <a href="{{ route('companies.create') }}">
+                            <button type="button" class="btn btn-outline-primary">
+                                <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
+                            </button>
+                        </a>
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -42,11 +42,11 @@
                             <tbody>
                                 @foreach ($companies as $company)
                                     <tr>
-                                        <td>{{$company->id}}</td>
-                                        <td>{{$company->company_name}}</td>
-                                        <td>{{$company->company_contact}}</td>
-                                        <td>{{ucfirst($company->company_status)}}</td>
-                                        
+                                        <td>{{ $company->id }}</td>
+                                        <td>{{ $company->company_name }}</td>
+                                        <td>{{ $company->company_contact }}</td>
+                                        <td>{{ ucfirst($company->company_status) }}</td>
+
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
@@ -66,9 +66,22 @@
                                                 </button>
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
+                                                    <a class="dropdown-item d-flex align-items-center p-2"
+                                                        href="{{ route('companies.edit', $company->id) }}"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
+                                                    <form action="{{ route('companies.destroy', $company->id) }}"
+                                                        id="delete_item_from{{ $company->id }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a type="button" class="dropdown-item d-flex align-items-center p-2"
+                                                            title="Delete"
+                                                            onclick="deleteConfirmation('delete_item_from{{ $company->id }}')"><i
+                                                                data-feather="trash-2" class="icon-md mr-2"></i> <span
+                                                                class="">Delete</span></a>
+
+
+                                                    </form>
                                                     {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="eye" class="icon-md mr-2"></i> <span
                                                             class="">View Detail</span></a>

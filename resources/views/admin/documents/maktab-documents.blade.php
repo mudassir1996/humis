@@ -9,33 +9,30 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form method="post" action="{{route('maktab-documents-store')}}" enctype="multipart/form-data">
+                        @csrf
                         <div class="row mb-5 justify-content-center align-items-center">
                             <div class="col-lg-12 text-center">
                                 <h4>Maktab Document/Agreement</h4>
                             </div>
-                            {{-- <div class="col-lg-12 text-center">
-                                <p>Payment Voucher</p>
-                            </div> --}}
                         </div>
                         <div class="row" id="agent-fields">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Maktab Category</label>
-                                    <select class="select2-single">
+                                    <select class="select2-single" onchange="getMaktabBookings()" id="maktab_category_id" name="maktab_category_id">
                                         <option></option>
-                                        <option value="TX">Texas</option>
-                                        <option value="NY">New York</option>
-                                        <option value="FL">Florida</option>
-                                        <option value="KN">Kansas</option>
-                                        <option value="HW">Hawaii</option>
+                                        @foreach ($maktab_categories as $maktab_category)
+                                                <option value="{{ $maktab_category->id }}">
+                                                    {{ $maktab_category->maktab_name }}</option>
+                                            @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Total Number of Hajji</label>
-                                    <input id="agent-name" class="form-control" value="200" readonly name="agent-name"
+                                    <input id="total_seats" class="form-control" readonly name="total_seats"
                                         type="text">
                                 </div>
                             </div>
@@ -44,14 +41,14 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label">Total Seats Booked</label>
-                                    <input id="agent-name" class="form-control" value="200" name="agent-name"
-                                        type="text">
+                                    <input id="booked_seats" class="form-control" name="booked_seats"
+                                        type="number">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label">Attachment</label>
-                                    <input type="file" id="passportDropify" class="border" data-max-file-size="500K" />
+                                    <input type="file" id="passportDropify" class="border" name="attachment" />
 
                                 </div>
                             </div>
@@ -91,4 +88,29 @@
     <script src="{{ asset('assets/vendors/dropify/dist/dropify.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    <script>
+         function getMaktabBookings() {
+            const postData = {
+                "_token": "{{ csrf_token() }}",
+                "id": $('#maktab_category_id').val(),
+            }
+            $.ajax({
+                url: '/maktab-categories/calculate-sum-application',
+                type: 'POST',
+                data: postData,
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    $("#total_seats").val(data.num_of_hujjaj??0)
+                    $("#booked_seats").val(data.num_of_hujjaj??0)
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching booking offices:', error);
+
+                }
+            });
+
+        }
+    </script>
 @endsection

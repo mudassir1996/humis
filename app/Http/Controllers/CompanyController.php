@@ -12,7 +12,7 @@ use Validator;
 class CompanyController extends Controller
 {
     public function index(){
-        $companies = Company::where('company_status','ACTIVE')->orderByDesc('id')->get();
+        $companies = Company::orderByDesc('id')->get();
         return view('admin.companies.index',compact('companies'));
     }
 
@@ -43,11 +43,81 @@ class CompanyController extends Controller
                 'role' => 'COMPANY',
                 'company_id' => $company->id,
             ]);
-            return redirect()->route('companies.index');
+
+            $notification = array(
+                'message' => 'Company Created Successfully!',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Something Went Wrong!',
+                'alert-type' => 'error'
+            );
         }
+        return redirect()->route('companies.index')->with($notification);
 
         
         
+    }
+
+    public function edit($id)
+    {
+        $company = Company::select('companies.*','users.email')->where('companies.id',$id)->leftJoin('users', 'users.company_id','companies.id')->first();
+        return view('admin.companies.edit', compact('company'));
+    }
+
+    public function update(Request $request, Company $company)
+    {
+        Validator::make($request->all(), [
+            'company_name' => 'required',
+            'company_contact' => 'required',
+            'company_status' => 'required',
+        ]);
+
+        $company->company_name = $request->company_name;
+        $company->company_contact = $request->company_contact;
+        $company->company_status = $request->company_status;
+        
+        if ($company->save()) {
+            $notification = array(
+                'message' => 'Company Updated Successfully!',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message' => 'Something Went Wrong!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('companies.index')->with($notification);
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        
+        //selecting the specific id row for deleting from db
+        $company = Company::where('companies.id', $id)
+            ->firstOrFail();
+
+        if ($company->delete()) {
+            $notification = array(
+                'message' => 'Company Updated Successfully!',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Something Went Wrong!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('companies.index')->with($notification);
     }
 
     public function getBookingOffices($id)

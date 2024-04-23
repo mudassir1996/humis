@@ -9,7 +9,8 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form action="{{ route('visa-ticket-store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="row mb-5 justify-content-center align-items-center">
                             <div class="col-lg-12 text-center">
                                 <h4>Visa/Ticket</h4>
@@ -22,14 +23,18 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label">Application No.</label>
-                                    <select class="select2-single">
+                                    <input type="number" readonly class="form-control" id="exampleInputUsername2"
+                                        value="{{ $application->application_number }}">
+                                    <input type="hidden" readonly class="form-control" name="application_id"
+                                        value="{{ request()->application_id }}">
+                                    {{-- <select class="select2-single">
                                         <option></option>
                                         <option value="TX">Texas</option>
                                         <option value="NY">New York</option>
                                         <option value="FL">Florida</option>
                                         <option value="KN">Kansas</option>
                                         <option value="HW">Hawaii</option>
-                                    </select>
+                                    </select> --}}
                                 </div>
                             </div>
 
@@ -40,15 +45,15 @@
                                 <ul class="list-group">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Booking No.
-                                        <span>545445</span>
+                                        <span>{{ $application->booking_number }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Surname
-                                        <span>ABC</span>
+                                        <span>{{ $application->surname }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Given Name
-                                        <span>32323323</span>
+                                        <span>{{ $application->given_name }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -56,35 +61,50 @@
                                 <ul class="list-group">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Gender
-                                        <span>Male</span>
+                                        <span>{{ $application->gender }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Father/Husband Name
-                                        <span>ABC</span>
+                                        <span>{{ $application->father_husband_name }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Passport No.
-                                        <span>32323323</span>
+                                        <span>{{ $application->passport }}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="row" id="agent-fields">
+                        <div class="row mb-5" id="agent-fields">
 
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Attachment Ticket</label>
-                                    <input type="file" id="otherDropify" class="border" data-max-file-size="500K" />
+                                    
+                                    <input type="file" id="otherDropify" name="ticket" class="border"
+                                        data-max-file-size="500K" />
 
                                 </div>
+                                @if ($application->document_ticket != '')
+                                        <a href="{{ url('/') . $application->document_ticket }}" class="btn btn-primary"
+                                            download>Download Ticket</a>
+                                    @endif
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Attachment Visa</label>
-                                    <input type="file" id="passportDropify" class="border" data-max-file-size="500K" />
+                                    
+                                    <input type="file" id="passportDropify" name="visa" class="border"
+                                        data-max-file-size="500K" />
 
                                 </div>
+                                @if ($application->document_visa != '')
+                                        <a href="{{ url('/') . $application->document_visa }}" class="btn btn-primary"
+                                            download>Download Visa</a>
+                                    @endif
                             </div>
+
+
 
                         </div>
 

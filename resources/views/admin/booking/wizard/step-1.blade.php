@@ -1,4 +1,4 @@
-<form class="step-1" method="POST" action="{{ route('store-booking-step-1') }}">
+<form class="step-1" method="POST" id="bookingStep1" action="{{ route('store-booking-step-1') }}">
     @csrf
     <div class="row">
         @if (Auth::user()->role == 'ADMIN')

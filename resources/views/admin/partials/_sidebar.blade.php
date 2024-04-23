@@ -1,160 +1,355 @@
 <nav class="sidebar">
-      <div class="sidebar-header">
+    <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-          HUMIS
+            HUMIS
         </a>
         <div class="sidebar-toggler not-active">
-          <span></span>
-          <span></span>
-          <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-      </div>
-      <div class="sidebar-body">
+    </div>
+    <div class="sidebar-body">
         <ul class="nav">
-          {{-- <li class="nav-item nav-category">Main</li> --}}
-          <li class="nav-item">
-            <a href="{{route('dashboard')}}" class="nav-link">
-              <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Dashboard</span>
-            </a>
-          </li>
-          {{-- <li class="nav-item nav-category"></li> --}}
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bookings" role="button" aria-expanded="false" aria-controls="bookings">
-              <i class="link-icon" data-feather="calendar"></i>
-              <span class="link-title">Bookings</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="bookings">
-              <ul class="nav sub-menu">
-                  <li class="nav-item">
-                    <a href="{{route('create-booking-step-1')}}" class="nav-link">Add Bookings</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('bookings')}}" class="nav-link">Edit Booking</a>
-                  </li>
-                <li class="nav-item">
-                  <a href="{{route('complete-list')}}" class="nav-link">Booking List</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('applications')}}" class="nav-link">Application List</a>
-                </li>
-                {{-- <li class="nav-item">
+            {{-- <li class="nav-item nav-category">Main</li> --}}
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Dashboard</span>
+                </a>
+            </li>
+
+            {{-- <li class="nav-item nav-category"></li> --}}
+            <li
+                class="nav-item {{ request()->route()->getName() == 'bookings' || request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' || request()->route()->getName() == 'view-booking-details' || request()->route()->getName() == 'view-application-details' ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#bookings" role="button" aria-expanded="false"
+                    aria-controls="bookings">
+                    <i class="link-icon" data-feather="calendar"></i>
+                    <span class="link-title">Bookings</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->route()->getName() == 'bookings' || request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' || request()->route()->getName() == 'view-booking-details' || request()->route()->getName() == 'view-application-details' ? 'show' : '' }}"
+                    id="bookings">
+                    <ul class="nav sub-menu">
+                        <li
+                            class="nav-item {{ request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' ? 'active' : '' }}">
+                            <a href="{{ route('create-booking-step-1') }}"
+                                class="nav-link {{ request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' ? 'active' : '' }}">Add
+                                Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('bookings') }}" class="nav-link">Edit Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('complete-list') }}" class="nav-link">Booking List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('applications') }}" class="nav-link">Application List</a>
+                        </li>
+                        {{-- <li class="nav-item">
                   <a href="{{route('booking-maktab-summary')}}" class="nav-link">Summary</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{route('booking-maktab-report')}}" class="nav-link">Reports</a>
                 </li> --}}
-              </ul>
-            </div>
-          </li>
-           @if (Auth::user()->role=="ADMIN")
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#companies" role="button" aria-expanded="false" aria-controls="bookings">
-              <i class="link-icon" data-feather="calendar"></i>
-              <span class="link-title">Companies</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="companies">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('companies.create')}}" class="nav-link">Add Company</a>
+                    </ul>
+                </div>
+            </li>
+            @if (Auth::user()->role == 'ADMIN')
+                <li class="nav-item {{ request()->route()->getName() == 'maktab-categories.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#maktab-categories" role="button"
+                        aria-expanded="false" aria-controls="maktab-categories">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Maktab</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'maktab-categories.edit' ? 'show' : '' }}"
+                        id="maktab-categories">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('maktab-categories.create') }}" class="nav-link">Add Maktab</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('maktab-categories.index') }}" class="nav-link">Maktab List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('companies.index')}}" class="nav-link">Company List</a>
+                <li class="nav-item {{ request()->route()->getName() == 'aziziah-accomodations.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#aziziah-accomodations" role="button"
+                        aria-expanded="false" aria-controls="aziziah-accomodations">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Aziziah Accomodation</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'aziziah-accomodations.edit' ? 'show' : '' }}"
+                        id="aziziah-accomodations">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('aziziah-accomodations.create') }}" class="nav-link">Add Aziziah
+                                    Accomodation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('aziziah-accomodations.index') }}" class="nav-link">Aziziah
+                                    Accomodation List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#packages" role="button" aria-expanded="false" aria-controls="bookings">
-              <i class="link-icon" data-feather="calendar"></i>
-              <span class="link-title">Packages</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="packages">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('packages.create')}}" class="nav-link">Add Package</a>
+                <li class="nav-item {{ request()->route()->getName() == 'makkah-accomodations.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#makkah-accomodations" role="button"
+                        aria-expanded="false" aria-controls="makkah-accomodations">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Makkah Accomodation</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'makkah-accomodations.edit' ? 'show' : '' }}"
+                        id="makkah-accomodations">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('makkah-accomodations.create') }}" class="nav-link">Add Makkah
+                                    Accomodation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('makkah-accomodations.index') }}" class="nav-link">Makkah
+                                    Accomodation List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('packages.index')}}" class="nav-link">Package List</a>
+                <li class="nav-item {{ request()->route()->getName() == 'madinah-accomodations.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#madinah-accomodations" role="button"
+                        aria-expanded="false" aria-controls="madinah-accomodations">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Madinah Accomodation</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'madinah-accomodations.edit' ? 'show' : '' }}"
+                        id="madinah-accomodations">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('madinah-accomodations.create') }}" class="nav-link">Add Madinah
+                                    Accomodation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('madinah-accomodations.index') }}" class="nav-link">Madinah
+                                    Accomodation List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-              </ul>
-            </div>
-          </li>
-          @endif
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#accounts" role="button" aria-expanded="false" aria-controls="accounts">
-              <i class="link-icon" data-feather="book"></i>
-              <span class="link-title">Accounts</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="accounts">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('reciepts.index')}}" class="nav-link">Reciepts</a>
+                <li class="nav-item {{ request()->route()->getName() == 'food-types.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#food-types" role="button"
+                        aria-expanded="false" aria-controls="food-types">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Food</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'food-types.edit' ? 'show' : '' }}"
+                        id="food-types">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('food-types.create') }}" class="nav-link">Add Food</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('food-types.index') }}" class="nav-link">Food List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('payments.index')}}" class="nav-link" >Payments</a>
+                <li class="nav-item {{ request()->route()->getName() == 'special-transports.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#special-transports" role="button"
+                        aria-expanded="false" aria-controls="special-transports">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Special Transport</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'special-transports.edit' ? 'show' : '' }}"
+                        id="special-transports">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('special-transports.create') }}" class="nav-link">Add Special
+                                    Transport</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('special-transports.index') }}" class="nav-link">Special Transport
+                                    List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('bank-cash.index')}}" class="nav-link">Bank/Cash</a>
+                <li class="nav-item  {{ request()->route()->getName() == 'companies.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#companies" role="button"
+                        aria-expanded="false" aria-controls="bookings">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Companies</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'companies.edit' ? 'show' : '' }}"
+                        id="companies">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('companies.create') }}" class="nav-link">Add Company</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('companies.index') }}" class="nav-link">Company List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                {{-- <li class="nav-item">
-                  <a href="#" class="nav-link">Summary</a>
+                <li class="nav-item {{ request()->route()->getName() == 'airports.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#airports" role="button"
+                        aria-expanded="false" aria-controls="bookings">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Airports</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'airports.edit' ? 'show' : '' }}"
+                        id="airports">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('airports.create') }}" class="nav-link">Add Airport</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('airports.index') }}" class="nav-link">Airport List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">Reports</a>
-                </li> --}}
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#documents" role="button" aria-expanded="false" aria-controls="accounts">
-               <i class="link-icon" data-feather="message-square"></i>
-              <span class="link-title">Documents/Aggrements</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-             {{-- <a href="#" class="nav-link">
-              <i class="link-icon" data-feather="message-square"></i>
-              <span class="link-title">Documents/Aggrements</span>
-            </a> --}}
+                <li class="nav-item {{ request()->route()->getName() == 'tickets.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#tickets" role="button" aria-expanded="false"
+                        aria-controls="bookings">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Tickets</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'tickets.edit' ? 'show' : '' }}"
+                        id="tickets">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('tickets.create') }}" class="nav-link">Add Ticket</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('tickets.index') }}" class="nav-link">Ticket List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
-            <div class="collapse" id="documents">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('maktab-documents')}}" class="nav-link">Maktab</a>
+                <li class="nav-item {{ request()->route()->getName() == 'packages.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#packages" role="button"
+                        aria-expanded="false" aria-controls="bookings">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Packages</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'packages.edit' ? 'show' : '' }}"
+                        id="packages">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('packages.create') }}" class="nav-link">Add Package</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('packages.index') }}" class="nav-link">Package List</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('makkah-hotel-documents')}}" class="nav-link" >Makkah Hotel</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('madinah-hotel-documents')}}" class="nav-link">Madinah Hotel</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('aziziyah-hotel-documents')}}" class="nav-link">Aziziyah Hotel</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('visa-ticket')}}" class="nav-link">Visa Ticket</a>
-                </li>
-                {{-- <li class="nav-item">
+            @endif
+            <li class="nav-item {{ request()->route()->getName() == 'booking-offices.edit' ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#booking-offices" role="button"
+                    aria-expanded="false" aria-controls="booking-offices">
+                    <i class="link-icon" data-feather="calendar"></i>
+                    <span class="link-title">Booking Office</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->route()->getName() == 'booking-offices.edit' ? 'show' : '' }}"
+                    id="booking-offices">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('booking-offices.create') }}" class="nav-link">Add Booking Office</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('booking-offices.index') }}" class="nav-link">Booking Office List</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li
+                class="nav-item {{ request()->route()->getName() == 'payments.index' || request()->route()->getName() == 'payments.create' || request()->route()->getName() == 'payments.index' || request()->route()->getName() == 'view-reciept-details' || request()->route()->getName() == 'reciepts.create' ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#accounts" role="button" aria-expanded="false"
+                    aria-controls="accounts">
+                    <i class="link-icon" data-feather="book"></i>
+                    <span class="link-title">Accounts</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->route()->getName() == 'payments.index' || request()->route()->getName() == 'payments.create' || request()->route()->getName() == 'view-reciept-details' || request()->route()->getName() == 'reciepts.create' ? 'show' : '' }}"
+                    id="accounts">
+                    <ul class="nav sub-menu">
+                        <li
+                            class="nav-item {{ request()->route()->getName() == 'view-reciept-details' || request()->route()->getName() == 'reciepts.create' ? 'active' : '' }}">
+                            <a href="{{ route('reciepts.index') }}"
+                                class="nav-link {{ request()->route()->getName() == 'view-reciept-details' || request()->route()->getName() == 'reciepts.create' ? 'active' : '' }}">Reciepts</a>
+                        </li>
+                        <li class="nav-item {{ request()->route()->getName() == 'payments.index' ? 'active' : '' }}">
+                            <a href="{{ route('payments.index') }}"
+                                class="nav-link {{ request()->route()->getName() == 'payments.index' ? 'active' : '' }}">Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('bank-cash.index') }}" class="nav-link">Bank/Cash</a>
+                        </li>
+                        {{-- <li class="nav-item">
                   <a href="#" class="nav-link">Summary</a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">Reports</a>
                 </li> --}}
-              </ul>
-            </div>
-          </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="link-icon" data-feather="help-circle"></i>
-              <span class="link-title">Help</span>
-            </a>
-          </li>
-          {{-- <li class="nav-item">
+                    </ul>
+                </div>
+            </li>
+            @if (auth()->user()->role == 'COMPANY')
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#documents" role="button"
+                        aria-expanded="false" aria-controls="accounts">
+                        <i class="link-icon" data-feather="message-square"></i>
+                        <span class="link-title">Documents/Aggrements</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="documents">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('maktab-documents') }}" class="nav-link">Maktab</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('makkah-hotel-documents') }}" class="nav-link">Makkah Hotel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('madinah-hotel-documents') }}" class="nav-link">Madinah Hotel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('aziziyah-hotel-documents') }}" class="nav-link">Aziziyah Hotel</a>
+                            </li>
+                            {{-- <li class="nav-item">
+                            <a href="{{ route('visa-ticket') }}" class="nav-link">Visa Ticket</a>
+                        </li> --}}
+                            {{-- <li class="nav-item">
+                  <a href="#" class="nav-link">Summary</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Reports</a>
+                </li> --}}
+                        </ul>
+                    </div>
+                </li>
+            @endif
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="link-icon" data-feather="help-circle"></i>
+                    <span class="link-title">Help</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item">
             <a href="pages/apps/calendar.html" class="nav-link">
               <i class="link-icon" data-feather="calendar"></i>
               <span class="link-title">Help</span>
@@ -416,37 +611,39 @@
             </a>
           </li> --}}
         </ul>
-      </div>
-    </nav>
-    <nav class="settings-sidebar">
-      <div class="sidebar-body">
+    </div>
+</nav>
+<nav class="settings-sidebar">
+    <div class="sidebar-body">
         <a href="#" class="settings-sidebar-toggler">
-          <i data-feather="settings"></i>
+            <i data-feather="settings"></i>
         </a>
         <h6 class="text-muted">Sidebar:</h6>
         <div class="form-group border-bottom">
-          <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight" value="sidebar-light" checked>
-              Light
-            </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark" value="sidebar-dark">
-              Dark
-            </label>
-          </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight"
+                        value="sidebar-light" checked>
+                    Light
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark"
+                        value="sidebar-dark">
+                    Dark
+                </label>
+            </div>
         </div>
         <div class="theme-wrapper">
-          <h6 class="text-muted mb-2">Light Theme:</h6>
-          <a class="theme-item active" href="demo_1/dashboard-one.html">
-            <img src="assets/images/screenshots/light.jpg" alt="light theme">
-          </a>
-          <h6 class="text-muted mb-2">Dark Theme:</h6>
-          <a class="theme-item" href="demo_2/dashboard-one.html">
-            <img src="assets/images/screenshots/dark.jpg" alt="light theme">
-          </a>
+            <h6 class="text-muted mb-2">Light Theme:</h6>
+            <a class="theme-item active" href="demo_1/dashboard-one.html">
+                <img src="assets/images/screenshots/light.jpg" alt="light theme">
+            </a>
+            <h6 class="text-muted mb-2">Dark Theme:</h6>
+            <a class="theme-item" href="demo_2/dashboard-one.html">
+                <img src="assets/images/screenshots/dark.jpg" alt="light theme">
+            </a>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>

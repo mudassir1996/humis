@@ -18,8 +18,8 @@
                         <div class="col-lg-12">
                             <div class="row justify-content-between px-2 mb-2">
                                 <h4>Initial Information</h4>
-                                <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
-                                </button>
+                                {{-- <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
+                                </button> --}}
                             </div>
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -86,53 +86,53 @@
                         <div class="col-lg-12">
                             <div class="row justify-content-between px-2 mb-2">
                                 <h4>Package Information</h4>
-                                <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
-                                </button>
+                                {{-- <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
+                                </button> --}}
                             </div>
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Package Category
-                                    <span>Standard</span>
+                                    <span>{{$package->package_type}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Maktab Category
-                                    <span>ABC</span>
+                                    <span>{{$package->maktab_name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Duration of Stay
-                                    <span>21 Days</span>
+                                    <span>{{$package->duration_of_stay}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Nature
-                                    <span>Fix</span>
+                                    <span>{{$package->nature}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Aziziah Accomodation
-                                    <span>ABC</span>
+                                    <span>{{$package->aziziyah_accomodation}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Makkah Accomodation
-                                    <span>ABC</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Makkah Room Sharing Capacity
-                                    <span>Sharing</span>
+                                    <span>{{$package->makkah_accomodation}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Madinah Accomodation
-                                    <span>ABC</span>
+                                    <span>{{$package->madinah_accomodation}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Makkah Room Sharing Capacity
+                                    <span>{{$package->makkah_room_sharing}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Madinah Room Sharing Capacity
-                                    <span>Sharing</span>
+                                    <span>{{$package->madinah_room_sharing}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Food
-                                    <span>Included</span>
+                                    <span>{{$package->food_type_name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Special Transport
-                                    <span>Not Included</span>
+                                    <span>{{$package->special_transport}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -148,10 +148,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h4>Hujjaj List</h4>
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
+                        {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
-                        </button>
+                        </button> --}}
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -166,7 +166,7 @@
                                     <th>Surname</th>
                                     <th>Passport</th>
                                     <th>Gender</th>
-                                    <th>Action</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -178,7 +178,7 @@
                                         <td>{{$application->surname}}</td>
                                         <td>{{$application->passport}}</td>
                                         <td>{{$application->gender}}</td>
-                                        <td>
+                                        {{-- <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -200,17 +200,12 @@
                                                     <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
-                                                            data-feather="eye" class="icon-md mr-2"></i> <span
-                                                            class="">View Detail</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
-                                                            data-feather="file-text" class="icon-md mr-2 "></i> <span
-                                                            class="">Generate Receipt</span></a> --}}
+                                                   
 
 
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 

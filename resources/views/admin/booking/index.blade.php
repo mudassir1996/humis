@@ -44,7 +44,7 @@
                                         <td>{{$booking->booking_number}}</td>
                                         <td>{{$booking->contact_surname}}</td>
                                         <td>{{$booking->contact_name}}</td>
-                                        <td>{{$booking->package_name}}</td>
+                                        <td>{{$booking->package_type=="CUSTOM"?$booking->custom_package_name:$booking->package_name}}</td>
                                          <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true"

@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Booking;
 use App\Models\RecieptVoucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecieptController extends Controller
 {
@@ -16,7 +17,13 @@ class RecieptController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::select('id', 'booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable','num_of_hujjaj')->get();
+        if(Auth::user()->role=="ADMIN"){
+            $bookings = Booking::filterReciept()->select('id', 'booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->get();
+
+        }else{
+            $bookings = Booking::filterReciept()->select('id', 'booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->where('company_id', auth()->user()->company_id)->get();
+
+        }
         $total_paid = 0;
         foreach ($bookings as $booking) {
             $total_paid = RecieptVoucher::where("booking_id", $booking->id)->sum('amount');
@@ -51,7 +58,6 @@ class RecieptController extends Controller
     public function create(Request $request)
     {
         $booking_id = $request->booking_id;
-
         $booking = Booking::where("bookings.id", $booking_id)->select('bookings.booking_number', 'bookings.contact_name', 'bookings.contact_surname', 'grand_total')->first();
         $applications = Application::where('applications.booking_id', $booking_id)->select('applications.application_number', 'applications.given_name', 'applications.surname', 'applications.cost_per_person', 'applications.passport')->get();
         $total_bill = $booking->grand_total;
