@@ -1,4 +1,4 @@
-<form class="step-3" method="post" action="{{route('store-booking-step-3')}}" enctype="multipart/form-data">
+<form class="step-3" method="post" action="{{ route('store-booking-step-3') }}" enctype="multipart/form-data">
     @csrf
     @php
         $application_number = time();
@@ -7,7 +7,9 @@
     @endphp
     <div class="row mb-3 justify-content-between align-items-center">
         <div class="col-lg-6 col-12">
-            <h3>Hujjaj information {{ isset($applications) ? count($applications)+1 : 1 }}/{{ $booking->num_of_hujjaj }}</h3>
+            <h3>Hujjaj information
+                {{ isset($applications) ? count($applications) + 1 : 1 }}/{{ $booking->num_of_hujjaj }}
+            </h3>
         </div>
         <div class="col-lg-6 text-lg-right col-12 py-3">
             <h6 class="mb-1">Booking #{{ $booking->booking_number }}</h6>
@@ -33,7 +35,7 @@
                 <input id="agent-name" class="form-control" placeholder="Enter Surname" name="surname" type="text">
             </div>
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -127,7 +129,7 @@
                     <option></option>
                     <option value="Sunni">Sunni</option>
                     <option value="Shia">Shia</option>
-                    
+
                 </select>
             </div>
         </div>
@@ -155,8 +157,8 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Mobile No</label>
-                <input id="agent-name" name="mobile_number" class="form-control" data-inputmask-alias="+999999999999"
-                    placeholder="Enter Mobile No">
+                <input id="agent-name" name="mobile_number" class="form-control"
+                    data-inputmask-alias="+999999999999" placeholder="Enter Mobile No">
             </div>
         </div>
         <div class="col-lg-6">
@@ -167,14 +169,14 @@
             </div>
         </div>
     </div>
-    @if ($booking->contact_name == "")
+    @if ($booking->contact_name == '')
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" name="is_contact_person" class="form-check-input" id="contact-person"
-                                checked value="1">
+                            <input type="checkbox" name="is_contact_person" class="form-check-input"
+                                id="contact-person" checked value="1">
                             Contact Person </label>
                     </div>
                 </div>
@@ -197,12 +199,17 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">Relation with Mehram</label>
-                    <input class="form-control" placeholder="Enter Relation" name="mehram_relation"
-                        type="text">
+                    <select class="select2-single" name="mehram_relation">
+                        <option></option>
+                        @foreach ($relationships as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     <h4 class="mt-3">Nominee Details</h4>
     <hr />
 
@@ -217,8 +224,13 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Relation with Nominee</label>
-                <input id="agent-name" class="form-control" placeholder="Enter Relation" name="nominee_relation"
-                    type="text">
+                <select class="select2-single" name="nominee_relation">
+                    <option></option>
+                    @foreach ($relationships as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
+                </select>
+
             </div>
         </div>
     </div>
@@ -233,8 +245,8 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Nominee Mobile No</label>
-                <input id="agent-name" name="nominee_mobile" class="form-control" data-inputmask-alias="+999999999999"
-                    placeholder="Enter Nominee Mobile No">
+                <input id="agent-name" name="nominee_mobile" class="form-control"
+                    data-inputmask-alias="+999999999999" placeholder="Enter Nominee Mobile No">
             </div>
         </div>
     </div>
@@ -269,11 +281,8 @@
             <div class="form-group">
                 <label class="control-label">Ticket</label>
                 <select class="select2-single" name="ticket">
-                    <option></option>
-                    @foreach ($tickets as $ticket)
-                        <option value="{{ $ticket->id }}">{{ $ticket->ticket_type }}</option>
-                    @endforeach
-                    <option value="0">Not Applicable</option>
+                    <option selected value="INCLUDED">Included</option>
+                    <option value="NOT_INCLUDED">Not Included</option>
                 </select>
             </div>
         </div>
@@ -290,7 +299,83 @@
 
     <h4 class="mt-3">Ticket Information</h4>
     <hr />
-    <div class="row">
+    <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2 h6">Towards KSA</legend>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label">Departure Airport</label>
+                    <select class="select2-single" name="departure_airport_pk_id">
+                        <option></option>
+                        @foreach ($pk_airports as $pk_airport)
+                            <option value="{{ $pk_airport->id }}">{{ $pk_airport->airport_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label">Arrival Airport (KSA)</label>
+                    <select class="select2-single" name="arrival_airport_ksa_id">
+                        <option></option>
+                        @foreach ($ksa_airports as $ksa_airport)
+                            <option value="{{ $ksa_airport->id }}">{{ $ksa_airport->airport_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label">Arrival Date (KSA)</label>
+                    <div class="input-group date datepicker" id="datePickerArrival">
+                        <input type="text" class="form-control" name="arrival_date_ksa"><span
+                            class="input-group-addon"><i data-feather="calendar"></i></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+    <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2 h5">From KSA</legend>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label">Departure Airport (KSA)</label>
+                    <select class="select2-single" name="departure_airport_ksa_id">
+                        <option></option>
+                        @foreach ($ksa_airports as $ksa_airport)
+                            <option value="{{ $ksa_airport->id }}">{{ $ksa_airport->airport_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label">Arival Airport</label>
+                    <select class="select2-single" name="arrival_airport_pk_id">
+                        <option></option>
+                        @foreach ($pk_airports as $pk_airport)
+                            <option value="{{ $pk_airport->id }}">{{ $pk_airport->airport_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label">Departure Date (KSA)</label>
+                    <div class="input-group date datepicker" id="datePickerDeparture">
+                        <input type="text" class="form-control" name="departure_date_ksa"><span
+                            class="input-group-addon"><i data-feather="calendar"></i></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+    {{-- <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Departure Airport</label>
@@ -313,12 +398,12 @@
                 </select>
             </div>
         </div>
-        
+
 
 
     </div>
     <div class="row">
-        
+
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Arrival Airport (KSA)</label>
@@ -349,26 +434,26 @@
             <div class="form-group">
                 <label class="control-label">Arrival Date (KSA)</label>
                 <div class="input-group date datepicker" id="datePickerArrival">
-                    <input type="text" class="form-control" name="arrival_date_ksa"><span class="input-group-addon"><i
-                            data-feather="calendar"></i></span>
+                    <input type="text" class="form-control" name="arrival_date_ksa"><span
+                        class="input-group-addon"><i data-feather="calendar"></i></span>
                 </div>
-                
+
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Departure Date (KSA)</label>
                 <div class="input-group date datepicker" id="datePickerDeparture">
-                    <input type="text" class="form-control" name="departure_date_ksa"><span class="input-group-addon"><i
-                            data-feather="calendar"></i></span>
+                    <input type="text" class="form-control" name="departure_date_ksa"><span
+                        class="input-group-addon"><i data-feather="calendar"></i></span>
                 </div>
-                
+
             </div>
         </div>
-        
 
 
-    </div>
+
+    </div> --}}
 
 
     <h4 class="mt-3">Attachments</h4>
@@ -377,7 +462,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Scan of Passport</label>
-                <input type="file" id="passportDropify" class="border" name="attachment_passport"  />
+                <input type="file" id="passportDropify" class="border" name="attachment_passport" />
                 {{-- data-max-file-size="500K" --}}
                 {{-- data-default-file="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png" --}}
                 {{-- data-allowed-file-extensions="png jpg" --}}
@@ -388,7 +473,7 @@
                 <label class="control-label">Scan of CNIC/NICOP</label>
                 {{-- data-min-file-size="5K"
                     data-max-file-size="12K" --}}
-                <input type="file" id="cnicDropify" class="border" name="attachment_cnic"  />
+                <input type="file" id="cnicDropify" class="border" name="attachment_cnic" />
             </div>
         </div>
     </div>
@@ -405,7 +490,7 @@
             <div class="form-group">
                 <label class="control-label">Medical Certificate</label>
                 {{-- data-min-file-size="500K" --}}
-                <input type="file" id="medicalDropify" class="border" name="attachment_medical"  />
+                <input type="file" id="medicalDropify" class="border" name="attachment_medical" />
             </div>
         </div>
     </div>
@@ -414,7 +499,7 @@
             <div class="form-group">
                 <label class="control-label">Other Attachments</label>
                 {{-- data-min-file-size="500K" --}}
-                <input type="file" id="otherDropify" class="border" name="attachment_other"  />
+                <input type="file" id="otherDropify" class="border" name="attachment_other" />
             </div>
         </div>
     </div>

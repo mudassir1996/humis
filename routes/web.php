@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\MakkahAccomodationController;
 use App\Http\Controllers\Admin\MaktabCategoryController;
 use App\Http\Controllers\Admin\SpecialTransportController;
 use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ApplicationController;
@@ -79,8 +80,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bookings/{id}/view-details', [BookingController::class, 'view_details'])->name('view-booking-details');
     Route::resource('/booking-offices', BookingOfficeController::class);
 
+    Route::middleware(['company'])->group(function () {
+        Route::resource('/agents', AgentController::class);
+    });
     Route::middleware(['admin'])->group(function () {
         Route::get('/companies/{id}/booking-offices', [CompanyController::class, 'getBookingOffices']);
+        Route::get('/companies/{id}/agents', [CompanyController::class, 'getAgents']);
         Route::resource('/companies', CompanyController::class);
         Route::resource('/packages', PackageController::class);
         Route::resource('/maktab-categories', MaktabCategoryController::class);

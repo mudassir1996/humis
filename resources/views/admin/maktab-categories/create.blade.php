@@ -35,14 +35,14 @@
                                     <div class="form-group">
                                         <label class="control-label">Cost</label>
                                         <input id="maktab_cost" class="form-control" placeholder="Enter Cost"
-                                            name="maktab_cost" type="number" data-inputmask-alias="999999999999">
+                                            name="maktab_cost" type="number">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Profit</label>
                                         <input id="profit" class="form-control" placeholder="Enter profit"
-                                            name="profit" type="number" data-inputmask-alias="999999999999">
+                                            name="profit" type="number">
                                     </div>
                                 </div>
                                
@@ -55,14 +55,35 @@
                                     <div class="form-group">
                                         <label class="control-label">KSA Expense</label>
                                         <input id="ksa_expense" class="form-control" placeholder="Enter Expense"
-                                            name="ksa_expense" type="number" data-inputmask-alias="999999999999">
+                                            name="ksa_expense" type="number" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">PK Expense</label>
                                         <input id="pk_expense" class="form-control" placeholder="Enter Expense"
-                                            name="pk_expense" type="number" data-inputmask-alias="999999999999">
+                                            name="pk_expense" type="number">
+                                    </div>
+                                </div>
+                               
+                                
+
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+
+                                        <label class="control-label">Special Transport Cost</label>
+                                        <input id="special_transport" class="form-control" placeholder="Enter Cost"
+                                            name="special_transport" type="number" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Agent Commission</label>
+                                        <input id="agent_commission" class="form-control" placeholder="Enter Commission"
+                                            name="agent_commission" type="number">
                                     </div>
                                 </div>
                                

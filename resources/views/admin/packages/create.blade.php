@@ -25,6 +25,7 @@
 
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -55,6 +56,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                 
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -67,10 +69,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-
-
-
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Aziziah Accomodation</label>
@@ -84,9 +82,14 @@
                                         </select>
                                     </div>
                                 </div>
+                               
+                                
+
+
+
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                               <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Makkah Accomodation</label>
                                         <select class="select2-single" name="makkah_accommodation_id"
@@ -99,25 +102,7 @@
                                         </select>
                                     </div>
                                 </div>
-
-
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Makkah Room Sharing Capacity</label>
-                                        <select class="select2-single" name="makkah_room_sharing" id="makkah_room_sharing"
-                                            onchange="getPackagePricing()">
-                                            <option></option>
-                                            <option value="SHARING">Sharing</option>
-                                            <option value="TRIPLE">Triple</option>
-                                            <option value="DOUBLE">Double</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="row">
+                                
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Madinah Accomodation</label>
@@ -131,25 +116,56 @@
                                         </select>
                                     </div>
                                 </div>
+                                 
 
+
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Makkah Room Sharing Capacity</label>
+                                        <select class="select2-single" name="makkah_room_sharing" id="makkah_room_sharing"
+                                            onchange="getPackagePricing()">
+                                            <option></option>
+                                            <option selected value="SHARING">Sharing</option>
+                                            <option value="TRIPLE">Triple</option>
+                                            <option value="DOUBLE">Double</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Madinah Room Sharing Capacity</label>
                                         <select class="select2-single" name="madinah_room_sharing" id="madinah_room_sharing"
                                             onchange="getPackagePricing()">
                                             <option></option>
-                                            <option value="SHARING">Sharing</option>
+                                            <option selected value="SHARING">Sharing</option>
                                             <option value="TRIPLE">Triple</option>
                                             <option value="DOUBLE">Double</option>
                                         </select>
                                     </div>
                                 </div>
-
-
+                                
                             </div>
 
 
                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Ticket</label>
+                                        <select class="select2-single" name="ticket_id" id="ticket"
+                                            onchange="getPackagePricing()">
+                                            <option></option>
+                                            @foreach ($tickets as $ticket)
+                                                <option value="{{ $ticket->id }}">{{ $ticket->ticket_type }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Food</label>
@@ -163,19 +179,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Special Transport</label>
-                                        <select class="select2-single" name="special_transport" id="special_transport"
-                                            onchange="getPackagePricing()">
-                                            <option></option>
-                                            <option value="INCLUDED">Included</option>
-                                            <option value="NOT_INCLUDED">Not Included</option>
-                                        </select>
-                                    </div>
-                                </div>
-
 
                             </div>
                             <div class="row">
@@ -233,8 +236,8 @@
                 "makkah_accommodation_id": $('#makkah_accommodation_id').val(),
                 "madinah_room_sharing": $('#madinah_room_sharing').val(),
                 "makkah_room_sharing": $('#makkah_room_sharing').val(),
+                "ticket_id": $('#ticket').val(),
                 "food_type_id": $('#food_type_id').val(),
-                "special_transport": $('#special_transport').val(),
             }
             $.ajax({
                 url: '/packages/calculate-pricing',

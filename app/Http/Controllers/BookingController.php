@@ -15,6 +15,7 @@ use App\Models\MaktabCategory;
 use App\Models\Package;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
@@ -95,13 +96,269 @@ class BookingController extends Controller
      */
     public function create_step_1(Request $request)
     {
-        $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->get();
-        $booking_offices = CompanyBookingOffice::select('id', 'booking_office_name', 'company_id')->where('company_id', auth()->user()->company_id)->get();
-        $agents = Agent::select('id', 'agent_name')->get();
+        if(Auth::user()->role=="ADMIN"){
+            $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->get();
+            $booking_offices = "";
+            $agents = "";
+        }else{
+            $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->where('id', Auth::user()->company_id)->get();
+            $booking_offices = CompanyBookingOffice::select('id', 'booking_office_name', 'company_id')->where('company_id', Auth::user()->company_id)->get();
+            $agents = Agent::select('id', 'agent_name')->where('company_id', Auth::user()->company_id)->get();
+        }
+        $countries = array(
+            "Afghanistan" => "Afghanistan",
+            "Albania" => "Albania",
+            "Algeria" => "Algeria",
+            "American Samoa" => "American Samoa",
+            "Andorra" => "Andorra",
+            "Angola" => "Angola",
+            "Anguilla" => "Anguilla",
+            "Antarctica" => "Antarctica",
+            "Antigua & Barbuda" => "Antigua & Barbuda",
+            "Argentina" => "Argentina",
+            "Armenia" => "Armenia",
+            "Aruba" => "Aruba",
+            "Australia" => "Australia",
+            "Austria" => "Austria",
+            "Azerbaijan" => "Azerbaijan",
+            "Bahamas" => "Bahamas",
+            "Bahrain" => "Bahrain",
+            "Bangladesh" => "Bangladesh",
+            "Barbados" => "Barbados",
+            "Belarus" => "Belarus",
+            "Belgium" => "Belgium",
+            "Belize" => "Belize",
+            "Benin" => "Benin",
+            "Bermuda" => "Bermuda",
+            "Bhutan" => "Bhutan",
+            "Bolivia" => "Bolivia",
+            "Bosnia & Herzegovina" => "Bosnia & Herzegovina",
+            "Botswana" => "Botswana",
+            "Bouvet Island" => "Bouvet Island",
+            "Brazil" => "Brazil",
+            "British Indian Ocean Territory" => "British Indian Ocean Territory",
+            "British Virgin Islands" => "British Virgin Islands",
+            "Brunei" => "Brunei",
+            "Bulgaria" => "Bulgaria",
+            "Burkina Faso" => "Burkina Faso",
+            "Burundi" => "Burundi",
+            "Cambodia" => "Cambodia",
+            "Cameroon" => "Cameroon",
+            "Canada" => "Canada",
+            "Cape Verde" => "Cape Verde",
+            "Caribbean Netherlands" => "Caribbean Netherlands",
+            "Cayman Islands" => "Cayman Islands",
+            "Central African Republic" => "Central African Republic",
+            "Chad" => "Chad",
+            "Chile" => "Chile",
+            "China" => "China",
+            "Christmas Island" => "Christmas Island",
+            "Cocos (Keeling) Islands" => "Cocos (Keeling) Islands",
+            "Colombia" => "Colombia",
+            "Comoros" => "Comoros",
+            "Congo - Brazzaville" => "Congo - Brazzaville",
+            "Congo - Kinshasa" => "Congo - Kinshasa",
+            "Cook Islands" => "Cook Islands",
+            "Costa Rica" => "Costa Rica",
+            "Croatia" => "Croatia",
+            "Cuba" => "Cuba",
+            "Cyprus" => "Cyprus",
+            "Czechia" => "Czechia",
+            "Denmark" => "Denmark",
+            "Djibouti" => "Djibouti",
+            "Dominica" => "Dominica",
+            "Dominican Republic" => "Dominican Republic",
+            "Ecuador" => "Ecuador",
+            "Egypt" => "Egypt",
+            "El Salvador" => "El Salvador",
+            "Equatorial Guinea" => "Equatorial Guinea",
+            "Eritrea" => "Eritrea",
+            "Estonia" => "Estonia",
+            "Eswatini" => "Eswatini",
+            "Ethiopia" => "Ethiopia",
+            "Falkland Islands" => "Falkland Islands",
+            "Faroe Islands" => "Faroe Islands",
+            "Fiji" => "Fiji",
+            "Finland" => "Finland",
+            "France" => "France",
+            "French Guiana" => "French Guiana",
+            "French Polynesia" => "French Polynesia",
+            "French Southern Territories" => "French Southern Territories",
+            "Gabon" => "Gabon",
+            "Gambia" => "Gambia",
+            "Georgia" => "Georgia",
+            "Germany" => "Germany",
+            "Ghana" => "Ghana",
+            "Gibraltar" => "Gibraltar",
+            "Greece" => "Greece",
+            "Greenland" => "Greenland",
+            "Grenada" => "Grenada",
+            "Guadeloupe" => "Guadeloupe",
+            "Guam" => "Guam",
+            "Guatemala" => "Guatemala",
+            "Guernsey" => "Guernsey",
+            "Guinea" => "Guinea",
+            "Guinea-Bissau" => "Guinea-Bissau",
+            "Guyana" => "Guyana",
+            "Haiti" => "Haiti",
+            "Heard & McDonald Islands" => "Heard & McDonald Islands",
+            "Honduras" => "Honduras",
+            "Hong Kong SAR China" => "Hong Kong SAR China",
+            "Hungary" => "Hungary",
+            "Iceland" => "Iceland",
+            "India" => "India",
+            "Indonesia" => "Indonesia",
+            "Iran" => "Iran",
+            "Iraq" => "Iraq",
+            "Ireland" => "Ireland",
+            "Isle of Man" => "Isle of Man",
+            "Israel" => "Israel",
+            "Italy" => "Italy",
+            "Jamaica" => "Jamaica",
+            "Japan" => "Japan",
+            "Jersey" => "Jersey",
+            "Jordan" => "Jordan",
+            "Kazakhstan" => "Kazakhstan",
+            "Kenya" => "Kenya",
+            "Kiribati" => "Kiribati",
+            "Kuwait" => "Kuwait",
+            "Kyrgyzstan" => "Kyrgyzstan",
+            "Laos" => "Laos",
+            "Latvia" => "Latvia",
+            "Lebanon" => "Lebanon",
+            "Lesotho" => "Lesotho",
+            "Liberia" => "Liberia",
+            "Libya" => "Libya",
+            "Liechtenstein" => "Liechtenstein",
+            "Lithuania" => "Lithuania",
+            "Luxembourg" => "Luxembourg",
+            "Macao SAR China" => "Macao SAR China",
+            "Madagascar" => "Madagascar",
+            "Malawi" => "Malawi",
+            "Malaysia" => "Malaysia",
+            "Maldives" => "Maldives",
+            "Mali" => "Mali",
+            "Malta" => "Malta",
+            "Marshall Islands" => "Marshall Islands",
+            "Martinique" => "Martinique",
+            "Mauritania" => "Mauritania",
+            "Mauritius" => "Mauritius",
+            "Mayotte" => "Mayotte",
+            "Mexico" => "Mexico",
+            "Micronesia" => "Micronesia",
+            "Moldova" => "Moldova",
+            "Monaco" => "Monaco",
+            "Mongolia" => "Mongolia",
+            "Montenegro" => "Montenegro",
+            "Montserrat" => "Montserrat",
+            "Morocco" => "Morocco",
+            "Mozambique" => "Mozambique",
+            "Myanmar (Burma)" => "Myanmar (Burma)",
+            "Namibia" => "Namibia",
+            "Nauru" => "Nauru",
+            "Nepal" => "Nepal",
+            "Netherlands" => "Netherlands",
+            "New Caledonia" => "New Caledonia",
+            "New Zealand" => "New Zealand",
+            "Nicaragua" => "Nicaragua",
+            "Niger" => "Niger",
+            "Nigeria" => "Nigeria",
+            "Niue" => "Niue",
+            "Norfolk Island" => "Norfolk Island",
+            "North Korea" => "North Korea",
+            "North Macedonia" => "North Macedonia",
+            "Northern Mariana Islands" => "Northern Mariana Islands",
+            "Norway" => "Norway",
+            "Oman" => "Oman",
+            "Pakistan" => "Pakistan",
+            "Palau" => "Palau",
+            "Palestinian Territories" => "Palestinian Territories",
+            "Panama" => "Panama",
+            "Papua New Guinea" => "Papua New Guinea",
+            "Paraguay" => "Paraguay",
+            "Peru" => "Peru",
+            "Philippines" => "Philippines",
+            "Pitcairn Islands" => "Pitcairn Islands",
+            "Poland" => "Poland",
+            "Portugal" => "Portugal",
+            "Puerto Rico" => "Puerto Rico",
+            "Qatar" => "Qatar",
+            "Réunion" => "Réunion",
+            "Romania" => "Romania",
+            "Russia" => "Russia",
+            "Rwanda" => "Rwanda",
+            "Samoa" => "Samoa",
+            "San Marino" => "San Marino",
+            "São Tomé & Príncipe" => "São Tomé & Príncipe",
+            "Saudi Arabia" => "Saudi Arabia",
+            "Senegal" => "Senegal",
+            "Serbia" => "Serbia",
+            "Seychelles" => "Seychelles",
+            "Sierra Leone" => "Sierra Leone",
+            "Singapore" => "Singapore",
+            "Sint Maarten" => "Sint Maarten",
+            "Slovakia" => "Slovakia",
+            "Slovenia" => "Slovenia",
+            "Solomon Islands" => "Solomon Islands",
+            "Somalia" => "Somalia",
+            "South Africa" => "South Africa",
+            "South Georgia & South Sandwich Islands" => "South Georgia & South Sandwich Islands",
+            "South Korea" => "South Korea",
+            "South Sudan" => "South Sudan",
+            "Spain" => "Spain",
+            "Sri Lanka" => "Sri Lanka",
+            "St. Barthélemy" => "St. Barthélemy",
+            "St. Helena" => "St. Helena",
+            "St. Kitts & Nevis" => "St. Kitts & Nevis",
+            "St. Lucia" => "St. Lucia",
+            "St. Martin" => "St. Martin",
+            "St. Pierre & Miquelon" => "St. Pierre & Miquelon",
+            "St. Vincent & Grenadines" => "St. Vincent & Grenadines",
+            "Sudan" => "Sudan",
+            "Suriname" => "Suriname",
+            "Svalbard & Jan Mayen" => "Svalbard & Jan Mayen",
+            "Sweden" => "Sweden",
+            "Switzerland" => "Switzerland",
+            "Syria" => "Syria",
+            "Taiwan" => "Taiwan",
+            "Tajikistan" => "Tajikistan",
+            "Tanzania" => "Tanzania",
+            "Thailand" => "Thailand",
+            "Timor-Leste" => "Timor-Leste",
+            "Togo" => "Togo",
+            "Tokelau" => "Tokelau",
+            "Tonga" => "Tonga",
+            "Trinidad & Tobago" => "Trinidad & Tobago",
+            "Tunisia" => "Tunisia",
+            "Turkey" => "Turkey",
+            "Turkmenistan" => "Turkmenistan",
+            "Turks & Caicos Islands" => "Turks & Caicos Islands",
+            "Tuvalu" => "Tuvalu",
+            "U.S. Outlying Islands" => "U.S. Outlying Islands",
+            "U.S. Virgin Islands" => "U.S. Virgin Islands",
+            "Uganda" => "Uganda",
+            "Ukraine" => "Ukraine",
+            "United Arab Emirates" => "United Arab Emirates",
+            "United Kingdom" => "United Kingdom",
+            "United States" => "United States",
+            "Uruguay" => "Uruguay",
+            "Uzbekistan" => "Uzbekistan",
+            "Vanuatu" => "Vanuatu",
+            "Vatican City" => "Vatican City",
+            "Venezuela" => "Venezuela",
+            "Vietnam" => "Vietnam",
+            "Wallis & Futuna" => "Wallis & Futuna",
+            "Western Sahara" => "Western Sahara",
+            "Yemen" => "Yemen",
+            "Zambia" => "Zambia",
+            "Zimbabwe" => "Zimbabwe"
+        );
+
+        
         $request->session()->forget('booking');
         $request->session()->forget('applications');
 
-        return view('admin.booking.create', compact('booking_offices', 'agents', 'companies'));
+        return view('admin.booking.create', compact('booking_offices', 'agents', 'companies', 'countries'));
     }
 
     /**
@@ -146,8 +403,9 @@ class BookingController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $food_types = FoodType::where('food_type_status', 'ACTIVE')->select('id', 'food_type_name', 'food_type_cost')->get();
+        $tickets = Ticket::all();
         $booking = $request->session()->get('booking');
-        return view('admin.booking.create', compact('booking', 'packages', 'maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types'));
+        return view('admin.booking.create', compact('tickets','booking', 'packages', 'maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types'));
     }
 
     /**
@@ -174,6 +432,7 @@ class BookingController extends Controller
             $custom_package->makkah_room_sharing = $request->makkah_room_sharing ?? "SHARING";
             $custom_package->madinah_room_sharing = $request->madinah_room_sharing ?? "SHARING";
             $custom_package->food_type_id = $request->food_type_id;
+            $custom_package->ticket_id = $request->ticket_id;
             $custom_package->special_transport = $request->special_transport;
             $custom_package->cost_per_person = $request->cost_per_person;
             $custom_package->created_by = auth()->user()->id;
@@ -200,10 +459,35 @@ class BookingController extends Controller
         // dd($applications);
         $tickets = Ticket::select('id', 'ticket_type', 'ticket_cost')->get();
         $airports = Airport::select('id', 'airport_name', 'airport_country_code')->get();
-
         $pk_airports = $airports->where('airport_country_code', 'PK');
         $ksa_airports = $airports->where('airport_country_code', 'KSA');
-        return view('admin.booking.create', compact('booking', 'tickets', 'pk_airports', 'ksa_airports'));
+
+        $relationships = array(
+            "GRAND SON" => "Grand son",
+            "HUSBAND" => "Husband",
+            "MATERNAL AUNT" => "Maternal aunt",
+            "GRAND FATHER" => "Grand father",
+            "GRAND MOTHER" => "Grand mother",
+            "UNCLE" => "Uncle",
+            "MOTHER" => "Mother",
+            "MOTHER IN LAW" => "Mother in law",
+            "NEIGHBOUR" => "Neighbour",
+            "NEPHEW" => "Nephew",
+            "NIECE" => "Niece",
+            "SISTER" => "Sister",
+            "SISTER IN LAW" => "Sister in law",
+            "WIFE" => "Wife",
+            "BROTHER" => "Brother",
+            "BROTHER IN LAW" => "Brother in law",
+            "DAUGHTER" => "Daughter",
+            "DAUGHTER IN LAW" => "Daughter in law",
+            "FATHER" => "Father",
+            "FATHER IN LAW" => "Father in law",
+            "FIRST COUSIN" => "First cousin",
+            "GRAND DAUGHTER" => "Grand daughter"
+        );
+
+        return view('admin.booking.create', compact('booking', 'tickets', 'pk_airports', 'ksa_airports', 'relationships'));
     }
 
 
@@ -269,10 +553,11 @@ class BookingController extends Controller
         if ($request->qurbani == 'INCLUDED') {
             $qurbani_fee = 800;
         }
-        if ($request->ticket != 0) {
-            $ticket = Ticket::where('id', $request->ticket)->select('ticket_cost')->first();
-            $ticket_cost = $ticket->ticket_cost;
+
+        if ($request->ticket == 'NOT_INCLUDED') {
+            $ticket_cost = 0;
         }
+       
         if ($booking->package_type == 'CUSTOM') {
             $package = CustomPackage::where('id', $booking->package_id)->first();
         } else {
@@ -292,8 +577,7 @@ class BookingController extends Controller
             $makkah_accommodation = Accomodation::where('id', $package->makkah_accommodation_id)->first();
             $madinah_accommodation = Accomodation::where('id', $package->madinah_accommodation_id)->first();
 
-            // dd($package->makkah_accomodation_id);
-
+           
             if ($package->makkah_room_sharing == 'TRIPLE') {
                 $old_makkah_accommodation_cost = $makkah_accommodation->triple_room_cost;
             } else if ($package->makkah_room_sharing == 'DOUBLE') {
@@ -310,12 +594,11 @@ class BookingController extends Controller
                 $old_madinah_accommodation_cost = $madinah_accommodation->sharing_room_cost ?? 0;
             }
 
-            $cost_with_accomodation = $package->cost_per_person - $old_madinah_accommodation_cost - $old_makkah_accommodation_cost;
-
-            if ($application->madinah_room_sharing == 'TRIPLE') {
+            $cost_with_accomodation = $package->cost_per_person -($old_madinah_accommodation_cost + $old_makkah_accommodation_cost);
+            if ($request->room_sharing == 'TRIPLE') {
                 $makkah_accommodation_cost = $makkah_accommodation->triple_room_cost;
                 $madinah_accommodation_cost = $madinah_accommodation->triple_room_cost;
-            } else if ($package->madinah_room_sharing == 'DOUBLE') {
+            } else if ($request->room_sharing == 'DOUBLE') {
                 $makkah_accommodation_cost = $makkah_accommodation->quad_double_cost;
                 $madinah_accommodation_cost = $madinah_accommodation->quad_double_cost;
             } else {
@@ -323,7 +606,9 @@ class BookingController extends Controller
                 $madinah_accommodation_cost = $madinah_accommodation->sharing_room_cost ?? 0;
             }
 
+                    
             $cost_per_person = $cost_with_accomodation + $makkah_accommodation_cost + $madinah_accommodation_cost;
+
         }
 
 
@@ -357,7 +642,7 @@ class BookingController extends Controller
 
         $applications[] = $application;
 
-
+        dd($applications);
 
         $request->session()->put('applications', $applications);
         $request->session()->put('booking', $booking);
@@ -411,7 +696,6 @@ class BookingController extends Controller
                         $application->makkah_room_sharing = '';
                         $application->madinah_room_sharing = '';
                     } else {
-                        $application->aziziya_room_sharing = $application->room_sharing;
                         $application->makkah_room_sharing = $application->room_sharing;
                         $application->madinah_room_sharing = $application->room_sharing;
                     }

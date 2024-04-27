@@ -250,14 +250,13 @@
                                 <div class="col-md-12 ml-auto">
 
                                     <div class="form-group row align-items-center justify-content-between">
-                                        <label for="exampleInputUsername2" class="col-sm-7 col-4">Discount</label>
+                                        <label for="exampleInputUsername2" class="col-sm-7 col-4">Total Discount</label>
                                         <div class="col-sm-5 col-8 text-right">
                                             PKR {{$initial_info->discount}}
                                         </div>
                                     </div>
                                     <div class="form-group row align-items-center justify-content-between">
-                                        <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Cost Per
-                                            Person</label>
+                                        <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Total Cost</label>
                                         <div class="col-sm-5 col-8 text-right">
                                             PKR {{$initial_info->net_total}}
                                         </div>

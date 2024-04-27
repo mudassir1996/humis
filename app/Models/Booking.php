@@ -26,10 +26,10 @@ class Booking extends Model
                 $query->where('packages.maktab_category_id', $maktabCategoryId);
             })
                 ->when(request()->makkah_accomodation_id, function ($query, $makkahAccomodationId) {
-                    $query->where('packages.makkah_accomodation_id', $makkahAccomodationId);
+                    $query->where('packages.makkah_accommodation_id', $makkahAccomodationId);
                 })
                 ->when(request()->madinah_accomodation_id, function ($query, $madinahAccomodationId) {
-                    $query->where('packages.madinah_accomodation_id', $madinahAccomodationId);
+                    $query->where('packages.madinah_accommodation_id', $madinahAccomodationId);
                 })
                 ->when(request()->duration_of_stay, function ($query, $durationOfStay) {
                     $query->where('packages.duration_of_stay', $durationOfStay);
@@ -43,10 +43,10 @@ class Booking extends Model
                 $query->where('custom_packages.maktab_category_id', $maktabCategoryId);
             })
                 ->when(request()->makkah_accomodation_id, function ($query, $makkahAccomodationId) {
-                    $query->where('custom_packages.makkah_accomodation_id', $makkahAccomodationId);
+                    $query->where('custom_packages.makkah_accommodation_id', $makkahAccomodationId);
                 })
                 ->when(request()->madinah_accomodation_id, function ($query, $madinahAccomodationId) {
-                    $query->where('custom_packages.madinah_accomodation_id', $madinahAccomodationId);
+                    $query->where('custom_packages.madinah_accommodation_id', $madinahAccomodationId);
                 })
                 ->when(request()->duration_of_stay, function ($query, $durationOfStay) {
                     $query->where('custom_packages.duration_of_stay', $durationOfStay);

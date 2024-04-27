@@ -46,6 +46,8 @@ class MaktabCategoryController extends Controller
             'profit' => 'required',
             'ksa_expense' => 'required',
             'pk_expense' => 'required',
+            'special_transport' => 'required',
+            'agent_commission' => 'required',
         ]);
 
         $maktab_category = new MaktabCategory();
@@ -54,6 +56,8 @@ class MaktabCategoryController extends Controller
         $maktab_category->profit = $request->profit;
         $maktab_category->ksa_expense = $request->ksa_expense;
         $maktab_category->pk_expense = $request->pk_expense;
+        $maktab_category->special_transport = $request->special_transport;
+        $maktab_category->agent_commission = $request->agent_commission;
 
         $maktab_category->created_by = auth()->user()->id;
 
@@ -112,6 +116,8 @@ class MaktabCategoryController extends Controller
             'profit' => 'required',
             'ksa_expense' => 'required',
             'pk_expense' => 'required',
+            'special_transport' => 'required',
+            'agent_commission' => 'required',
         ]);
 
         $maktab_category = MaktabCategory::find($id);
@@ -120,6 +126,8 @@ class MaktabCategoryController extends Controller
         $maktab_category->profit = $request->profit;
         $maktab_category->ksa_expense = $request->ksa_expense;
         $maktab_category->pk_expense = $request->pk_expense;
+        $maktab_category->special_transport = $request->special_transport;
+        $maktab_category->agent_commission = $request->agent_commission;
 
         if ($maktab_category->save()) {
             $notification = array(

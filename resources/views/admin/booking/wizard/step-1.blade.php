@@ -1,24 +1,23 @@
 <form class="step-1" method="POST" id="bookingStep1" action="{{ route('store-booking-step-1') }}">
     @csrf
     <div class="row">
-        @if (Auth::user()->role == 'ADMIN')
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label class="control-label">Company</label>
-                    <select class="select2-single" name="company_id" id="companyDropdown">
-                        <option></option>
-                        @foreach ($companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        @endif
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Booking Office Country</label>
+                <label class="control-label">Company</label>
+                <select class="select2-single" name="company_id" id="companyDropdown">
+                    <option></option>
+                    @foreach ($companies as $company)
+                        <option {{ Auth::user()->role == 'COMPANY' ? 'selected' : '' }} value="{{ $company->id }}">
+                            {{ $company->company_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="control-label">Booking Office</label>
                 <select class="select2-single" name="booking_office_id" id="bookingOfficeDropdown">
-                    @if (Auth::user()->role == 'ADMIN')
+                    @if (Auth::user()->role == 'COMPANY')
                         @foreach ($booking_offices as $booking_offices)
                             <option value="{{ $booking_offices->id }}">{{ $booking_offices->booking_office_name }}
                             </option>
@@ -27,22 +26,23 @@
                 </select>
             </div>
         </div>
-        
-        <div class=" {{Auth::user()->role == 'ADMIN'?'col-lg-12':'col-lg-6'}}">
+
+
+    </div>
+    <div class="row">
+        <div class=" col-lg-6">
             <div class="form-group">
                 <label class="control-label">Client Country</label>
+
                 <select class="select2-single" name="client_country">
                     <option></option>
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="USA">USA</option>
-                    <option value="UAE">UAE</option>
+                    @foreach ($countries as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
-    </div>
-    <div class="row">
-
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Booking Nature</label>
                 <select class="select2-single" id="booking-nature" name="booking_nature">
@@ -57,19 +57,21 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Agent Name</label>
-                <select class="select2-single" name="agent_name">
+                <select class="select2-single" id="agentsDropdown" name="agent_name">
                     <option></option>
-                    @foreach ($agents as $agent)
-                        <option value="{{ $agent->id }}">{{ $agent->agent_name }}</option>
-                    @endforeach
+                    @if (Auth::user()->role == 'COMPANY')
+                        @foreach ($agents as $agent)
+                            <option value="{{ $agent->id }}">{{ $agent->agent_name }}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Agent Commission</label>
-                <input id="cost_per_person" class="form-control" name="agent_commission" placeholder="Enter Agent Commission"
-                    type="text">
+                <input id="cost_per_person" class="form-control" name="agent_commission"
+                    placeholder="Enter Agent Commission" type="text">
             </div>
         </div>
     </div>

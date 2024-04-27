@@ -32,6 +32,7 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
+                                    <th>Company Name</th>
                                     <th>Booking No.</th>
                                     <th>No. of Hujjaj</th>
                                     <th>Given Name</th>
@@ -45,6 +46,7 @@
                             <tbody>
                                 @foreach ($bookings as $booking)
                                     <tr>
+                                        <td>{{$booking->company_name}}</td>
                                         <td>{{$booking->booking_number}}</td>
                                         <td>{{$booking->num_of_hujjaj}}</td>
                                         <td>{{$booking->contact_name}}</td>

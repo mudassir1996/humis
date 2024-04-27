@@ -86,11 +86,19 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Qurbani
-                                    <span>{{ $application->qurbani }}</span>
+                                    <span>{{ Str::ucfirst(Str::lower(Str::replaceFirst('_', ' ', $application->qurbani))) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Ticket
-                                    <span>{{ $application->ticket != 0 ? $application->ticket_type : 'Not Included' }}</span>
+                                    <span>{{ Str::ucfirst(Str::lower(Str::replaceFirst('_', ' ', $application->ticket))) }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Makkah Room Sharing
+                                    <span>{{ Str::ucfirst(Str::lower($application->makkah_room_sharing)) }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Madinah Room Sharing
+                                    <span>{{ Str::ucfirst(Str::lower($application->madinah_room_sharing))  }}</span>
                                 </li>
                             </ul>
                         </div>

@@ -54,7 +54,7 @@ return new class extends Migration
             $table->integer("arrival_airport_ksa_id");
             $table->string("arrival_date_ksa");           
             $table->string("departure_date_ksa");           
-            $table->float("cost_per_person");           
+            $table->string("cost_per_person")->default(0);           
             $table->integer('created_by');
             $table->timestamps();
         });

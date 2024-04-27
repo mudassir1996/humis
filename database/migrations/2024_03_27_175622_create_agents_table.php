@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('agent_name');
             $table->string('agent_contact');
+            $table->integer('company_id');
             $table->integer('created_by');
             $table->timestamps();
         });

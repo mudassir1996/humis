@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Company;
 use App\Models\CompanyBookingOffice;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Validator;
-
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -124,5 +124,10 @@ class CompanyController extends Controller
     {
         $booking_offices = CompanyBookingOffice::where('company_id', $id)->pluck('booking_office_name', 'id');
         return response()->json($booking_offices);
+    }
+    public function getAgents($id)
+    {
+        $agents = Agent::where('company_id', $id)->pluck('agent_name', 'id');
+        return response()->json($agents);
     }
 }

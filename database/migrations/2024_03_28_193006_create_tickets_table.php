@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('ticket_type');
-            $table->float('ticket_cost');
+            $table->string('ticket_cost')->default(0);
             $table->integer('created_by');
             $table->timestamps();
         });

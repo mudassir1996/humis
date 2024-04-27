@@ -14,12 +14,12 @@
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
-                        <h3>Maktab List</h3>
+                        <h3>Agents List</h3>
                         {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button> --}}
-                        <a href="{{ route('maktab-categories.create') }}">
+                        <a href="{{ route('agents.create') }}">
                             <button type="button" class="btn btn-outline-primary">
                                 <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
                             </button>
@@ -33,27 +33,18 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Maktab Name</th>
-                                    <th>Cost</th>
-                                    <th>Special Transport</th>
-                                    <th>Agent Commission</th>
-                                    <th>Profit</th>
-                                    <th>KSA Expense</th>
-                                    <th>PK Expense</th>
+                                    <th>Agent Name</th>
+                                    <th>Agent Contact</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($maktab_categories as $maktab_category)
+                                @foreach ($agents as $agent)
                                     <tr>
-                                        <td>{{ $maktab_category->id }}</td>
-                                        <td>{{ $maktab_category->maktab_name }}</td>
-                                        <td>{{ $maktab_category->maktab_cost }}</td>
-                                        <td>{{ $maktab_category->special_transport }}</td>
-                                        <td>{{ $maktab_category->agent_commission }}</td>
-                                        <td>{{ $maktab_category->profit }}</td>
-                                        <td>{{ $maktab_category->ksa_expense }}</td>
-                                        <td>{{ $maktab_category->pk_expense }}</td>
+                                        <td>{{ $agent->id }}</td>
+                                        <td>{{ $agent->agent_name }}</td>
+                                        <td>{{ $agent->agent_contact }}</td>
+                                        
                                         
                                         
 
@@ -77,16 +68,16 @@
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
                                                     <a class="dropdown-item d-flex align-items-center p-2"
-                                                        href="{{ route('maktab-categories.edit', $maktab_category->id) }}"><i
+                                                        href="{{ route('agents.edit', $agent->id) }}"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    <form action="{{ route('maktab-categories.destroy', $maktab_category->id) }}"
-                                                        id="delete_item_from{{ $maktab_category->id }}" method="post">
+                                                    <form action="{{ route('agents.destroy', $agent->id) }}"
+                                                        id="delete_item_from{{ $agent->id }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <a type="button" class="dropdown-item d-flex align-items-center p-2"
                                                             title="Delete"
-                                                            onclick="deleteConfirmation('delete_item_from{{ $maktab_category->id }}')"><i
+                                                            onclick="deleteConfirmation('delete_item_from{{ $agent->id }}')"><i
                                                                 data-feather="trash-2" class="icon-md mr-2"></i> <span
                                                                 class="">Delete</span></a>
 

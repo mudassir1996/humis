@@ -27,6 +27,7 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
+                                    <th>Company Name</th>
                                     <th>Booking No.</th>
                                     <th>Application No.</th>
                                     <th>Given Name</th>
@@ -40,6 +41,7 @@
                             <tbody>
                                 @foreach ($applications as $application)
                                     <tr>
+                                        <td>{{ $application->company_name }}</td>
                                         <td>{{ $application->booking_number }}</td>
                                         <td>{{ $application->application_number }}</td>
                                         <td>{{ $application->given_name }}</td>
@@ -47,8 +49,15 @@
                                         <td>{{ $application->passport }}</td>
                                         <td>{{ $application->gender }}</td>
                                         <td>
-                                            <a class="text-primary" target="_blank"
-                                                href="{{ route('visa-ticket', ['application_id' => $application->id]) }}">View/Upload</a>
+                                            @if ($application->document_visa != '' && $application->document_ticket != '')
+                                                <span class="badge bg-success text-light">Uploaded</span>
+                                            @elseif ($application->document_ticket != '')
+                                                <span class="badge bg-warning">Ticket Uploaded</span>                                                
+                                            @elseif ($application->document_visa)
+                                                <span class="badge bg-warning">Ticket Uploaded</span>                                                
+                                            @else
+                                                <span class="badge bg-danger text-light">Not Uploaded</span>                                                
+                                            @endif
 
                                         </td>
                                         <td>
@@ -70,10 +79,31 @@
                                                 </button>
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
+                                                    {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
-                                                            class="">Edit</span></a>
-                                                    
+                                                            class="">Edit</span></a> --}}
+                                                    @if ($application->document_visa != '')
+                                                        <a class="dropdown-item d-flex align-items-center p-2"
+                                                            href="{{ url('/') . $application->document_visa }}" download><i
+                                                                data-feather="download" class="icon-md mr-2"></i> <span
+                                                                class="">Download
+                                                                Visa</span></a>
+                                                    @endif
+                                                    @if ($application->document_ticket != '')
+                                                        <a class="dropdown-item d-flex align-items-center p-2"
+                                                            href="{{ url('/') . $application->document_ticket }}"
+                                                            download><i data-feather="download" class="icon-md mr-2"></i>
+                                                            <span class="">Download
+                                                                Ticket</span></a>
+                                                    @endif
+                                                    @if (Auth::user()->role == 'ADMIN')
+                                                        @if ($application->document_visa == '' || $application->document_ticket == '')
+                                                            <a class="dropdown-item d-flex align-items-center p-2"
+                                                                href="{{ route('visa-ticket', ['application_id' => $application->id]) }}"><i
+                                                                    data-feather="upload" class="icon-md mr-2"></i> <span
+                                                                    class="">Upload Visa/Ticket</span></a>
+                                                        @endif
+                                                    @endif
                                                     <a class="dropdown-item d-flex align-items-center p-2"
                                                         href="{{ route('view-application-details', $application->id) }}"><i
                                                             data-feather="eye" class="icon-md mr-2"></i> <span

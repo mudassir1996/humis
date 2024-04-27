@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer("food_type_id");
             $table->enum("special_transport", ['INCLUDED', 'NOT_INCLUDED']);
             $table->enum("package_status", ['ACTIVE', 'INACTIVE']);
-            $table->float("cost_per_person");
+            $table->string("cost_per_person")->default(0);
             $table->integer("created_by");
             $table->timestamps();
         });

@@ -26,7 +26,7 @@
                         @endphp
                         <tr>
                             <td>{{ $application->given_name . ' ' . $application->surname }}</td>
-                            <td>SAR {{ $application->cost_per_person }}</td>
+                            <td>PKR {{ $application->cost_per_person }}</td>
                         </tr>
                     @endforeach
                     @php
@@ -41,16 +41,16 @@
         <div class="col-md-12 ml-auto">
 
             <div class="form-group row align-items-center justify-content-between">
-                <label for="exampleInputUsername2" class="col-sm-7 col-4">Discount</label>
+                <label for="exampleInputUsername2" class="col-sm-7 col-4">Total Discount</label>
                 <div class="col-sm-5 col-8">
                     <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter Discount">
 
                 </div>
             </div>
             <div class="form-group row align-items-center justify-content-between">
-                <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Cost Per Person</label>
+                <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Total Cost</label>
                 <div class="col-sm-5 col-8 text-right">
-                    SAR <span id="net_cost">{{ $total_cost }}</span>
+                    PKR <span id="net_cost">{{ $total_cost }}</span>
                     <input type="hidden" class="form-control" value="{{ $total_cost }}" id="net_total" name="net_total">
 
                 </div>

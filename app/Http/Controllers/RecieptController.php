@@ -18,10 +18,10 @@ class RecieptController extends Controller
     public function index()
     {
         if(Auth::user()->role=="ADMIN"){
-            $bookings = Booking::filterReciept()->select('id', 'booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->get();
+            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->leftJoin('companies', 'companies.id', 'bookings.company_id')->get();
 
         }else{
-            $bookings = Booking::filterReciept()->select('id', 'booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->where('company_id', auth()->user()->company_id)->get();
+            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->leftJoin('companies', 'companies.id', 'bookings.company_id')->where('company_id', auth()->user()->company_id)->get();
 
         }
         $total_paid = 0;
@@ -45,9 +45,10 @@ class RecieptController extends Controller
         $booking->amount_received = $total_paid;
         $booking->balance_receivable = $booking->total_receivable - $total_paid;
         $reciept_vouchers = RecieptVoucher::where("booking_id", $booking->id)->get();
+        $applications = Application::where('applications.booking_id', $booking->id)->select('applications.application_number', 'applications.given_name', 'applications.surname', 'applications.cost_per_person', 'applications.passport')->get();
+        $total_bill = $booking->total_receivable;
 
-
-        return view('admin.reciept.view-details',compact('booking', 'reciept_vouchers'));
+        return view('admin.reciept.view-details',compact('booking', 'reciept_vouchers', 'applications', 'total_bill'));
     }
 
     /**

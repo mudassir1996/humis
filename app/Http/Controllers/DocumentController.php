@@ -24,7 +24,9 @@ class DocumentController extends Controller
      */
     public function maktab_documents()
     {
-        $maktab_categories = MaktabCategory::all();
+        $maktab_category_ids = MaktabDocument::pluck('maktab_category_id');
+        // dd($maktab_category_ids);
+        $maktab_categories = MaktabCategory::whereNotIn('id', $maktab_category_ids)->get();
         return view('admin.documents.maktab-documents',compact('maktab_categories'));
     }
     /**
@@ -72,7 +74,7 @@ class DocumentController extends Controller
      */
     public function makkah_hotel_documents()
     {
-        $makkah_accommodation_documents = AccomodationDocument::where('company_id',auth()->user()->company_id)->pluck('accomodation_id');
+        $makkah_accommodation_documents = AccomodationDocument::pluck('accomodation_id');
         $makkah_accommodations = Accomodation::where('accomodation_type','MAKKAH')->whereNotIn('id', $makkah_accommodation_documents)->get();
         return view('admin.documents.makkah-hotel-documents',compact('makkah_accommodations'));
     }
@@ -109,7 +111,7 @@ class DocumentController extends Controller
         }else{
             $makkah_accommodation_capacity->attachment="";
         }
-        $makkah_accommodation_capacity->company_id = auth()->user()->company_id;
+        $makkah_accommodation_capacity->company_id = 0;
         $makkah_accommodation_capacity->created_by = auth()->user()->id;
 
 
@@ -133,7 +135,7 @@ class DocumentController extends Controller
      */
     public function madinah_hotel_documents()
     {
-        $madinah_accommodation_documents = AccomodationDocument::where('company_id', auth()->user()->company_id)->pluck('accomodation_id');
+        $madinah_accommodation_documents = AccomodationDocument::pluck('accomodation_id');
         $madinah_accommodations = Accomodation::where('accomodation_type', 'MADINAH')->whereNotIn('id', $madinah_accommodation_documents)->get();
         return view('admin.documents.madinah-hotel-documents', compact('madinah_accommodations'));
     }
@@ -170,7 +172,7 @@ class DocumentController extends Controller
         } else {
             $madinah_accommodation_capacity->attachment = "";
         }
-        $madinah_accommodation_capacity->company_id = auth()->user()->company_id;
+        $madinah_accommodation_capacity->company_id = 0;
         $madinah_accommodation_capacity->created_by = auth()->user()->id;
 
 
@@ -194,7 +196,7 @@ class DocumentController extends Controller
      */
     public function aziziyah_hotel_documents()
     {
-        $aziziyah_accommodation_documents = AccomodationDocument::where('company_id', auth()->user()->company_id)->pluck('accomodation_id');
+        $aziziyah_accommodation_documents = AccomodationDocument::pluck('accomodation_id');
         $aziziyah_accommodations = Accomodation::where('accomodation_type', 'AZIZIYAH')->whereNotIn('id', $aziziyah_accommodation_documents)->get();
         return view('admin.documents.aziziyah-hotel-documents', compact('aziziyah_accommodations'));
 
@@ -232,7 +234,7 @@ class DocumentController extends Controller
         } else {
             $aziziyah_accommodation_capacity->attachment = "";
         }
-        $aziziyah_accommodation_capacity->company_id = auth()->user()->company_id;
+        $aziziyah_accommodation_capacity->company_id = 0;
         $aziziyah_accommodation_capacity->created_by = auth()->user()->id;
 
 

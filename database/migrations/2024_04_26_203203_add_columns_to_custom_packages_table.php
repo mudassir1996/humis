@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('food_types', function (Blueprint $table) {
-            $table->id();
-            $table->string("food_type_name");
-            $table->string("food_type_cost")->default(0);
-            $table->enum("food_type_status", ['ACTIVE', 'INACTIVE']);
-            $table->integer('created_by');
-            $table->timestamps();
+        Schema::table('custom_packages', function (Blueprint $table) {
+            $table->integer('ticket_id')->default(0);
         });
     }
 
@@ -30,6 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food_types');
+        Schema::table('custom_packages', function (Blueprint $table) {
+            $table->dropColumn('ticket_id');
+
+        });
     }
 };

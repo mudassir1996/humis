@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("client_country");
             $table->string("booking_nature");
             $table->string("agent_name")->default("");
-            $table->float("agent_commission")->default(0.00);
+            $table->string("agent_commission")->default(0.00);
             $table->integer("num_of_hujjaj");
             $table->enum("companion", ['Individual', 'Family']);
             $table->string("contact_name")->default("");
@@ -30,10 +30,10 @@ return new class extends Migration
             $table->enum("package_type", ['STANDARD', 'CUSTOM']);
             $table->integer("package_id");
             $table->string("booking_status")->default("");
-            $table->float("discount");
-            $table->float("net_total");
-            $table->float("commission");
-            $table->float("grand_total");
+            $table->string("discount")->default(0);
+            $table->string("net_total")->default(0);
+            $table->string("commission")->default(0);
+            $table->string("grand_total")->default(0);
             $table->integer('created_by');
             $table->timestamps();
         });

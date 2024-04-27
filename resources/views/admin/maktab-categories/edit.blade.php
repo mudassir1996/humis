@@ -75,6 +75,27 @@
 
 
                             </div>
+                            <div class="row">
+                                
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+
+                                        <label class="control-label">Special Transport Cost</label>
+                                        <input id="special_transport" class="form-control" placeholder="Enter Cost"
+                                            name="special_transport" value="{{ $maktab_category->special_transport }}" type="number" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Agent Commission</label>
+                                        <input id="agent_commission" class="form-control" placeholder="Enter Commission"
+                                            name="agent_commission" value="{{ $maktab_category->agent_commission }}" type="number">
+                                    </div>
+                                </div>
+                               
+                                
+
+                            </div>
 
 
                         </div>

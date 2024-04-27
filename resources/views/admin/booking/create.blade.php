@@ -58,8 +58,8 @@
 @section('scripts')
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
-    <script src="{{asset('assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
-	<script src="{{asset('assets/js/form-validation.js')}}"></script>
+    <script src="{{ asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 
     @if (Route::currentRouteName() == 'create-booking-step-1')
         <!-- plugin js for this page -->
@@ -92,7 +92,9 @@
             $('#companyDropdown').on('change', function() {
                 var companyId = $(this).val();
                 var bookingOfficeDropdown = $('#bookingOfficeDropdown');
+                var agentsDropdown = $('#agentsDropdown');
                 bookingOfficeDropdown.html('<option value="">Loading...</option>');
+                agentsDropdown.html('<option value="">Loading...</option>');
 
                 if (companyId) {
                     $.ajax({
@@ -113,8 +115,28 @@
                                 '<option value="">Failed to load booking offices</option>');
                         }
                     });
+
+                    $.ajax({
+                        url: '/companies/' + companyId + '/agents',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            agentsDropdown.html('<option value=""></option>');
+                            $.each(data, function(id, name) {
+                                console.log(id);
+                                agentsDropdown.append('<option value="' + id + '">' + name +
+                                    '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching agents:', error);
+                            agentsDropdown.html(
+                                '<option value="">Failed to load agents</option>');
+                        }
+                    });
                 } else {
                     bookingOfficeDropdown.html('<option value=""></option>');
+                    agentsDropdown.html('<option value=""></option>');
                 }
             });
         </script>
@@ -131,12 +153,13 @@
                 $('#makkah_room_sharing').prop('disabled', disable);
                 $('#madinah_room_sharing').prop('disabled', disable);
                 $('#food_type_id').prop('disabled', disable);
-                $('#special_transport').prop('disabled', disable);
+                $('#ticket').prop('disabled', disable);
             }
 
             $(document).ready(() => {
                 disableFields(true);
                 $('#packageDropdown').prop('disabled', true);
+
             })
 
             $("#package_type").on('change', function() {
@@ -154,6 +177,10 @@
                     $('#packageDropdown').trigger("change");
                     $('#package_name_field').hide();
                     disableFields(false);
+                    $('#makkah_room_sharing').val("SHARING");
+                    $('#madinah_room_sharing').val("SHARING");
+                    $('#makkah_room_sharing').trigger("change");
+                    $('#madinah_room_sharing').trigger("change");
                 }
             });
 
@@ -177,7 +204,7 @@
                             $('#makkah_room_sharing').val(data.makkah_room_sharing);
                             $('#madinah_room_sharing').val(data.madinah_room_sharing);
                             $('#food_type_id').val(data.food_type_id);
-                            $('#special_transport').val(data.special_transport);
+                            $('#ticket').val(data.ticket_id);
 
 
                             $('#maktab_category').trigger("change");
@@ -189,7 +216,7 @@
                             $('#makkah_room_sharing').trigger("change");
                             $('#madinah_room_sharing').trigger("change");
                             $('#food_type_id').trigger("change");
-                            $('#special_transport').trigger("change");
+                            $('#ticket').trigger("change");
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching booking offices:', error);
@@ -205,19 +232,20 @@
 
                     const postData = {
                         "_token": "{{ csrf_token() }}",
-                       "maktab_category_id" : $('#maktab_category').val(),
-                       "aziziya_accommodation_id" : $('#aziziya_accommodation_id').val(),
-                       "madinah_accommodation_id" : $('#madinah_accommodation_id').val(),
-                       "makkah_accommodation_id" : $('#makkah_accommodation_id').val(),
-                       "madinah_room_sharing" : $('#madinah_room_sharing').val(),
-                       "makkah_room_sharing" : $('#makkah_room_sharing').val(),
-                       "food_type_id" : $('#food_type_id').val(),
-                       "special_transport" : $('#special_transport').val(),
+                        "maktab_category_id": $('#maktab_category').val(),
+                        "aziziya_accommodation_id": $('#aziziya_accommodation_id').val(),
+                        "madinah_accommodation_id": $('#madinah_accommodation_id').val(),
+                        "makkah_accommodation_id": $('#makkah_accommodation_id').val(),
+                        "madinah_room_sharing": $('#madinah_room_sharing').val(),
+                        "makkah_room_sharing": $('#makkah_room_sharing').val(),
+                        "ticket_id": $('#ticket').val(),
+                        "food_type_id": $('#food_type_id').val(),
+                        "special_transport": $('#special_transport').val(),
                     }
                     $.ajax({
                         url: '/packages/calculate-pricing',
                         type: 'POST',
-                        data:postData,
+                        data: postData,
                         dataType: 'json',
                         success: function(data) {
                             $('#cost_per_person').val(data.package_cost);
@@ -276,6 +304,10 @@
 
                 $("#net_cost").text(final_cost);
                 $("#net_total").val(final_cost);
+
+                $("#total_cost_preview").text(final_cost);
+                $("#total_cost").val(final_cost);
+                
                 // $("#total_cost_preview").text(final_cost+commission);
                 // $("#total_cost").val(final_cost+commission);
 

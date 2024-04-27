@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Airport;
+use App\Models\Agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AirportController extends Controller
+class AgentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class AirportController extends Controller
      */
     public function index()
     {
-        $airports = Airport::all();
-        return view('admin.airports.index', compact('airports'));
+        $agents = Agent::where('company_id',auth()->user()->company_id)->get();
+        return view('company.agents.index', compact('agents'));
     }
 
     /**
@@ -27,8 +26,7 @@ class AirportController extends Controller
      */
     public function create()
     {
-        return view('admin.airports.create');
-
+        return view('company.agents.create');
     }
 
     /**
@@ -40,9 +38,9 @@ class AirportController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'airport_name' => 'required',
-            'airport_country_code' => 'required',
-           
+            'agent_name' => 'required',
+            'agent_contact' => 'required',
+
         ]);
         if ($validation->fails()) {
             $notification = array(
@@ -52,15 +50,16 @@ class AirportController extends Controller
             return redirect()->back()->with($notification);
         }
 
-        $airport = new Airport();
-        $airport->airport_name = $request->airport_name;
-        $airport->airport_country_code = $request->airport_country_code;
-        $airport->created_by = auth()->user()->id;
+        $agent = new Agent();
+        $agent->agent_name = $request->agent_name;
+        $agent->agent_contact = $request->agent_contact;
+        $agent->company_id = auth()->user()->company_id;
+        $agent->created_by = auth()->user()->id;
 
 
-        if ($airport->save()) {
+        if ($agent->save()) {
             $notification = array(
-                'message' => 'Airport Added Successfully!',
+                'message' => 'Agent Added Successfully!',
                 'alert-type' => 'success'
             );
         } else {
@@ -69,7 +68,7 @@ class AirportController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->route('airports.index')->with($notification);
+        return redirect()->route('agents.index')->with($notification);
     }
 
     /**
@@ -91,9 +90,8 @@ class AirportController extends Controller
      */
     public function edit($id)
     {
-        $airport = Airport::find($id);
-        return view('admin.airports.edit',compact('airport'));
-
+        $agent = Agent::find($id);
+        return view('company.agents.edit', compact('agent'));
     }
 
     /**
@@ -105,21 +103,27 @@ class AirportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Validator::make($request->all(), [
-            'airport_name' => 'required',
-            'airport_country_code' => 'required',
+        $validation = Validator::make($request->all(), [
+            'agent_name' => 'required',
+            'agent_contact' => 'required',
 
         ]);
-
-        $airport = Airport::find($id);
-        $airport->airport_name = $request->airport_name;
-        $airport->airport_country_code = $request->airport_country_code;
-        $airport->created_by = auth()->user()->id;
-
-
-        if ($airport->save()) {
+        if ($validation->fails()) {
             $notification = array(
-                'message' => 'Airport Updated Successfully!',
+                'message' => 'Please fill out required fields!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        $agent = Agent::find($id);
+        $agent->agent_name = $request->agent_name;
+        $agent->agent_contact = $request->agent_contact;
+
+
+        if ($agent->save()) {
+            $notification = array(
+                'message' => 'Agent Updated Successfully!',
                 'alert-type' => 'success'
             );
         } else {
@@ -128,7 +132,7 @@ class AirportController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->route('airports.index')->with($notification);
+        return redirect()->route('agents.index')->with($notification);
     }
 
     /**
@@ -140,12 +144,12 @@ class AirportController extends Controller
     public function destroy($id)
     {
         //selecting the specific id row for deleting from db
-        $airport = Airport::where('id', $id)
+        $agent = Agent::where('id', $id)
             ->firstOrFail();
 
-        if ($airport->delete()) {
+        if ($agent->delete()) {
             $notification = array(
-                'message' => 'Airport Deleted Successfully!',
+                'message' => 'Agent Deleted Successfully!',
                 'alert-type' => 'success'
             );
         } else {
@@ -154,6 +158,6 @@ class AirportController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->route('airports.index')->with($notification);
+        return redirect()->route('agents.index')->with($notification);
     }
 }

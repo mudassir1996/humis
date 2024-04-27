@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('maktab_categories', function (Blueprint $table) {
             $table->id();
             $table->string("maktab_name");
-            $table->float("maktab_cost");
+            $table->string("maktab_cost")->default(0);
             $table->enum("maktab_status",['ACTIVE','INACTIVE']);
-            $table->float("profit");
-            $table->float("ksa_expense");
-            $table->float("pk_expense");
+            $table->string("profit")->default(0);
+            $table->string("ksa_expense")->default(0);
+            $table->string("pk_expense")->default(0);
             $table->integer('created_by');
             $table->timestamps();
         });

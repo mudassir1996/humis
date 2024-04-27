@@ -18,7 +18,12 @@ class BookingOfficeController extends Controller
      */
     public function index()
     {
-        $booking_offices = CompanyBookingOffice::select('company_booking_offices.*','companies.company_name')->orderByDesc('id')->leftJoin('companies', 'company_booking_offices.company_id','companies.id')->where('company_booking_offices.company_id',auth()->user()->company_id)->get();
+        if(Auth::user()->role=="ADMIN"){
+            $booking_offices = CompanyBookingOffice::select('company_booking_offices.*', 'companies.company_name')->orderByDesc('id')->leftJoin('companies', 'company_booking_offices.company_id', 'companies.id')->get();
+
+        }else{
+            $booking_offices = CompanyBookingOffice::select('company_booking_offices.*','companies.company_name')->orderByDesc('id')->leftJoin('companies', 'company_booking_offices.company_id','companies.id')->where('company_booking_offices.company_id',auth()->user()->company_id)->get();
+        }
         return view('admin.booking-offices.index', compact('booking_offices'));
     }
     /**

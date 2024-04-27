@@ -157,7 +157,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ request()->route()->getName() == 'special-transports.edit' ? 'active' : '' }}">
+                {{-- <li class="nav-item {{ request()->route()->getName() == 'special-transports.edit' ? 'active' : '' }}">
                     <a class="nav-link" data-toggle="collapse" href="#special-transports" role="button"
                         aria-expanded="false" aria-controls="special-transports">
                         <i class="link-icon" data-feather="calendar"></i>
@@ -177,7 +177,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item  {{ request()->route()->getName() == 'companies.edit' ? 'active' : '' }}">
                     <a class="nav-link" data-toggle="collapse" href="#companies" role="button"
                         aria-expanded="false" aria-controls="bookings">
@@ -308,6 +308,27 @@
                 </div>
             </li>
             @if (auth()->user()->role == 'COMPANY')
+             <li class="nav-item {{ request()->route()->getName() == 'agents.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#agents" role="button"
+                        aria-expanded="false" aria-controls="bookings">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Agents</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'agents.edit' ? 'show' : '' }}"
+                        id="agents">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('agents.create') }}" class="nav-link">Add Agent</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('agents.index') }}" class="nav-link">Agents List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->role == 'ADMIN')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#documents" role="button"
                         aria-expanded="false" aria-controls="accounts">

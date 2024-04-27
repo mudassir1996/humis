@@ -70,6 +70,52 @@
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
+                        <h3>Hajjaj Details</h3>
+                        {{-- <div>
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
+                            data-target="#filterModal">
+                            <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
+                        </button>
+                            <a class="btn btn-primary text-white" href="{{route('reciepts.create')}}">
+                            <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
+                            </a>
+                        </div> --}}
+                    </div>
+                   <div class="row py-3">
+                            <div class="col-lg-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <th>Application No.</th>
+                                        <th>Haji Name</th>
+                                        <th>Passport No.</th>
+                                        <th>Package Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($applications as $application)
+                                            <tr>
+                                                <td>{{ $application->application_number }}</td>
+                                                <td>{{ $application->given_name . ' ' . $application->surname }}</td>
+                                                <td>{{ $application->passport }}</td>
+                                                <td>PKR {{ $application->cost_per_person }}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="bg-light">
+                                            <td colspan="3">Total Package Amount</td>
+                                            <td>PKR {{ $total_bill }}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-between py-3">
                         <h3>Reciepts Details</h3>
                         {{-- <div>
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter

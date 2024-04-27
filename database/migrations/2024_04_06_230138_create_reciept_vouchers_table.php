@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('payment_mode');
             $table->string('bank_account');
             $table->string('check_num');
-            $table->float('amount');
-            $table->float('transaction_charges');
+            $table->string('amount')->default(0);
+            $table->string('transaction_charges')->default(0);
             $table->text('amount_in_words');
             $table->string('reciever_name');
             $table->text('attachment');

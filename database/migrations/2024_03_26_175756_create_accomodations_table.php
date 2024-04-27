@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string("hotel_name");
             $table->enum("accomodation_type", ['AZIZIYAH', 'MAKKAH', 'MADINAH']);
-            $table->float("sharing_room_cost");
-            $table->float("triple_room_cost");
-            $table->float("quad_double_cost");
+            $table->string("sharing_room_cost")->default(0);
+            $table->string("triple_room_cost")->default(0);
+            $table->string("quad_double_cost")->default(0);
             $table->enum("hotel_status", ['ACTIVE', 'INACTIVE']);
             $table->integer('created_by');
             $table->timestamps();
