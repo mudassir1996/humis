@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <input type="submit" value="Login"
-                                        class="btn btn-primary mr-2 mb-2 mb-md-0 text-white">
+                                        class="btn btn-primary mr-2 mb-2 mb-md-0">
 
                                 </div>
                                 {{-- <a href="{{ route('register') }}" class="d-block mt-3 text-muted">Not a user? Sign up</a> --}}
