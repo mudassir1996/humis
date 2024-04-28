@@ -4,6 +4,8 @@ $(function() {
   if ($(".select2-single").length) {
     $(".select2-single").select2({
       placeholder: "Select an option",
+      allowClear: true
+
     });
   }
 
@@ -23,7 +25,8 @@ $(function() {
         dropdownParent = $(this).parents('.modal.in:first');
       $(this).select2({
         placeholder: "Select an option",
-        dropdownParent: dropdownParent
+        dropdownParent: dropdownParent,
+        allowClear:true
         // ...
       });
     });

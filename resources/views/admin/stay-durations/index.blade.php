@@ -14,12 +14,12 @@
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
-                        <h3>Madinah Accomodation List</h3>
+                        <h3>Duration of Stay</h3>
                         {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button> --}}
-                        <a href="{{ route('madinah-accomodations.create') }}">
+                        <a href="{{ route('stay-durations.create') }}">
                             <button type="button" class="btn btn-primary">
                                 <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
                             </button>
@@ -33,21 +33,16 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Accomodation</th>
-                                    <th>Quad/Sharing Cost</th>
-                                    <th>Triple Cost</th>
-                                    <th>Double Cost</th>
+                                    <th>Duration</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($accomodations as $accomodation)
+                                @foreach ($stay_durations as $stay_duration)
                                     <tr>
-                                        <td>{{ $accomodation->id }}</td>
-                                        <td>{{ $accomodation->hotel_name }}</td>
-                                        <td>{{ $accomodation->sharing_room_cost }}</td>
-                                        <td>{{ $accomodation->triple_room_cost }}</td>
-                                        <td>{{ $accomodation->quad_double_cost }}</td>
+                                        <td>{{ $stay_duration->id }}</td>
+                                        <td>{{ $stay_duration->duration_of_stay }}</td>
+                                        
                                         
                                         
 
@@ -71,16 +66,16 @@
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
                                                     <a class="dropdown-item d-flex align-items-center p-2"
-                                                        href="{{ route('madinah-accomodations.edit', $accomodation->id) }}"><i
+                                                        href="{{ route('stay-durations.edit', $stay_duration->id) }}"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    <form action="{{ route('madinah-accomodations.destroy', $accomodation->id) }}"
-                                                        id="delete_item_from{{ $accomodation->id }}" method="post">
+                                                    <form action="{{ route('stay-durations.destroy', $stay_duration->id) }}"
+                                                        id="delete_item_from{{ $stay_duration->id }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <a type="button" class="dropdown-item d-flex align-items-center p-2"
                                                             title="Delete"
-                                                            onclick="deleteConfirmation('delete_item_from{{ $accomodation->id }}')"><i
+                                                            onclick="deleteConfirmation('delete_item_from{{ $stay_duration->id }}')"><i
                                                                 data-feather="trash-2" class="icon-md mr-2"></i> <span
                                                                 class="">Delete</span></a>
 

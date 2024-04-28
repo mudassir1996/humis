@@ -20,7 +20,7 @@
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button> --}}
                         <a href="{{ route('food-types.create') }}">
-                            <button type="button" class="btn btn-outline-primary">
+                            <button type="button" class="btn btn-primary">
                                 <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
                             </button>
                         </a>
@@ -94,7 +94,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @include('admin.application.application-filters')
                 </div>
             </div>
         </div>

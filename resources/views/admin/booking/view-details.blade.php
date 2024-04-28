@@ -212,7 +212,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @include('admin.application.application-filters')
                 </div>
             </div>
         </div>

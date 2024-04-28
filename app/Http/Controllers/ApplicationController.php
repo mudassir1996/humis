@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accomodation;
+use App\Models\Airport;
 use App\Models\Application;
+use App\Models\MaktabCategory;
+use App\Models\StayDuration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,13 +19,79 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role=="ADMIN"){
-            $applications = Application::select('company_name','applications.id', 'booking_number', 'application_number', 'given_name', 'surname', 'gender', 'passport', 'applications.document_ticket', 'applications.document_visa')->leftJoin('bookings', 'bookings.id', 'applications.booking_id')->leftJoin('companies', 'companies.id', 'bookings.company_id')->get();
-        }else{
-            $applications = Application::select('company_name','applications.id', 'booking_number', 'application_number', 'given_name', 'surname', 'gender', 'passport', 'applications.document_ticket', 'applications.document_visa')->leftJoin('bookings', 'bookings.id', 'applications.booking_id')->leftJoin('companies', 'companies.id', 'bookings.company_id')->where('bookings.company_id',auth()->user()->company_id)->get();
+        $maktab_categories = MaktabCategory::where('maktab_status', 'ACTIVE')->select('id', 'maktab_name')->get();
+        $accomodations = Accomodation::where('hotel_status', 'ACTIVE')->select('id', 'hotel_name', 'accomodation_type', 'sharing_room_cost', 'triple_room_cost', 'quad_double_cost')->get();
+        $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
+        $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
+        $airports = Airport::all();
+        $stay_durations = StayDuration::all();
 
+        if (Auth::user()->role == "ADMIN") {
+            $applications = Application::filter()->select(
+                'company_name',
+                'applications.id',
+                'booking_number',
+                'application_number',
+                'given_name',
+                'surname',
+                'gender',
+                'passport',
+                'applications.document_ticket',
+                'applications.document_visa'
+            )->leftJoin('bookings', 'bookings.id', 'applications.booking_id')
+                ->leftJoin(
+                    'packages',
+                    function ($join) {
+                        $join->on('bookings.package_id', '=', 'packages.id')
+                            ->where('bookings.package_type', '=', 'STANDARD');
+                    }
+                )->leftJoin(
+                    'custom_packages',
+                    function ($join) {
+                        $join->on('bookings.package_id', '=', 'custom_packages.id')
+                            ->where('bookings.package_type', '=', 'CUSTOM');
+                    }
+                )
+                ->leftJoin('companies', 'companies.id', 'bookings.company_id')
+                ->get();
+        } else {
+            $applications = Application::filter()->select(
+                'company_name',
+                'applications.id',
+                'booking_number',
+                'application_number',
+                'given_name',
+                'surname',
+                'gender',
+                'passport',
+                'applications.document_ticket',
+                'applications.document_visa'
+            )->leftJoin('bookings', 'bookings.id', 'applications.booking_id')
+                ->leftJoin(
+                    'packages',
+                    function ($join) {
+                        $join->on('bookings.package_id', '=', 'packages.id')
+                            ->where('bookings.package_type', '=', 'STANDARD');
+                    }
+                )->leftJoin(
+                    'custom_packages',
+                    function ($join) {
+                        $join->on('bookings.package_id', '=', 'custom_packages.id')
+                            ->where('bookings.package_type', '=', 'CUSTOM');
+                    }
+                )
+                ->leftJoin('companies', 'companies.id', 'bookings.company_id')
+                ->where('bookings.company_id', auth()->user()->company_id)->get();
         }
-        return view('admin.application.index', compact('applications'));
+        return view('admin.application.index', compact(
+            'applications',
+            'maktab_categories',
+            'makkah_accomodations',
+            'madinah_accomodations',
+            'airports',
+            'stay_durations'
+
+        ));
     }
 
     /**

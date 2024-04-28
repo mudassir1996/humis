@@ -7,6 +7,7 @@ use App\Models\FoodType;
 use App\Models\MaktabCategory;
 use App\Models\Package;
 use App\Models\SpecialTransport;
+use App\Models\StayDuration;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -134,8 +135,9 @@ class PackageController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $tickets = Ticket::all();
+        $stay_durations = StayDuration::all();
         $food_types = FoodType::where('food_type_status', 'ACTIVE')->select('id', 'food_type_name', 'food_type_cost')->get();
-        return view('admin.packages.create', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types','tickets'));
+        return view('admin.packages.create', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types','tickets', 'stay_durations'));
     }
 
 
@@ -182,8 +184,10 @@ class PackageController extends Controller
         $food_types = FoodType::where('food_type_status', 'ACTIVE')->select('id', 'food_type_name', 'food_type_cost')->get();
         $package = Package::find($id);
         $tickets = Ticket::all();
+        $stay_durations = StayDuration::all();
 
-        return view('admin.packages.edit', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types', 'package', 'tickets'));
+
+        return view('admin.packages.edit', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types', 'package', 'tickets', 'stay_durations'));
     }
 
     public function update(Request $request, $id)

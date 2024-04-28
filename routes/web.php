@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdditionalFacilityController;
 use App\Http\Controllers\Admin\AirportController;
 use App\Http\Controllers\Admin\AzziahAccomodationController;
 use App\Http\Controllers\Admin\BookingOfficeController;
@@ -9,7 +10,9 @@ use App\Http\Controllers\Admin\FoodController;
 use App\Http\Controllers\Admin\MadinahAccomodationController;
 use App\Http\Controllers\Admin\MakkahAccomodationController;
 use App\Http\Controllers\Admin\MaktabCategoryController;
+use App\Http\Controllers\Admin\OtherCostController;
 use App\Http\Controllers\Admin\SpecialTransportController;
+use App\Http\Controllers\Admin\StayDurationController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BookingController;
@@ -86,7 +89,10 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/companies/{id}/booking-offices', [CompanyController::class, 'getBookingOffices']);
         Route::get('/companies/{id}/agents', [CompanyController::class, 'getAgents']);
+        Route::resource('/other-costs', OtherCostController::class)->except(['create','store','edit','destroy']);
         Route::resource('/companies', CompanyController::class);
+        Route::resource('/additional-facilities', AdditionalFacilityController::class);
+        Route::resource('/stay-durations', StayDurationController::class);
         Route::resource('/packages', PackageController::class);
         Route::resource('/maktab-categories', MaktabCategoryController::class);
         Route::resource('/aziziah-accomodations', AzziahAccomodationController::class);

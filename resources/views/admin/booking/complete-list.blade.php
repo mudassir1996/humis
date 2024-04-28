@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Booking List</h3>
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
+                        <button type="button" class="btn btn-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button>

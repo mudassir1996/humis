@@ -48,21 +48,12 @@
                                         <label class="control-label">Duration of Stay</label>
                                         <select class="select2-single" id="duration_of_stay" name="duration_of_stay">
                                             <option></option>
-                                            <option {{ $package->duration_of_stay == '10 Days' ? 'selected' : '' }}
-                                                value="10 Days">10 Days</option>
-                                            <option {{ $package->duration_of_stay == '12 Days' ? 'selected' : '' }}
-                                                value="12 Days">12 Days</option>
-                                            <option {{ $package->duration_of_stay == '14-16 Days' ? 'selected' : '' }}
-                                                value="14-16 Days">14-16 Days</option>
-                                            <option {{ $package->duration_of_stay == '14-18 Days' ? 'selected' : '' }}
-                                                value="14-18 Days">14-18 Days</option>
-                                            <option {{ $package->duration_of_stay == '18-22 Days' ? 'selected' : '' }}
-                                                value="18-22 Days">18-22 Days</option>
-                                            <option {{ $package->duration_of_stay == '22-25 Days' ? 'selected' : '' }}
-                                                value="22-25 Days">22-25 Days</option>
-                                            <option {{ $package->duration_of_stay == '28-32 Days' ? 'selected' : '' }}
-                                                value="28-32 Days">28-32 Days</option>
+                                            @foreach ($stay_durations as $stay_duration)
+                                                <option value="{{ $stay_duration->duration_of_stay }}" {{ $package->duration_of_stay == $stay_duration->duration_of_stay  ? 'selected' : '' }}>
+                                                    {{ $stay_duration->duration_of_stay }}</option>
+                                            @endforeach
                                         </select>
+                                     
                                     </div>
                                 </div>
 

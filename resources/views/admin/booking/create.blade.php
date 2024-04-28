@@ -297,9 +297,18 @@
                 let discount = $(this).val();
                 if (discount == "") {
                     discount = 0;
+                }else{
+                   discount = parseInt(discount);
                 }
-                let total_cost = $("#total_cost").val();
-                let final_cost = total_cost - discount;
+                let total_cost_orignal = parseInt($("#total_cost_orignal").val());
+                if(discount > total_cost_orignal){
+                    alert("Invalid Discount amount");
+                    $(this).val(0);
+                    $(this).trigger('keyup');
+                    return;
+                }
+
+                let final_cost = parseInt(total_cost_orignal - discount);
                 let commission = $("#commission").val();
 
                 $("#net_cost").text(final_cost);

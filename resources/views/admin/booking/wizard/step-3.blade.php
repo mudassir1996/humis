@@ -289,8 +289,11 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Additional Facility</label>
-                <select class="select2-single">
+                <select class="select2-single" name="additional_facility_id">
                     <option></option>
+                    @foreach ($additional_facilities as $additional_facility)
+                        <option value="{{ $additional_facility->id }}">{{ $additional_facility->facility_title }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

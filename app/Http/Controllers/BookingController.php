@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accomodation;
+use App\Models\AdditionalFacility;
 use App\Models\Agent;
 use App\Models\Airport;
 use App\Models\Application;
@@ -12,7 +13,9 @@ use App\Models\CompanyBookingOffice;
 use App\Models\CustomPackage;
 use App\Models\FoodType;
 use App\Models\MaktabCategory;
+use App\Models\OtherCost;
 use App\Models\Package;
+use App\Models\StayDuration;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,29 +35,32 @@ class BookingController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $airports = Airport::all();
+        $stay_durations = StayDuration::all();
+
         if (auth()->user()->role == 'ADMIN') {
-            $bookings = Booking::filter()->leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin(
-                'packages',
-                function ($join) {
-                    $join->on('bookings.package_id', '=', 'packages.id')
-                        ->where('bookings.package_type', '=', 'STANDARD');
-                }
-            )->leftJoin(
-                'custom_packages',
-                function ($join) {
-                    $join->on('bookings.package_id', '=', 'custom_packages.id')
-                        ->where('bookings.package_type', '=', 'CUSTOM');
-                }
-            )->select(
-                'bookings.id',
-                'booking_number',
-                'company_name',
-                'contact_name',
-                'contact_surname',
-                'package_type',
-                'custom_packages.package_name as custom_package_name',
-                'packages.package_name',
-            )->get();
+            $bookings = Booking::filter()->leftJoin('companies', 'companies.id', 'bookings.company_id')
+                ->leftJoin(
+                    'packages',
+                    function ($join) {
+                        $join->on('bookings.package_id', '=', 'packages.id')
+                            ->where('bookings.package_type', '=', 'STANDARD');
+                    }
+                )->leftJoin(
+                    'custom_packages',
+                    function ($join) {
+                        $join->on('bookings.package_id', '=', 'custom_packages.id')
+                            ->where('bookings.package_type', '=', 'CUSTOM');
+                    }
+                )->select(
+                    'bookings.id',
+                    'booking_number',
+                    'company_name',
+                    'contact_name',
+                    'contact_surname',
+                    'package_type',
+                    'custom_packages.package_name as custom_package_name',
+                    'packages.package_name',
+                )->get();
         } else {
             $bookings = Booking::filter()->leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin(
                 'packages',
@@ -85,7 +91,8 @@ class BookingController extends Controller
             'maktab_categories',
             'makkah_accomodations',
             'madinah_accomodations',
-            'airports'
+            'airports',
+            'stay_durations'
         ));
     }
 
@@ -96,11 +103,11 @@ class BookingController extends Controller
      */
     public function create_step_1(Request $request)
     {
-        if(Auth::user()->role=="ADMIN"){
+        if (Auth::user()->role == "ADMIN") {
             $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->get();
             $booking_offices = "";
             $agents = "";
-        }else{
+        } else {
             $companies = Company::where('company_status', 'ACTIVE')->select('id', 'company_name')->where('id', Auth::user()->company_id)->get();
             $booking_offices = CompanyBookingOffice::select('id', 'booking_office_name', 'company_id')->where('company_id', Auth::user()->company_id)->get();
             $agents = Agent::select('id', 'agent_name')->where('company_id', Auth::user()->company_id)->get();
@@ -354,7 +361,7 @@ class BookingController extends Controller
             "Zimbabwe" => "Zimbabwe"
         );
 
-        
+
         $request->session()->forget('booking');
         $request->session()->forget('applications');
 
@@ -405,7 +412,9 @@ class BookingController extends Controller
         $food_types = FoodType::where('food_type_status', 'ACTIVE')->select('id', 'food_type_name', 'food_type_cost')->get();
         $tickets = Ticket::all();
         $booking = $request->session()->get('booking');
-        return view('admin.booking.create', compact('tickets','booking', 'packages', 'maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types'));
+        $stay_durations = StayDuration::all();
+
+        return view('admin.booking.create', compact('tickets', 'booking', 'packages', 'maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types', 'stay_durations'));
     }
 
     /**
@@ -461,6 +470,7 @@ class BookingController extends Controller
         $airports = Airport::select('id', 'airport_name', 'airport_country_code')->get();
         $pk_airports = $airports->where('airport_country_code', 'PK');
         $ksa_airports = $airports->where('airport_country_code', 'KSA');
+        $additional_facilities = AdditionalFacility::all();
 
         $relationships = array(
             "GRAND SON" => "Grand son",
@@ -487,7 +497,7 @@ class BookingController extends Controller
             "GRAND DAUGHTER" => "Grand daughter"
         );
 
-        return view('admin.booking.create', compact('booking', 'tickets', 'pk_airports', 'ksa_airports', 'relationships'));
+        return view('admin.booking.create', compact('booking', 'tickets', 'pk_airports', 'ksa_airports', 'relationships', 'additional_facilities'));
     }
 
 
@@ -531,6 +541,7 @@ class BookingController extends Controller
         $application->nominee_mobile = $request->nominee_mobile;
         $application->qurbani = $request->qurbani;
         $application->ticket = $request->ticket;
+        $application->additional_facility_id = $request->additional_facility_id;
         $application->departure_airport_pk_id = $request->departure_airport_pk_id;
         $application->arrival_airport_pk_id = $request->arrival_airport_pk_id;
         $application->departure_airport_ksa_id = $request->departure_airport_ksa_id;
@@ -551,13 +562,14 @@ class BookingController extends Controller
         $ticket_cost = 0;
 
         if ($request->qurbani == 'INCLUDED') {
-            $qurbani_fee = 800;
+            $other_cost = OtherCost::where('cost_key', 'qurbani_cost')->select('cost')->first();
+            $other_cost->qurbani_fee ?? 0;
         }
 
         if ($request->ticket == 'NOT_INCLUDED') {
             $ticket_cost = 0;
         }
-       
+
         if ($booking->package_type == 'CUSTOM') {
             $package = CustomPackage::where('id', $booking->package_id)->first();
         } else {
@@ -577,7 +589,7 @@ class BookingController extends Controller
             $makkah_accommodation = Accomodation::where('id', $package->makkah_accommodation_id)->first();
             $madinah_accommodation = Accomodation::where('id', $package->madinah_accommodation_id)->first();
 
-           
+
             if ($package->makkah_room_sharing == 'TRIPLE') {
                 $old_makkah_accommodation_cost = $makkah_accommodation->triple_room_cost;
             } else if ($package->makkah_room_sharing == 'DOUBLE') {
@@ -594,7 +606,7 @@ class BookingController extends Controller
                 $old_madinah_accommodation_cost = $madinah_accommodation->sharing_room_cost ?? 0;
             }
 
-            $cost_with_accomodation = $package->cost_per_person -($old_madinah_accommodation_cost + $old_makkah_accommodation_cost);
+            $cost_with_accomodation = $package->cost_per_person - ($old_madinah_accommodation_cost + $old_makkah_accommodation_cost);
             if ($request->room_sharing == 'TRIPLE') {
                 $makkah_accommodation_cost = $makkah_accommodation->triple_room_cost;
                 $madinah_accommodation_cost = $madinah_accommodation->triple_room_cost;
@@ -606,9 +618,8 @@ class BookingController extends Controller
                 $madinah_accommodation_cost = $madinah_accommodation->sharing_room_cost ?? 0;
             }
 
-                    
-            $cost_per_person = $cost_with_accomodation + $makkah_accommodation_cost + $madinah_accommodation_cost;
 
+            $cost_per_person = $cost_with_accomodation + $makkah_accommodation_cost + $madinah_accommodation_cost;
         }
 
 
@@ -642,7 +653,6 @@ class BookingController extends Controller
 
         $applications[] = $application;
 
-        dd($applications);
 
         $request->session()->put('applications', $applications);
         $request->session()->put('booking', $booking);
@@ -703,12 +713,21 @@ class BookingController extends Controller
                     $application->booking_id = $booking->id;
 
 
-
+                    $additional_facility_id= $application->additional_facility_id;
+                    unset($application->additional_facility_id);
                     unset($application->is_contact_person);
                     unset($application->room_sharing);
                     $application->created_by = auth()->user()->id;
 
-                    $application->save();
+                    if ($application->save()) {
+                        if($additional_facility_id !=''){
+                            $additional_facility = new AdditionalFacility();
+                            $additional_facility->application_id = $application->id;
+                            $additional_facility->additional_facility_id = $additional_facility_id;
+                            $additional_facility->created_by = auth()->user()->id;
+                            $additional_facility->save();
+                        }
+                    }
                 }
             }
         });
@@ -727,13 +746,39 @@ class BookingController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $airports = Airport::all();
-        $bookings = Booking::leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin('packages', 'packages.id', 'bookings.package_id')->select('bookings.id', 'booking_number', 'company_name', 'contact_name', 'contact_surname', 'package_name')->get();
+        $stay_durations = StayDuration::all();
+
+
+        $bookings = Booking::filter()->leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin(
+            'packages',
+            function ($join) {
+                $join->on('bookings.package_id', '=', 'packages.id')
+                    ->where('bookings.package_type', '=', 'STANDARD');
+            }
+        )->leftJoin(
+            'custom_packages',
+            function ($join) {
+                $join->on('bookings.package_id', '=', 'custom_packages.id')
+                    ->where('bookings.package_type', '=', 'CUSTOM');
+            }
+        )->select(
+            'bookings.id',
+            'booking_number',
+            'company_name',
+            'contact_name',
+            'contact_surname',
+            'package_type',
+            'custom_packages.package_name as custom_package_name',
+            'packages.package_name',
+        )->get();
         return view('admin.booking.complete-list', compact(
             'bookings',
             'maktab_categories',
             'makkah_accomodations',
             'madinah_accomodations',
-            'airports'
+            'airports',
+            'stay_durations'
+
         ));
     }
     /**
@@ -816,7 +861,7 @@ class BookingController extends Controller
                 ->first();
         }
 
-        $package->package_type= $initial_info->package_type;
+        $package->package_type = $initial_info->package_type;
 
 
 
@@ -842,7 +887,11 @@ class BookingController extends Controller
         // ->first();
 
         $applications = Application::select('booking_number', 'application_number', 'given_name', 'surname', 'gender', 'passport', 'cost_per_person')->leftJoin('bookings', 'bookings.id', 'applications.booking_id')->where('applications.booking_id', $id)->get();
-        return view('admin.booking.view-details', compact('initial_info', 'applications', 'package'));
+        return view('admin.booking.view-details', compact(
+            'initial_info',
+            'applications',
+            'package',
+        ));
     }
 
     /**

@@ -15,10 +15,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Applications List</h3>
-                        {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
+                        <button type="button" class="btn btn-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
-                        </button> --}}
+                        </button>
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -27,6 +27,7 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Company Name</th>
                                     <th>Booking No.</th>
                                     <th>Application No.</th>
@@ -41,6 +42,7 @@
                             <tbody>
                                 @foreach ($applications as $application)
                                     <tr>
+                                        <td>{{ $application->id }}</td>
                                         <td>{{ $application->company_name }}</td>
                                         <td>{{ $application->booking_number }}</td>
                                         <td>{{ $application->application_number }}</td>

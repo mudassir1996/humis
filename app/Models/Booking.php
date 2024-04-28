@@ -21,36 +21,49 @@ class Booking extends Model
     {
         $filter->where(function ($query) {
             // Standard packages filter conditions
-            $query->where('bookings.package_type', 'STANDARD')
-            ->when(request()->maktab_category_id, function ($query, $maktabCategoryId) {
-                $query->where('packages.maktab_category_id', $maktabCategoryId);
-            })
-                ->when(request()->makkah_accomodation_id, function ($query, $makkahAccomodationId) {
-                    $query->where('packages.makkah_accommodation_id', $makkahAccomodationId);
-                })
-                ->when(request()->madinah_accomodation_id, function ($query, $madinahAccomodationId) {
-                    $query->where('packages.madinah_accommodation_id', $madinahAccomodationId);
-                })
-                ->when(request()->duration_of_stay, function ($query, $durationOfStay) {
-                    $query->where('packages.duration_of_stay', $durationOfStay);
-                });
+            if (request()->maktab_category_id != '' || request()->makkah_accomodation_id != '' || request()->madinah_accomodation_id != '' || request()->duration_of_stay != '') {
+                $query->where('bookings.package_type', 'STANDARD');
+            }
+            if (request()->maktab_category_id != '') {
+                $query->where('packages.maktab_category_id', request()->maktab_category_id);
+            }
+
+            if (request()->makkah_accomodation_id != '') {
+                $query->where('packages.makkah_accommodation_id', request()->makkah_accomodation_id);
+            }
+
+            if (request()->madinah_accomodation_id != '') {
+                $query->where('packages.madinah_accommodation_id', request()->madinah_accomodation_id);
+            }
+
+            if (request()->duration_of_stay != '') {
+                $query->where('packages.duration_of_stay', request()->duration_of_stay);
+            }
+           
         });
 
         $filter->orWhere(function ($query) {
             // Custom packages filter conditions
-            $query->where('bookings.package_type', 'CUSTOM')
-            ->when(request()->maktab_category_id, function ($query, $maktabCategoryId) {
-                $query->where('custom_packages.maktab_category_id', $maktabCategoryId);
-            })
-                ->when(request()->makkah_accomodation_id, function ($query, $makkahAccomodationId) {
-                    $query->where('custom_packages.makkah_accommodation_id', $makkahAccomodationId);
-                })
-                ->when(request()->madinah_accomodation_id, function ($query, $madinahAccomodationId) {
-                    $query->where('custom_packages.madinah_accommodation_id', $madinahAccomodationId);
-                })
-                ->when(request()->duration_of_stay, function ($query, $durationOfStay) {
-                    $query->where('custom_packages.duration_of_stay', $durationOfStay);
-                });
+            if (request()->maktab_category_id != '' || request()->makkah_accomodation_id != '' || request()->madinah_accomodation_id != '' || request()->duration_of_stay != '') {
+                $query->where('bookings.package_type', 'STANDARD');
+            }
+
+            if (request()->maktab_category_id != '') {
+                $query->where('custom_packages.maktab_category_id', request()->maktab_category_id);
+            }
+
+            if (request()->makkah_accomodation_id != '') {
+                $query->where('custom_packages.makkah_accommodation_id', request()->makkah_accomodation_id);
+            }
+
+            if (request()->madinah_accomodation_id != '') {
+                $query->where('custom_packages.madinah_accommodation_id', request()->madinah_accomodation_id);
+            }
+
+            if (request()->duration_of_stay != '') {
+                $query->where('custom_packages.duration_of_stay', request()->duration_of_stay);
+            }
+           
         });
         
         return $filter;

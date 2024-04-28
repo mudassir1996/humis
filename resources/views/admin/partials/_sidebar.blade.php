@@ -138,6 +138,12 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                <a href="{{ route('other-costs.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Qurbani Cost</span>
+                </a>
+            </li>
                 <li class="nav-item {{ request()->route()->getName() == 'food-types.edit' ? 'active' : '' }}">
                     <a class="nav-link" data-toggle="collapse" href="#food-types" role="button"
                         aria-expanded="false" aria-controls="food-types">
@@ -153,6 +159,25 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('food-types.index') }}" class="nav-link">Food List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item {{ request()->route()->getName() == 'stay-durations.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#stay-durations" role="button"
+                        aria-expanded="false" aria-controls="stay-durations">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Duration of Stay</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'stay-durations.edit' ? 'show' : '' }}"
+                        id="stay-durations">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('stay-durations.create') }}" class="nav-link">Add Food</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('stay-durations.index') }}" class="nav-link">Duration List</a>
                             </li>
                         </ul>
                     </div>
@@ -251,6 +276,25 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('packages.index') }}" class="nav-link">Package List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item {{ request()->route()->getName() == 'additional-facilities.edit' ? 'active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#additional-facilities" role="button"
+                        aria-expanded="false" aria-controls="bookings">
+                        <i class="link-icon" data-feather="calendar"></i>
+                        <span class="link-title">Additional Facilities</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ request()->route()->getName() == 'additional-facilities.edit' ? 'show' : '' }}"
+                        id="additional-facilities">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('additional-facilities.create') }}" class="nav-link">Add Facility</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('additional-facilities.index') }}" class="nav-link">Facilities List</a>
                             </li>
                         </ul>
                     </div>
@@ -634,7 +678,7 @@
         </ul>
     </div>
 </nav>
-<nav class="settings-sidebar">
+{{-- <nav class="settings-sidebar">
     <div class="sidebar-body">
         <a href="#" class="settings-sidebar-toggler">
             <i data-feather="settings"></i>
@@ -667,4 +711,4 @@
             </a>
         </div>
     </div>
-</nav>
+</nav> --}}

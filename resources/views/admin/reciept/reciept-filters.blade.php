@@ -29,7 +29,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="{{route('reciepts.index')}}" class="btn btn-outline-primary">Clear Filter</a>
+                <a href="{{route('reciepts.index')}}" class="btn btn-primary">Clear Filter</a>
                 <button type="submit" form="reciept-filter-form" class="btn btn-primary">Filter</button>
             </div>
         </div>
