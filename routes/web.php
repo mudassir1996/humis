@@ -47,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
     
     
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications');
+    Route::get('/applications/{id}/edit', [ApplicationController::class, 'edit'])->name('applications.edit');
+    Route::put('/applications/{id}/update', [ApplicationController::class, 'update'])->name('applications.update');
     Route::get('/applications/{id}/view-details', [ApplicationController::class, 'view_details'])->name('view-application-details');
 
     

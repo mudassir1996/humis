@@ -18,8 +18,11 @@
                         <div class="col-lg-12">
                             <div class="row justify-content-between px-2 mb-2">
                                 <h4>Application Details</h4>
-                                <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
-                                </button>
+                                @if (auth()->user()->role=="ADMIN" || $booking->company_id == auth()->user()->company_id)
+                                <a href="{{route('applications.edit', $application->id)}}" class="btn btn-primary btn-icon-text"><i class="btn-icon-prepend" data-feather="edit"></i><span
+                                        class="">Edit</span> 
+                                </a>
+                                 @endif
                             </div>
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -98,7 +101,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Madinah Room Sharing
-                                    <span>{{ Str::ucfirst(Str::lower($application->madinah_room_sharing))  }}</span>
+                                    <span>{{ Str::ucfirst(Str::lower($application->madinah_room_sharing)) }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -238,10 +241,10 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     CNIC
-                                    
-                                        @if ($application->attachment_cnic != '')
-                                        <a href="{{ url('/') . $application->attachment_cnic }}"
-                                        class="btn btn-primary" download>Download</a>
+
+                                    @if ($application->attachment_cnic != '')
+                                        <a href="{{ url('/') . $application->attachment_cnic }}" class="btn btn-primary"
+                                            download>Download</a>
                                     @else
                                         <span>Not Available</span>
                                     @endif
@@ -249,17 +252,17 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Picture
                                     @if ($application->attachment_picture != '')
-                                        <a href="{{ url('/') . $application->attachment_picture }}"
-                                        class="btn btn-primary" download>Download</a>
+                                        <a href="{{ url('/') . $application->attachment_picture }}" class="btn btn-primary"
+                                            download>Download</a>
                                     @else
                                         <span>Not Available</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Medical Certification
-                                   @if ($application->attachment_medical != '')
-                                        <a href="{{ url('/') . $application->attachment_medical }}"
-                                        class="btn btn-primary" download>Download</a>
+                                    @if ($application->attachment_medical != '')
+                                        <a href="{{ url('/') . $application->attachment_medical }}" class="btn btn-primary"
+                                            download>Download</a>
                                     @else
                                         <span>Not Available</span>
                                     @endif
@@ -267,8 +270,8 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Other
                                     @if ($application->attachment_other != '')
-                                        <a href="{{ url('/') . $application->attachment_other }}"
-                                        class="btn btn-primary" download>Download</a>
+                                        <a href="{{ url('/') . $application->attachment_other }}" class="btn btn-primary"
+                                            download>Download</a>
                                     @else
                                         <span>Not Available</span>
                                     @endif
@@ -276,8 +279,8 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Ticket
                                     @if ($application->document_ticket != '')
-                                        <a href="{{ url('/') . $application->document_ticket }}"
-                                        class="btn btn-primary" download>Download</a>
+                                        <a href="{{ url('/') . $application->document_ticket }}" class="btn btn-primary"
+                                            download>Download</a>
                                     @else
                                         <span>Not Available</span>
                                     @endif
@@ -285,8 +288,8 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Visa
                                     @if ($application->document_visa != '')
-                                        <a href="{{ url('/') . $application->document_visa }}"
-                                        class="btn btn-primary" download>Download</a>
+                                        <a href="{{ url('/') . $application->document_visa }}" class="btn btn-primary"
+                                            download>Download</a>
                                     @else
                                         <span>Not Available</span>
                                     @endif

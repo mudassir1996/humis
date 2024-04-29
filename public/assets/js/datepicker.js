@@ -9,7 +9,6 @@ $(function() {
       todayHighlight: true,
       autoclose: true
     });
-    $('#datePickerIssueDate').datepicker('setDate', today);
   }
   if($('#datePickerExpiryDate').length) {
     var date = new Date();
@@ -19,7 +18,6 @@ $(function() {
       todayHighlight: true,
       autoclose: true
     });
-    $('#datePickerExpiryDate').datepicker('setDate', today);
   }
   if($('#datePickerDOB').length) {
     var date = new Date();
@@ -29,7 +27,6 @@ $(function() {
       todayHighlight: true,
       autoclose: true
     });
-    $('#datePickerDOB').datepicker('setDate', today);
   }
 
   if ($('#datePickerArrival').length) {
@@ -40,7 +37,6 @@ $(function() {
       todayHighlight: true,
       autoclose: true
     });
-    $('#datePickerArrival').datepicker('setDate', today);
   }
   if ($('#datePickerDeparture').length) {
     var date = new Date();
@@ -50,6 +46,5 @@ $(function() {
       todayHighlight: true,
       autoclose: true
     });
-    $('#datePickerDeparture').datepicker('setDate', today);
   }
 });
