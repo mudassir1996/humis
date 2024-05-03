@@ -37,11 +37,15 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact Name
-                                    <span>{{$booking->contact_name}}</span>
+                                    <span>{{$booking->contact_name." ".$booking->contact_surname}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact No.
                                     <span>{{$booking->contact_mobile}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Agent Name.
+                                    <span>{{$booking->agent_name??"N/A"}}</span>
                                 </li>
                             </ul>
                         </div>

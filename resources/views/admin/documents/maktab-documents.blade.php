@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="control-label">Total Number of Hajji</label>
+                                    <label class="control-label">Total No of Haji booked So far</label>
                                     <input id="total_seats" class="form-control" readonly name="total_seats"
                                         type="text">
                                 </div>

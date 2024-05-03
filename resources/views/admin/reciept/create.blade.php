@@ -13,7 +13,7 @@
                         @csrf
                         <div class="row mb-5 justify-content-center align-items-center">
                             <div class="col-lg-12 text-center">
-                                <h4>Islamabad Hajj Organizers</h4>
+                                <h4>{{env('COMPANY_NAME')}}</h4>
                             </div>
                             <div class="col-lg-12 text-center">
                                 <p>Reciept Voucher</p>

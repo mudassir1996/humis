@@ -81,11 +81,11 @@
                                                 </button>
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
-                                                    @if (auth()->user()->role=="ADMIN" || $application->company_id == auth()->user()->company_id)
+                                                    {{-- @if (auth()->user()->role=="ADMIN" || $application->company_id == auth()->user()->company_id)
                                                         <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    @endif
+                                                    @endif --}}
                                                     {{-- <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a> --}}

@@ -35,6 +35,8 @@ class BookingController extends Controller
         $accomodations = Accomodation::where('hotel_status', 'ACTIVE')->select('id', 'hotel_name', 'accomodation_type', 'sharing_room_cost', 'triple_room_cost', 'quad_double_cost')->get();
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
+        $companies = Company::all();
+        $agents = Agent::all();
         $airports = Airport::all();
         $stay_durations = StayDuration::all();
 
@@ -93,7 +95,9 @@ class BookingController extends Controller
             'makkah_accomodations',
             'madinah_accomodations',
             'airports',
-            'stay_durations'
+            'stay_durations',
+            'agents',
+            'companies'
         ));
     }
 
@@ -197,7 +201,7 @@ class BookingController extends Controller
             $custom_package->madinah_room_sharing = $request->madinah_room_sharing ?? "SHARING";
             $custom_package->food_type_id = $request->food_type_id;
             $custom_package->ticket_id = $request->ticket_id;
-            $custom_package->special_transport = $request->special_transport;
+            $custom_package->special_transport = $request->special_transport??"INCLUDED";
             $custom_package->cost_per_person = $request->cost_per_person;
             $custom_package->created_by = auth()->user()->id;
             $custom_package->save();
@@ -468,6 +472,8 @@ class BookingController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $airports = Airport::all();
+        $companies = Company::all();
+        $agents = Agent::all();
         $stay_durations = StayDuration::all();
 
 
@@ -499,7 +505,9 @@ class BookingController extends Controller
             'makkah_accomodations',
             'madinah_accomodations',
             'airports',
-            'stay_durations'
+            'stay_durations',
+            'companies',
+            'agents'
 
         ));
     }

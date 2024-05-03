@@ -36,7 +36,9 @@
                                     <th>Booking No.</th>
                                     <th>No. of Hujjaj</th>
                                     <th>Given Name</th>
+                                    <th>Surname Name</th>
                                     <th>Contact No</th>
+                                    <th>Agent Name</th>
                                     <th>Total Recievable</th>
                                     <th>Amount Recieved</th>
                                     <th>Balance Recievable</th>
@@ -50,7 +52,9 @@
                                         <td>{{$booking->booking_number}}</td>
                                         <td>{{$booking->num_of_hujjaj}}</td>
                                         <td>{{$booking->contact_name}}</td>
+                                        <td>{{$booking->contact_surname}}</td>
                                         <td>{{$booking->contact_mobile}}</td>
+                                        <td>{{$booking->agent_name??"N/A"}}</td>
                                         <td>{{$booking->total_receivable}}</td>
                                         <td>{{$booking->amount_received}}</td>
                                         <td>{{$booking->balance_receivable}}</td>

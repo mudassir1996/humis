@@ -203,6 +203,34 @@
                         </div>
 
                     </div>
+                      <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label">Company</label>
+                                <select class="form-control" name="company_id">
+                                    <option></option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->id }}"
+                                            {{ request()->company_id == $company->id ? 'selected' : '' }}>
+                                            {{ $company->company_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label">Agent</label>
+                                <select class="form-control" name="agent_id">
+                                    <option></option>
+                                    @foreach ($agents as $agent)
+                                        <option value="{{ $agent->id }}"
+                                            {{ request()->agent_id == $agent->id ? 'selected' : '' }}>
+                                            {{ $agent->agent_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
                 </form>
             </div>

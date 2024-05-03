@@ -39,6 +39,12 @@ class Booking extends Model
             if (request()->duration_of_stay != '') {
                 $query->where('packages.duration_of_stay', request()->duration_of_stay);
             }
+            if (request()->company_id != '') {
+                $query->where('bookings.company_id', request()->company_id);
+            }
+            if (request()->agent_id != '') {
+                $query->where('bookings.agent_name', request()->agent_id);
+            }
            
         });
 
@@ -62,6 +68,12 @@ class Booking extends Model
 
             if (request()->duration_of_stay != '') {
                 $query->where('custom_packages.duration_of_stay', request()->duration_of_stay);
+            }
+            if (request()->company_id != '') {
+                $query->where('bookings.company_id', request()->company_id);
+            }
+            if (request()->agent_id != '') {
+                $query->where('bookings.agent_name', request()->agent_id);
             }
            
         });

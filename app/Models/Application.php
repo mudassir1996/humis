@@ -50,6 +50,12 @@ class Application extends Model
             if (request()->madinah_room_sharing != '') {
                 $query->where('applications.madinah_room_sharing', request()->madinah_room_sharing);
             }
+            if (request()->company_id != '') {
+                $query->where('bookings.company_id', request()->company_id);
+            }
+            if (request()->agent_id != '') {
+                $query->where('bookings.agent_name', request()->agent_id);
+            }
             
         });
 
@@ -93,6 +99,12 @@ class Application extends Model
             if (request()->madinah_room_sharing != ''
             ) {
                 $query->where('applications.madinah_room_sharing', request()->madinah_room_sharing);
+            }
+            if (request()->company_id != '') {
+                $query->where('bookings.company_id', request()->company_id);
+            }
+            if (request()->agent_id != '') {
+                $query->where('bookings.agent_name', request()->agent_id);
             }
         });
 

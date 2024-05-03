@@ -174,7 +174,7 @@
                         id="stay-durations">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ route('stay-durations.create') }}" class="nav-link">Add Food</a>
+                                <a href="{{ route('stay-durations.create') }}" class="nav-link">Add Duration</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stay-durations.index') }}" class="nav-link">Duration List</a>

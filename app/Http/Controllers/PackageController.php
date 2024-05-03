@@ -31,6 +31,7 @@ class PackageController extends Controller
             $ksa_expense = $maktab_category->ksa_expense ?? 0;
             $pk_expense = $maktab_category->pk_expense ?? 0;
             $transport_cost = $maktab_category->special_transport??0;
+            $agent_commission = $maktab_category->agent_commission??0;
 
         $ticket = Ticket::where('id', $request->ticket_id)
                 ->first();
@@ -107,7 +108,8 @@ class PackageController extends Controller
             $makkah_accommodation_cost +
             $food_cost +
             $ticket_cost +
-            $transport_cost;
+            $transport_cost+
+            $agent_commission;
 
         // print_r([
         //     $maktab_cost,
@@ -157,7 +159,7 @@ class PackageController extends Controller
         $package->madinah_room_sharing = $request->madinah_room_sharing ?? "SHARING";
         $package->ticket_id = $request->ticket_id;
         $package->food_type_id = $request->food_type_id;
-        $package->special_transport = $request->special_transport;
+        $package->special_transport = $request->special_transport??"INCLUDED";
         $package->cost_per_person = $request->cost_per_person;
         $package->created_by = auth()->user()->id;
         if ($package->save()) {

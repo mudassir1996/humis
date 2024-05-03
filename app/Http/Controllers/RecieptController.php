@@ -18,10 +18,10 @@ class RecieptController extends Controller
     public function index()
     {
         if(Auth::user()->role=="ADMIN"){
-            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->leftJoin('companies', 'companies.id', 'bookings.company_id')->get();
+            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj','agents.agent_name')->leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin('agents', 'bookings.agent_name', 'agents.id')->get();
 
         }else{
-            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj')->leftJoin('companies', 'companies.id', 'bookings.company_id')->where('company_id', auth()->user()->company_id)->get();
+            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj','agents.agent_name')->leftJoin('companies', 'companies.id', 'bookings.company_id')->where('company_id', auth()->user()->company_id)->leftJoin('agents', 'bookings.agent_name', 'agents.id')->get();
 
         }
         $total_paid = 0;
@@ -40,7 +40,7 @@ class RecieptController extends Controller
      */
     public function view_details(Request $request)
     {
-        $booking = Booking::select('id', 'booking_number', 'contact_name', 'contact_mobile', 'grand_total as total_receivable')->where('id', $request->booking_id)->first();
+        $booking = Booking::select('bookings.id', 'booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'agents.agent_name')->where('bookings.id', $request->booking_id)->leftJoin('agents', 'bookings.agent_name', 'agents.id')->first();
         $total_paid = RecieptVoucher::where("booking_id", $booking->id)->sum('amount');
         $booking->amount_received = $total_paid;
         $booking->balance_receivable = $booking->total_receivable - $total_paid;

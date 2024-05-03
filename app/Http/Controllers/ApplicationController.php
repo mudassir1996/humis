@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Accomodation;
 use App\Models\AdditionalFacility;
+use App\Models\Agent;
 use App\Models\Airport;
 use App\Models\ApplicaionAdditionalFacility;
 use App\Models\Application;
 use App\Models\Booking;
+use App\Models\Company;
 use App\Models\CustomPackage;
 use App\Models\MaktabCategory;
 use App\Models\OtherCost;
@@ -33,74 +35,47 @@ class ApplicationController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $airports = Airport::all();
+        $companies = Company::all();
+        $agents = Agent::all();
         $stay_durations = StayDuration::all();
 
-        if (Auth::user()->role == "ADMIN") {
-            $applications = Application::filter()->select(
-                'company_name',
-                'applications.id',
-                'bookings.company_id',
-                'booking_number',
-                'application_number',
-                'given_name',
-                'surname',
-                'gender',
-                'passport',
-                'applications.document_ticket',
-                'applications.document_visa'
-            )->leftJoin('bookings', 'bookings.id', 'applications.booking_id')
-                ->leftJoin(
-                    'packages',
-                    function ($join) {
-                        $join->on('bookings.package_id', '=', 'packages.id')
-                            ->where('bookings.package_type', '=', 'STANDARD');
-                    }
-                )->leftJoin(
-                    'custom_packages',
-                    function ($join) {
-                        $join->on('bookings.package_id', '=', 'custom_packages.id')
-                            ->where('bookings.package_type', '=', 'CUSTOM');
-                    }
-                )
-                ->leftJoin('companies', 'companies.id', 'bookings.company_id')
-                ->get();
-        } else {
-            $applications = Application::filter()->select(
-                'company_name',
-                'applications.id',
-                'bookings.company_id',
-                'booking_number',
-                'application_number',
-                'given_name',
-                'surname',
-                'gender',
-                'passport',
-                'applications.document_ticket',
-                'applications.document_visa'
-            )->leftJoin('bookings', 'bookings.id', 'applications.booking_id')
-                ->leftJoin(
-                    'packages',
-                    function ($join) {
-                        $join->on('bookings.package_id', '=', 'packages.id')
-                            ->where('bookings.package_type', '=', 'STANDARD');
-                    }
-                )->leftJoin(
-                    'custom_packages',
-                    function ($join) {
-                        $join->on('bookings.package_id', '=', 'custom_packages.id')
-                            ->where('bookings.package_type', '=', 'CUSTOM');
-                    }
-                )
-                ->leftJoin('companies', 'companies.id', 'bookings.company_id')
-                ->where('bookings.company_id', auth()->user()->company_id)->get();
-        }
+        $applications = Application::filter()->select(
+            'company_name',
+            'applications.id',
+            'bookings.company_id',
+            'booking_number',
+            'application_number',
+            'given_name',
+            'surname',
+            'gender',
+            'passport',
+            'applications.document_ticket',
+            'applications.document_visa'
+        )->leftJoin('bookings', 'bookings.id', 'applications.booking_id')
+        ->leftJoin(
+            'packages',
+            function ($join) {
+                $join->on('bookings.package_id', '=', 'packages.id')
+                ->where('bookings.package_type', '=', 'STANDARD');
+            }
+        )->leftJoin(
+            'custom_packages',
+            function ($join) {
+                $join->on('bookings.package_id', '=', 'custom_packages.id')
+                ->where('bookings.package_type', '=', 'CUSTOM');
+            }
+        )
+            ->leftJoin('companies', 'companies.id', 'bookings.company_id')
+            ->get();
         return view('admin.application.index', compact(
             'applications',
             'maktab_categories',
             'makkah_accomodations',
             'madinah_accomodations',
             'airports',
-            'stay_durations'
+            'stay_durations',
+            'agents',
+            'companies'
 
         ));
     }

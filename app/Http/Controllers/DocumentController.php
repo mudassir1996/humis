@@ -50,6 +50,8 @@ class DocumentController extends Controller
 
             $extension = $request->file('attachment')->extension();
             $maktab_document->attachment = '/storage/' . $request->attachment->storeAs('maktab/' . $maktab_document->maktab_category_id, 'maktab-' . $maktab_document->maktab_category_id . "." . $extension, 'public');
+        }else{
+            $maktab_document->attachment="";
         }
         $maktab_document->created_by = auth()->user()->id;
 
