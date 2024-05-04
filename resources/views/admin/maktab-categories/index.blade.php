@@ -48,12 +48,12 @@
                                     <tr>
                                         <td>{{ $maktab_category->id }}</td>
                                         <td>{{ $maktab_category->maktab_name }}</td>
-                                        <td>{{ $maktab_category->maktab_cost }}</td>
-                                        <td>{{ $maktab_category->special_transport }}</td>
-                                        <td>{{ $maktab_category->agent_commission }}</td>
-                                        <td>{{ $maktab_category->profit }}</td>
-                                        <td>{{ $maktab_category->ksa_expense }}</td>
-                                        <td>{{ $maktab_category->pk_expense }}</td>
+                                        <td>{{ number_format($maktab_category->maktab_cost) }}</td>
+                                        <td>{{ number_format($maktab_category->special_transport) }}</td>
+                                        <td>{{ number_format($maktab_category->agent_commission) }}</td>
+                                        <td>{{ number_format($maktab_category->profit) }}</td>
+                                        <td>{{ number_format($maktab_category->ksa_expense) }}</td>
+                                        <td>{{ number_format($maktab_category->pk_expense) }}</td>
                                         
                                         
 

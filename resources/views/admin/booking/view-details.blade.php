@@ -238,7 +238,7 @@
                                             @foreach ($applications as $application)
                                             <tr>
                                                 <td>{{$application->given_name." ".$application->surname}}</td>
-                                                <td>PKR {{$application->cost_per_person}}</td>
+                                                <td>PKR {{number_format($application->cost_per_person)}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -251,19 +251,19 @@
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Total Discount</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            PKR {{$initial_info->discount}}
+                                            {{$initial_info->currency}} {{number_format($initial_info->discount)}}
                                         </div>
                                     </div>
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Total Cost</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            PKR {{$initial_info->net_total}}
+                                            {{$initial_info->currency}} {{number_format($initial_info->net_total)}}
                                         </div>
                                     </div>
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Commission</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            PKR {{$initial_info->commission}}
+                                            {{$initial_info->currency}} {{number_format($initial_info->commission)}}
                                         </div>
                                     </div>
                                     {{-- <div class="form-group row align-items-center justify-content-between">
@@ -282,7 +282,7 @@
                                                         <h5>Total</h5>
                                                     </td>
                                                     <td class="text-bold-800 text-right">
-                                                        <h5>PKR {{$initial_info->grand_total}}</h5>
+                                                        <h5>{{$initial_info->currency}} {{number_format($initial_info->grand_total)}}</h5>
                                                         <input type="hidden" id="total" />
                                                     </td>
                                                 </tr>

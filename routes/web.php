@@ -44,8 +44,8 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    
+    Route::match(['get', 'patch'], '/edit-profile', [DashboardController::class, 'edit_profile'])->name('edit-profile');
+
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications');
     Route::get('/applications/{id}/edit', [ApplicationController::class, 'edit'])->name('applications.edit');
     Route::put('/applications/{id}/update', [ApplicationController::class, 'update'])->name('applications.update');

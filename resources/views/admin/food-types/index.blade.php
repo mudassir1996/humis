@@ -43,7 +43,7 @@
                                     <tr>
                                         <td>{{ $food_type->id }}</td>
                                         <td>{{ $food_type->food_type_name }}</td>
-                                        <td>{{ $food_type->food_type_cost }}</td>
+                                        <td>{{ number_format($food_type->food_type_cost) }}</td>
                                         
                                         
 

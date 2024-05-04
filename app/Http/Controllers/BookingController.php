@@ -187,6 +187,7 @@ class BookingController extends Controller
         $booking = $request->session()->get('booking');
 
         $booking->package_type = $request->package_type;
+        $booking->currency = $request->currency;
 
         if ($booking->package_type == 'CUSTOM') {
             $custom_package = new CustomPackage();
@@ -226,8 +227,8 @@ class BookingController extends Controller
         $booking = $request->session()->get('booking');
         $tickets = Ticket::select('id', 'ticket_type', 'ticket_cost')->get();
         $airports = Airport::select('id', 'airport_name', 'airport_country_code')->get();
-        $pk_airports = $airports->where('airport_country_code', 'PK');
-        $ksa_airports = $airports->where('airport_country_code', 'KSA');
+        $pk_airports = $airports->where('airport_country_code', '!=','Saudi Arabia');
+        $ksa_airports = $airports->where('airport_country_code', 'Saudi Arabia');
         $additional_facilities = AdditionalFacility::all();
         $relationships = app('relationships');
 
@@ -255,24 +256,24 @@ class BookingController extends Controller
         $application->given_name = $request->given_name;
         $application->father_husband_name = $request->father_husband_name;
         $application->passport = $request->passport;
-        $application->date_issue = $request->date_issue;
-        $application->date_expiry = $request->date_expiry;
-        $application->date_birth = $request->date_birth;
+        $application->date_issue = $request->date_issue??"";
+        $application->date_expiry = $request->date_expiry??"";
+        $application->date_birth = $request->date_birth??"";
         $application->cnic = $request->cnic;
         $application->blood_group = $request->blood_group;
         $application->gender = $request->gender;
-        $application->fiqah = $request->fiqah;
-        $application->marital_status = $request->marital_status;
-        $application->address = $request->address;
+        $application->fiqah = $request->fiqah??"";
+        $application->marital_status = $request->marital_status??"";
+        $application->address = $request->address??"";
         $application->mobile_number = $request->mobile_number;
-        $application->whatsapp_number = $request->whatsapp_number;
+        $application->whatsapp_number = $request->whatsapp_number??"";
         $application->is_contact_person = $request->is_contact_person;
-        $application->mehram_name = $request->mehram_name;
-        $application->mehram_relation = $request->mehram_relation;
-        $application->nominee_name = $request->nominee_name;
-        $application->nominee_relation = $request->nominee_relation;
-        $application->nominee_cnic = $request->nominee_cnic;
-        $application->nominee_mobile = $request->nominee_mobile;
+        $application->mehram_name = $request->mehram_name??"";
+        $application->mehram_relation = $request->mehram_relation??"";
+        $application->nominee_name = $request->nominee_name??"";
+        $application->nominee_relation = $request->nominee_relation??"";
+        $application->nominee_cnic = $request->nominee_cnic??"";
+        $application->nominee_mobile = $request->nominee_mobile??"";
         $application->qurbani = $request->qurbani??"NOT_INCLUDED";
         $application->ticket = $request->ticket;
         $application->additional_facility_id = $request->additional_facility_id;
@@ -300,9 +301,7 @@ class BookingController extends Controller
             $qurbani_fee = $other_cost->cost ?? 0;
         }
 
-        if ($request->ticket == 'NOT_INCLUDED') {
-            $ticket_cost = 0;
-        }
+        
 
         if ($booking->package_type == 'CUSTOM') {
             $package = CustomPackage::where('id', $booking->package_id)->first();
@@ -310,6 +309,13 @@ class BookingController extends Controller
             $package = Package::where('id', $booking->package_id)->first();
         }
 
+        if ($request->ticket == 'NOT_INCLUDED') {
+            $tickets = Ticket::where('id', $package->ticket_id)->first();
+            $ticket_cost = $tickets->ticket_cost??0;
+        }
+
+        $additional_facility = AdditionalFacility::where('id', $application->additional_facility_id)->first();
+        $additional_facility_cost=$additional_facility->facility_cost??0;
 
         $application->aziziya_room_sharing = $package->aziziya_room_sharing;
         if ($request->room_sharing == '') {
@@ -358,7 +364,7 @@ class BookingController extends Controller
         }
 
 
-        $final_cost_per_person = $cost_per_person + $qurbani_fee + $ticket_cost;
+        $final_cost_per_person = $cost_per_person + $qurbani_fee - $ticket_cost+ $additional_facility_cost;
         $application->cost_per_person = $final_cost_per_person;
 
         if ($application->is_contact_person) {
@@ -537,6 +543,7 @@ class BookingController extends Controller
             'bookings.net_total',
             'bookings.commission',
             'bookings.grand_total',
+            'bookings.currency',
         )
             ->leftJoin('companies', 'bookings.company_id', 'companies.id')
             ->leftJoin('agents', 'agents.id', 'bookings.agent_name')

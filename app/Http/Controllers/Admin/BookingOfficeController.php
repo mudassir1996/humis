@@ -97,7 +97,11 @@ class BookingOfficeController extends Controller
      */
     public function edit($id)
     {
-        $companies = Company::where('id', auth()->user()->company_id)->get();
+        if (Auth::user()->role == 'ADMIN') {
+            $companies = Company::all();
+        } else {
+            $companies = Company::where('id', auth()->user()->company_id)->get();
+        }
         $booking_office = CompanyBookingOffice::select('company_booking_offices.*', 'companies.company_name')->orderByDesc('company_booking_offices.id')->leftJoin('companies', 'company_booking_offices.company_id', 'companies.id')->where('company_booking_offices.id',$id)->first();
 
         return view('admin.booking-offices.edit', compact('companies', 'booking_office'));

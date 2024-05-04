@@ -311,10 +311,10 @@
                 let final_cost = parseInt(total_cost_orignal - discount);
                 let commission = $("#commission").val();
 
-                $("#net_cost").text(final_cost);
+                $("#net_cost").text(final_cost.toLocaleString('en'));
                 $("#net_total").val(final_cost);
 
-                $("#total_cost_preview").text(final_cost);
+                $("#total_cost_preview").text(final_cost.toLocaleString('en'));
                 $("#total_cost").val(final_cost);
                 
                 // $("#total_cost_preview").text(final_cost+commission);

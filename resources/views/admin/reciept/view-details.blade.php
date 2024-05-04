@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Booking Details</h3>
-                        <a class="btn btn-primary text-white" href="{{route('reciepts.create',['booking_id'=>$booking->id])}}">
+                        <a class="btn btn-primary" href="{{route('reciepts.create',['booking_id'=>$booking->id])}}">
                             <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Generate New Receipt</span>
                             </a>
                         {{-- <div>
@@ -53,15 +53,15 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Amount Recievable 
-                                    <span>{{$booking->total_receivable}}</span>
+                                    <span>{{$booking->currency}} {{number_format($booking->total_receivable)}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Amount Paid 
-                                    <span>{{$booking->amount_received}}</span>
+                                    <span>{{$booking->currency}} {{number_format($booking->amount_received)}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Balance Recievable
-                                    <span>{{$booking->balance_receivable}}</span>
+                                    <span>{{$booking->currency}} {{number_format($booking->balance_receivable)}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -100,12 +100,12 @@
                                                 <td>{{ $application->application_number }}</td>
                                                 <td>{{ $application->given_name . ' ' . $application->surname }}</td>
                                                 <td>{{ $application->passport }}</td>
-                                                <td>PKR {{ $application->cost_per_person }}</td>
+                                                <td>{{$booking->currency}} {{ number_format($application->cost_per_person) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr class="bg-light">
                                             <td colspan="3">Total Package Amount</td>
-                                            <td>PKR {{ $total_bill }}</td>
+                                            <td>{{$booking->currency}} {{ number_format($total_bill) }}</td>
                                         </tr>
 
                                     </tbody>
@@ -121,19 +121,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
                         <h3>Reciepts Details</h3>
-                        {{-- <div>
-                            <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
-                            data-target="#filterModal">
-                            <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
-                        </button>
-                            <a class="btn btn-primary text-white" href="{{route('reciepts.create')}}">
-                            <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
-                            </a>
-                        </div> --}}
                     </div>
-                    {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
-                            DataTables
-                            Documentation </a>for a full list of instructions and other options.</p> --}}
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -153,7 +141,7 @@
                                         <td>{{$reciept_voucher->reciept_number}}</td>
                                         <td>{{$reciept_voucher->reciept_date}}</td>
                                         <td>{{$reciept_voucher->payment_mode}}</td>
-                                        <td>{{$reciept_voucher->amount}}</td>
+                                        <td>{{number_format($reciept_voucher->amount)}}</td>
 
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm">
@@ -166,7 +154,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @include('admin.reciept.reciept-filters')
                 </div>
             </div>
         </div>

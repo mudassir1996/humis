@@ -27,7 +27,8 @@ class AirportController extends Controller
      */
     public function create()
     {
-        return view('admin.airports.create');
+        $countries = app('countries');
+        return view('admin.airports.create',compact('countries'));
 
     }
 
@@ -92,7 +93,8 @@ class AirportController extends Controller
     public function edit($id)
     {
         $airport = Airport::find($id);
-        return view('admin.airports.edit',compact('airport'));
+        $countries = app('countries');
+        return view('admin.airports.edit',compact('airport', 'countries'));
 
     }
 

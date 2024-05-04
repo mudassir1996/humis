@@ -43,7 +43,7 @@
                                     <tr>
                                         <td>{{ $ticket->id }}</td>
                                         <td>{{ $ticket->ticket_type }}</td>
-                                        <td>{{ $ticket->ticket_cost }}</td>
+                                        <td>{{ number_format($ticket->ticket_cost) }}</td>
                                         
                                         
                                         

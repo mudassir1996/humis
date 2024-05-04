@@ -43,7 +43,7 @@
                                     <tr>
                                         <td>{{ $additional_facility->id }}</td>
                                         <td>{{ $additional_facility->facility_title }}</td>
-                                        <td>{{ $additional_facility->facility_cost }}</td>
+                                        <td>{{ number_format($additional_facility->facility_cost) }}</td>
                                         
                                         
                                         

@@ -1,4 +1,4 @@
-<form class="step-2" method="POST" action="{{ route('store-booking-step-2') }}">
+<form class="step-2" method="POST" id="bookingStep2" action="{{ route('store-booking-step-2') }}">
     @csrf
     <div class="form-group row">
         <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Package Type</label>
@@ -7,6 +7,17 @@
                 <option></option>
                 <option value="STANDARD">Standard</option>
                 <option value="CUSTOM">Custom</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Currency</label>
+        <div class="col-sm-7">
+            <select class="select2-single" id="currency" name="currency">
+                <option></option>
+                <option value="PKR">PKR</option>
+                <option value="$">USD</option>
+                <option value="AED">AED</option>
             </select>
         </div>
     </div>

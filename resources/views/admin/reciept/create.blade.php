@@ -67,12 +67,12 @@
                                                 <td>{{ $application->application_number }}</td>
                                                 <td>{{ $application->given_name . ' ' . $application->surname }}</td>
                                                 <td>{{ $application->passport }}</td>
-                                                <td>PKR {{ $application->cost_per_person }}</td>
+                                                <td>{{$booking->currency}} {{ number_format($application->cost_per_person) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr class="bg-light">
                                             <td colspan="3">Total Package Amount</td>
-                                            <td>PKR {{ $total_bill }}</td>
+                                            <td>{{$booking->currency}} {{ number_format($total_bill) }}</td>
                                         </tr>
 
                                     </tbody>
@@ -133,7 +133,7 @@
                                 <div class="form-group row align-items-center justify-content-between">
                                     <label for="exampleInputUsername2" class="col-sm-7 col-4">Balance Amount</label>
                                     <div class="col-sm-5 col-8 text-right">
-                                        <h6 id="balance_amount">{{ $balance_amount }}</h6>
+                                        <h6 >{{$booking->currency}} <span id="balance_amount">{{ $balance_amount }}</span></h6>
                                         {{-- <input type="number" class="form-control" id="exampleInputUsername2"
                                             placeholder="Enter Discount"> --}}
 
@@ -224,6 +224,12 @@
                 if (amount <= total_bill) {
                     $("#amount_in_words").text(toWords(amount));
                     $("#balance_amount").text(total_bill - amount);
+                }else{
+                    alert("Invalid Amount");
+                    $(this).val("");
+                    $(this).trigger('keyup');
+                    return;
+                
                 }
 
             }

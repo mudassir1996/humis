@@ -111,16 +111,16 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Contact Person Surname</label>
-                <input id="agent-name" name="contact_name" class="form-control"
-                    placeholder="Enter Contact Person Surname" name="agent-name" type="text">
+                <input id="agent-name" name="contact_surname" class="form-control"
+                    placeholder="Enter Contact Person Surname"  type="text">
             </div>
 
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Contact Person Given Name</label>
-                <input id="agent-name" name="contact_surname" class="form-control"
-                    placeholder="Enter Contact Person Given Name" name="agent-name" type="text">
+                <input id="agent-name" name="contact_name" class="form-control"
+                    placeholder="Enter Contact Person Given Name" type="text">
             </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
             <div class="form-group">
                 <label class="control-label">Contact Person Mobile Number</label>
                 <input id="agent-name" name="contact_mobile" class="form-control"
-                    placeholder="Enter Contact Person Mobile Number" name="agent-name" type="text">
+                    placeholder="Enter Contact Person Mobile Number"  type="text">
             </div>
 
         </div>

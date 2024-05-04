@@ -1,4 +1,4 @@
-<form class="step-3" method="post" action="{{ route('store-booking-step-3') }}" enctype="multipart/form-data">
+<form class="step-3" method="post" id="bookingStep3" action="{{ route('store-booking-step-3') }}" enctype="multipart/form-data">
     @csrf
     @php
         $application_number = time();
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label class="control-label">Date of Issue</label>
                 <div class="input-group date datepicker" id="datePickerIssueDate">
-                    <input type="text" class="form-control" name="date_issue"><span class="input-group-addon"><i
+                    <input type="text" class="form-control" placeholder="Enter issue date" readonly name="date_issue"><span class="input-group-addon"><i
                             data-feather="calendar"></i></span>
                 </div>
             </div>
@@ -67,7 +67,7 @@
             <div class="form-group">
                 <label class="control-label">Date of Expiry</label>
                 <div class="input-group date datepicker" id="datePickerExpiryDate">
-                    <input type="text" class="form-control" name="date_expiry"><span class="input-group-addon"><i
+                    <input type="text" class="form-control" placeholder="Enter expiry date" readonly name="date_expiry"><span class="input-group-addon"><i
                             data-feather="calendar"></i></span>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="form-group">
                 <label class="control-label">Date of Birth</label>
                 <div class="input-group date datepicker" id="datePickerDOB">
-                    <input type="text" class="form-control" name="date_birth"><span class="input-group-addon"><i
+                    <input type="text" class="form-control" readonly placeholder="Enter date of birth" name="date_birth"><span class="input-group-addon"><i
                             data-feather="calendar"></i></span>
                 </div>
             </div>
@@ -257,9 +257,8 @@
             <div class="form-group">
                 <label class="control-label">Qurbani</label>
                 <select class="select2-single" name="qurbani">
-                    <option></option>
-                    <option value="INCLUDED">Included</option>
                     <option value="NOT_INCLUDED">Not Included</option>
+                    <option value="INCLUDED">Included</option>
                 </select>
             </div>
         </div>
@@ -268,7 +267,6 @@
                 <label class="control-label">Room Sharing Capacity (Makkah &
                     Madinah)</label>
                 <select class="select2-single" name="room_sharing">
-                    <option></option>
                     <option value="SHARING">Sharing</option>
                     <option value="TRIPLE">Triple</option>
                     <option value="DOUBLE">Double</option>
@@ -281,7 +279,7 @@
             <div class="form-group">
                 <label class="control-label">Ticket</label>
                 <select class="select2-single" name="ticket">
-                    <option selected value="INCLUDED">Included</option>
+                    <option value="INCLUDED">Included</option>
                     <option value="NOT_INCLUDED">Not Included</option>
                 </select>
             </div>
@@ -331,7 +329,7 @@
                 <div class="form-group">
                     <label class="control-label">Arrival Date (KSA)</label>
                     <div class="input-group date datepicker" id="datePickerArrival">
-                        <input type="text" class="form-control" name="arrival_date_ksa"><span
+                        <input type="text" class="form-control" placeholder="Enter Arrival Date (KSA)" readonly name="arrival_date_ksa"><span
                             class="input-group-addon"><i data-feather="calendar"></i></span>
                     </div>
 
@@ -369,7 +367,7 @@
                 <div class="form-group">
                     <label class="control-label">Departure Date (KSA)</label>
                     <div class="input-group date datepicker" id="datePickerDeparture">
-                        <input type="text" class="form-control" name="departure_date_ksa"><span
+                        <input type="text" class="form-control" placeholder="Enter Departure Date (KSA)" readonly name="departure_date_ksa"><span
                             class="input-group-addon"><i data-feather="calendar"></i></span>
                     </div>
 

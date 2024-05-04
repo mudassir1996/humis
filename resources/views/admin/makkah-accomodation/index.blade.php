@@ -45,9 +45,9 @@
                                     <tr>
                                         <td>{{ $accomodation->id }}</td>
                                         <td>{{ $accomodation->hotel_name }}</td>
-                                        <td>{{ $accomodation->sharing_room_cost }}</td>
-                                        <td>{{ $accomodation->triple_room_cost }}</td>
-                                        <td>{{ $accomodation->quad_double_cost }}</td>
+                                        <td>{{ number_format($accomodation->sharing_room_cost) }}</td>
+                                        <td>{{ number_format($accomodation->triple_room_cost) }}</td>
+                                        <td>{{ number_format($accomodation->quad_double_cost) }}</td>
                                         
                                         
 

@@ -26,7 +26,7 @@
                         @endphp
                         <tr>
                             <td>{{ $application->given_name . ' ' . $application->surname }}</td>
-                            <td>PKR {{ $application->cost_per_person }}</td>
+                            <td>{{$booking->currency}} {{ number_format($application->cost_per_person) }}</td>
                         </tr>
                     @endforeach
                     @php
@@ -50,7 +50,7 @@
             <div class="form-group row align-items-center justify-content-between">
                 <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Total Cost</label>
                 <div class="col-sm-5 col-8 text-right">
-                    PKR <span id="net_cost">{{ $total_cost }}</span>
+                    {{$booking->currency}} <span id="net_cost">{{ number_format($total_cost )}}</span>
                     <input type="hidden" class="form-control" value="{{ $total_cost }}" id="net_total" name="net_total">
 
                 </div>
@@ -74,7 +74,7 @@
                             <td class="text-bold-800 text-right">
                                 <input type="hidden" class="form-control" value="{{ $total_cost}}" id="total_cost_orignal">
                                 <input type="hidden" class="form-control" value="{{ $total_cost}}" id="total_cost" name="grand_total">
-                                <h5>PKR <span id="total_cost_preview">{{ $total_cost }}</span></h5>
+                                <h5>{{$booking->currency}} <span id="total_cost_preview">{{ number_format($total_cost) }}</span></h5>
                             </td>
                         </tr>
                     </tbody>

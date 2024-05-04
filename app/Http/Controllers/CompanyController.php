@@ -71,13 +71,17 @@ class CompanyController extends Controller
         Validator::make($request->all(), [
             'company_name' => 'required',
             'company_contact' => 'required',
-            'company_status' => 'required',
         ]);
 
         $company->company_name = $request->company_name;
         $company->company_contact = $request->company_contact;
-        $company->company_status = $request->company_status;
+        $password = $request->password;
         
+        if ($password != '') {
+            $user = User::where('company_id',$company->id)->first();
+            $user->password = bcrypt($password);
+            $user->save();
+        }        
         if ($company->save()) {
             $notification = array(
                 'message' => 'Company Updated Successfully!',

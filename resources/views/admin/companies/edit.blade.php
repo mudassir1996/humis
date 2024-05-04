@@ -12,36 +12,46 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form class="step-2" method="post" action="{{route('companies.update',$company->id)}}">
+                    <form class="step-2" id="company-form" method="post" action="{{route('companies.update',$company->id)}}">
                         @csrf
                         @method('PATCH')
                         <div id="standard_package">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Company Name</label>
+                                        <label class="control-label">Company Name <span class="text-danger">*</span></label>
                                         <input id="company_name" value="{{$company->company_name}}" class="form-control" placeholder="Enter Company Name" name="company_name" type="text">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Contact Number</label>
+                                        <label class="control-label">Contact Number <span class="text-danger">*</span></label>
                                         <input id="company_contact" value="{{$company->company_contact}}" class="form-control" placeholder="Enter Contact Number" name="company_contact" type="text"  data-inputmask-alias="+999999999999">
                                     </div>
                                 </div>
 
                             </div>
                             <div class="row">
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Status</label>
-                                        <select class="form-select" name="company_status">
-                                            <option value="ACTIVE" {{$company->company_status=='ACTIVE'?"selected":""}}>Active</option>
-                                            <option value="INACTIVE" {{$company->company_status=='INACTIVE'?"selected":""}}>Inactive</option>
-                                        </select>
+                                        <label class="control-label">New Password</label>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                             autocomplete="current-password" placeholder="Password">
+
                                     </div>
                                 </div>
-                                
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Confirm Password</label>
+                                         <input id="password_confirmation" type="password"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
+                                         autocomplete="current-password" placeholder="Confirm Password">
+
+                                    </div>
+                                </div>
+
 
                             </div>
                             
@@ -66,13 +76,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/js/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/inputmask/jquery.inputmask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/inputmask.js') }}"></script>
-    <script src="{{ asset('assets/vendors/dropify/dist/dropify.min.js') }}"></script>
-
-    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 @endsection

@@ -44,7 +44,7 @@
                                         <td>{{$package->maktab_name}}</td>
                                         <td>{{ucfirst($package->nature)}}</td>
                                         <td>{{ucfirst($package->duration_of_stay)}}</td>
-                                        <td>{{$package->cost_per_person}}</td>
+                                        <td>{{number_format($package->cost_per_person)}}</td>
                                         <td>{{$package->package_status}}</td>
                                         
                                         <td>

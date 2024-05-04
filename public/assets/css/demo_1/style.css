@@ -23512,6 +23512,10 @@ select {
 .form-group.has-danger .tt-hint {
   border-color: #ff3366; }
 
+.form-group.has-danger .error{
+  color: #ff3366;
+}
+
 .form-group .file-upload-default {
   visibility: hidden;
   position: absolute; }
@@ -25197,5 +25201,9 @@ div.tagsinput {
 
 h3,h4,h5{
   color:#312E67;
+}
+
+.datepicker .form-control{
+  background-color: #fff;
 }
 

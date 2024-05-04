@@ -6,43 +6,62 @@
 @endsection
 @section('content')
     <div class="d-flex justify-content-center align-items-center flex-wrap grid-margin">
-        <h4>Add New Company</h4>
+        <h4>Edit Profile</h4>
     </div>
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form class="step-2" id="company-form" method="post" action="{{route('companies.store')}}">
+                    <form class="step-2" id="profile-form" method="post" action="{{ route('edit-profile') }}">
                         @csrf
+                        @method('PATCH')
                         <div id="standard_package">
                             <div class="row">
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Company Name <span class="text-danger">*</span></label>
-                                        <input id="company_name" class="form-control" placeholder="Enter Company Name" name="company_name" type="text">
+                                        <label class="control-label">Name <span class="text-danger">*</span></label>
+                                        <input id="name" name="name" value="{{ auth()->user()->name }}"
+                                            class="form-control" placeholder="Enter Name" type="text">
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Contact Number <span class="text-danger">*</span></label>
-                                        <input id="company_contact" class="form-control" placeholder="Enter Contact Number" name="company_contact" type="text"  data-inputmask-alias="+999999999999">
+                                        <label class="control-label">Email</label>
+                                        <input readonly value="{{ auth()->user()->email }}" class="form-control">
+
                                     </div>
                                 </div>
+
+
                             </div>
                             <div class="row">
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Login Email <span class="text-danger">*</span></label>
-                                        <input id="login_email" value="" class="form-control"  placeholder="Enter Login Email" name="login_email" type="email" >
+                                        <label class="control-label">New Password</label>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                             autocomplete="current-password" placeholder="Password">
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Password <span class="text-danger">*</span></label>
-                                        <input id="login_password" class="form-control" value="" placeholder="Enter Password" autocomplete="new-password" name="login_password" type="password" >
+                                        <label class="control-label">Confirm Password</label>
+                                         <input id="password_confirmation" type="password"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
+                                         autocomplete="current-password" placeholder="Confirm Password">
+
                                     </div>
                                 </div>
+
+
                             </div>
+
+
+
                         </div>
 
                         <div class="row">
@@ -64,6 +83,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 @endsection

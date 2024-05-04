@@ -17,6 +17,11 @@ class Booking extends Model
      * @param  $filters: array of filters.
      * @return query builder.
      */
+
+
+     function applications(){
+        return $this->hasMany(Application::class);
+     }
     public function scopeFilter($filter)
     {
         $filter->where(function ($query) {
@@ -91,6 +96,28 @@ class Booking extends Model
         if (request()->contact_name != '') {
 
             $filter->where('bookings.contact_name', 'like', "%" . request()->contact_name."%");
+        }
+
+        if (request()->company_id != '') {
+
+            $filter->where('bookings.company_id', request()->company_id);
+        }
+
+        if (request()->agent_id != '') {
+
+            $filter->where('bookings.agent_name', request()->agent_id);
+        }
+
+        if (request()->contact_surname != '') {
+
+            $filter->where('bookings.contact_surname', 'like', "%" . request()->contact_surname."%");
+        }
+        if (request()->passport != '') {
+
+            // $filter->where('bookings.contact_surname', 'like', "%" . request()->contact_surname."%");
+            $filter->whereHas('applications', function ($query) {
+                $query->where('passport', '=', request()->passport);
+            });
         }
 
 
