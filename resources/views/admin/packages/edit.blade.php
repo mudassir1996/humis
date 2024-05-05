@@ -10,7 +10,7 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form class="step-2" action="{{ route('packages.update', $package->id) }}" method="POST">
+                    <form class="step-2" id="bookingStep2" action="{{ route('packages.update', $package->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <div id="standard_package">
