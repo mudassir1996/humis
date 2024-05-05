@@ -21,14 +21,14 @@
 
             {{-- <li class="nav-item nav-category"></li> --}}
             <li
-                class="nav-item {{ request()->route()->getName() == 'bookings' || request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' || request()->route()->getName() == 'view-booking-details' || request()->route()->getName() == 'view-application-details' ? 'active' : '' }}">
+                class="nav-item {{ request()->route()->getName() == 'bookings' || request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' || request()->route()->getName() == 'view-booking-details' || request()->route()->getName() == 'view-application-details' ? 'active' : ''  }} {{ request()->route()->getName() == 'applications.edit' ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#bookings" role="button" aria-expanded="false"
                     aria-controls="bookings">
                     <i class="link-icon" data-feather="calendar"></i>
                     <span class="link-title">Bookings</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ request()->route()->getName() == 'bookings' || request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' || request()->route()->getName() == 'view-booking-details' || request()->route()->getName() == 'view-application-details' ? 'show' : '' }}"
+                <div class="collapse {{ request()->route()->getName() == 'bookings' || request()->route()->getName() == 'create-booking-step-1' || request()->route()->getName() == 'create-booking-step-2' || request()->route()->getName() == 'create-booking-step-3' || request()->route()->getName() == 'create-booking-step-4' || request()->route()->getName() == 'view-booking-details' || request()->route()->getName() == 'view-application-details' ? 'show' : '' }} {{ request()->route()->getName() == 'applications.edit' ? 'show' : '' }}"
                     id="bookings">
                     <ul class="nav sub-menu">
                         <li

@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/dropify/dist/dropify.min.css') }}">
 @endsection
 @section('content')
     <div class="d-flex justify-content-center align-items-center flex-wrap grid-margin">
@@ -12,7 +10,7 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form class="step-2" method="post" action="{{ route('makkah-accomodations.update',$accomodation->id) }}">
+                    <form class="step-2" id="accomodation-form" method="post" action="{{ route('makkah-accomodations.update',$accomodation->id) }}">
                         @csrf
                         @method('PATCH')
                         <div id="standard_package">
@@ -20,7 +18,7 @@
                                 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="control-label">Accomodation Name</label>
+                                        <label class="control-label">Accomodation Name <span class="text-danger">*</span></label>
                                         <input id="hotel_name" name="hotel_name" value="{{$accomodation->hotel_name}}" class="form-control"
                                             placeholder="Enter Accomodation Name" type="text">
                                        
@@ -33,21 +31,21 @@
                                 
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="control-label">Quad/Sharing Cost</label>
+                                        <label class="control-label">Quad/Sharing Cost <span class="text-danger">*</span></label>
                                         <input id="sharing_room_cost" value="{{$accomodation->sharing_room_cost}}" class="form-control" placeholder="Enter Cost"
                                             name="sharing_room_cost" type="number" data-inputmask-alias="999999999999">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="control-label">Triple Cost</label>
+                                        <label class="control-label">Triple Cost <span class="text-danger">*</span></label>
                                         <input id="triple_room_cost" value="{{$accomodation->triple_room_cost}}" class="form-control" placeholder="Enter Cost"
                                             name="triple_room_cost" type="number" data-inputmask-alias="999999999999">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="control-label">Double Cost</label>
+                                        <label class="control-label">Double Cost <span class="text-danger">*</span></label>
                                         <input id="quad_double_cost" value="{{$accomodation->quad_double_cost}}" class="form-control" placeholder="Enter Cost"
                                             name="quad_double_cost" type="number" data-inputmask-alias="999999999999">
                                     </div>
@@ -80,11 +78,6 @@
 @section('scripts')
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/inputmask/jquery.inputmask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/inputmask.js') }}"></script>
-    <script src="{{ asset('assets/vendors/dropify/dist/dropify.min.js') }}"></script>
-
-    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 @endsection

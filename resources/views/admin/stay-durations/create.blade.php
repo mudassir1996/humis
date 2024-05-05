@@ -1,9 +1,5 @@
 @extends('layouts.app')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/dropify/dist/dropify.min.css') }}">
-@endsection
+
 @section('content')
     <div class="d-flex justify-content-center align-items-center flex-wrap grid-margin">
         <h4>Add New Duration of Stay</h4>
@@ -12,7 +8,7 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form class="step-2" method="post" action="{{ route('stay-durations.store') }}">
+                    <form class="step-2" method="post" id="stay-duration-form" action="{{ route('stay-durations.store') }}">
                         @csrf
 
                         <div id="standard_package">
@@ -20,7 +16,7 @@
                                 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Duration of Stay</label>
+                                        <label class="control-label">Duration of Stay <span class="text-danger">*</span></label>
                                         <input id="duration_of_stay" name="duration_of_stay" class="form-control"
                                             placeholder="Enter Duration of Stay" type="text">
                                        
@@ -51,15 +47,7 @@
         </div>
     </div>
 @endsection
-
 @section('scripts')
-    <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/js/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/inputmask/jquery.inputmask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/inputmask.js') }}"></script>
-    <script src="{{ asset('assets/vendors/dropify/dist/dropify.min.js') }}"></script>
-
-    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+  <script src="{{ asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 @endsection

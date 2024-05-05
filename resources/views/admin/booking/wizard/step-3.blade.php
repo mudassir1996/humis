@@ -24,14 +24,14 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Given Name</label>
+                <label class="control-label">Given Name <span class="text-danger">*</span></label>
                 <input id="agent-name" class="form-control" placeholder="Enter Given Name" name="given_name"
                     type="text">
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Surname</label>
+                <label class="control-label">Surname <span class="text-danger">*</span></label>
                 <input id="agent-name" class="form-control" placeholder="Enter Surname" name="surname" type="text">
             </div>
         </div>
@@ -40,14 +40,14 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Father's/Husband's Name</label>
+                <label class="control-label">Father's/Husband's Name <span class="text-danger">*</span></label>
                 <input id="agent-name" class="form-control" placeholder="Enter Father's/Husband's Name"
                     name="father_husband_name" type="text">
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Passport No.</label>
+                <label class="control-label">Passport No. <span class="text-danger">*</span></label>
                 <input id="agent-name" class="form-control" placeholder="Enter Passport No." name="passport"
                     type="text">
             </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">CNIC/NICOP</label>
+                <label class="control-label">CNIC/NICOP <span class="text-danger">*</span></label>
                 <input class="form-control" data-inputmask-alias="99999-9999999-9" name="cnic"
                     placeholder="Enter CNIC/NICOP" />
             </div>
@@ -96,7 +96,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Blood Group</label>
+                <label class="control-label">Blood Group <span class="text-danger">*</span></label>
                 <select class="select2-single" name="blood_group">
                     <option></option>
                     <option value="O-">O-</option>
@@ -112,7 +112,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Gender</label>
+                <label class="control-label">Gender <span class="text-danger">*</span></label>
                 <select class="select2-single" name="gender" id="gender">
                     <option></option>
                     <option value="Male">Male</option>
@@ -156,7 +156,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Mobile No</label>
+                <label class="control-label">Mobile No <span class="text-danger">*</span></label>
                 <input id="agent-name" name="mobile_number" class="form-control"
                     data-inputmask-alias="+999999999999" placeholder="Enter Mobile No">
             </div>
@@ -305,7 +305,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label class="control-label">Departure Airport</label>
+                    <label class="control-label">Departure Airport <span class="text-danger">*</span></label>
                     <select class="select2-single" name="departure_airport_pk_id">
                         <option></option>
                         @foreach ($pk_airports as $pk_airport)
@@ -316,7 +316,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label class="control-label">Arrival Airport (KSA)</label>
+                    <label class="control-label">Arrival Airport (KSA) <span class="text-danger">*</span></label>
                     <select class="select2-single" name="arrival_airport_ksa_id">
                         <option></option>
                         @foreach ($ksa_airports as $ksa_airport)
@@ -327,7 +327,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label class="control-label">Arrival Date (KSA)</label>
+                    <label class="control-label">Arrival Date (KSA) <span class="text-danger">*</span></label>
                     <div class="input-group date datepicker" id="datePickerArrival">
                         <input type="text" class="form-control" placeholder="Enter Arrival Date (KSA)" readonly name="arrival_date_ksa"><span
                             class="input-group-addon"><i data-feather="calendar"></i></span>
@@ -343,7 +343,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label class="control-label">Departure Airport (KSA)</label>
+                    <label class="control-label">Departure Airport (KSA) <span class="text-danger">*</span></label>
                     <select class="select2-single" name="departure_airport_ksa_id">
                         <option></option>
                         @foreach ($ksa_airports as $ksa_airport)
@@ -354,7 +354,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label class="control-label">Arival Airport</label>
+                    <label class="control-label">Arival Airport <span class="text-danger">*</span></label>
                     <select class="select2-single" name="arrival_airport_pk_id">
                         <option></option>
                         @foreach ($pk_airports as $pk_airport)
@@ -365,7 +365,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label class="control-label">Departure Date (KSA)</label>
+                    <label class="control-label">Departure Date (KSA) <span class="text-danger">*</span></label>
                     <div class="input-group date datepicker" id="datePickerDeparture">
                         <input type="text" class="form-control" placeholder="Enter Departure Date (KSA)" readonly name="departure_date_ksa"><span
                             class="input-group-addon"><i data-feather="calendar"></i></span>

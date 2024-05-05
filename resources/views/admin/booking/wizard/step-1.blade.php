@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Company</label>
+                <label class="control-label">Company <span class="text-danger">*</span></label>
                 <select class="select2-single" name="company_id" id="companyDropdown">
                     <option></option>
                     @foreach ($companies as $company)
@@ -15,7 +15,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Booking Office</label>
+                <label class="control-label">Booking Office <span class="text-danger">*</span></label>
                 <select class="select2-single" name="booking_office_id" id="bookingOfficeDropdown">
                     @if (Auth::user()->role == 'COMPANY')
                         @foreach ($booking_offices as $booking_offices)
@@ -32,7 +32,7 @@
     <div class="row">
         <div class=" col-lg-6">
             <div class="form-group">
-                <label class="control-label">Client Country</label>
+                <label class="control-label">Client Country <span class="text-danger">*</span></label>
 
                 <select class="select2-single" name="client_country">
                     <option></option>
@@ -44,7 +44,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Booking Nature</label>
+                <label class="control-label">Booking Nature <span class="text-danger">*</span></label>
                 <select class="select2-single" id="booking-nature" name="booking_nature">
                     <option></option>
                     <option value="WA">With Agent</option>
@@ -56,7 +56,7 @@
     <div class="row" id="agent-fields">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Agent Name</label>
+                <label class="control-label">Agent Name <span class="text-danger">*</span></label>
                 <select class="select2-single" id="agentsDropdown" name="agent_id">
                     <option></option>
                     @if (Auth::user()->role == 'COMPANY')
@@ -69,7 +69,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Agent Commission</label>
+                <label class="control-label">Agent Commission <span class="text-danger">*</span></label>
                 <input id="cost_per_person" class="form-control" name="agent_commission"
                     placeholder="Enter Agent Commission" type="text">
             </div>
@@ -78,14 +78,14 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Number of Hujjaj</label>
+                <label class="control-label">Number of Hujjaj <span class="text-danger">*</span></label>
                 <input id="agent-name" name="num_of_hujjaj" class="form-control" placeholder="Enter Number Hujjaj"
                     name="agent-name" type="text">
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Individual/Family</label>
+                <label class="control-label">Individual/Family <span class="text-danger">*</span></label>
                 <select class="select2-single" name="companion">
                     <option></option>
                     <option value="Individual">Individual</option>
@@ -110,7 +110,7 @@
     <div class="row contact-person-details">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Contact Person Surname</label>
+                <label class="control-label">Contact Person Surname <span class="text-danger">*</span></label>
                 <input id="agent-name" name="contact_surname" class="form-control"
                     placeholder="Enter Contact Person Surname"  type="text">
             </div>
@@ -118,7 +118,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Contact Person Given Name</label>
+                <label class="control-label">Contact Person Given Name <span class="text-danger">*</span></label>
                 <input id="agent-name" name="contact_name" class="form-control"
                     placeholder="Enter Contact Person Given Name" type="text">
             </div>
@@ -127,7 +127,7 @@
     <div class="row contact-person-details">
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="control-label">Contact Person Mobile Number</label>
+                <label class="control-label">Contact Person Mobile Number <span class="text-danger">*</span></label>
                 <input id="agent-name" name="contact_mobile" class="form-control"
                     placeholder="Enter Contact Person Mobile Number"  type="text">
             </div>

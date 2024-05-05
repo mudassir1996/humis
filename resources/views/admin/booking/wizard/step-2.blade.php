@@ -1,7 +1,7 @@
 <form class="step-2" method="POST" id="bookingStep2" action="{{ route('store-booking-step-2') }}">
     @csrf
     <div class="form-group row">
-        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Package Type</label>
+        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Package Type <span class="text-danger">*</span></label>
         <div class="col-sm-7">
             <select class="select2-single" id="package_type" name="package_type">
                 <option></option>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Currency</label>
+        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Currency <span class="text-danger">*</span></label>
         <div class="col-sm-7">
             <select class="select2-single" id="currency" name="currency">
                 <option></option>
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="form-group row" id="package_name_field">
-        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Package</label>
+        <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Package <span class="text-danger">*</span></label>
         <div class="col-sm-7">
             <select class="select2-single" id="packageDropdown" name="package_id">
                 <option></option>
@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Maktab Category</label>
+                    <label class="control-label">Maktab Category <span class="text-danger">*</span></label>
                     <select class="select2-single" id="maktab_category" name="maktab_category_id"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -57,7 +57,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Duration of Stay</label>
+                    <label class="control-label">Duration of Stay <span class="text-danger">*</span></label>
                     <select class="select2-single" id="duration_of_stay" name="duration_of_stay">
                         <option></option>
                         @foreach ($stay_durations as $stay_duration)
@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Nature</label>
+                    <label class="control-label">Nature <span class="text-danger">*</span></label>
                     <select class="select2-single" id="nature" name="nature">
                         <option></option>
                         <option value="FIX">Fix</option>
@@ -85,7 +85,7 @@
 
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Aziziah Accomodation</label>
+                    <label class="control-label">Aziziah Accomodation <span class="text-danger">*</span></label>
                     <select class="select2-single" name="aziziya_accommodation_id" id="aziziya_accommodation_id"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Makkah Accomodation</label>
+                    <label class="control-label">Makkah Accomodation <span class="text-danger">*</span></label>
                     <select class="select2-single" name="makkah_accommodation_id" id="makkah_accommodation_id"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -116,7 +116,7 @@
 
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Makkah Room Sharing Capacity</label>
+                    <label class="control-label">Makkah Room Sharing Capacity <span class="text-danger">*</span></label>
                     <select class="select2-single" name="makkah_room_sharing" id="makkah_room_sharing"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -132,7 +132,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Madinah Accomodation</label>
+                    <label class="control-label">Madinah Accomodation <span class="text-danger">*</span></label>
                     <select class="select2-single" name="madinah_accommodation_id" id="madinah_accommodation_id"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -146,7 +146,7 @@
 
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Madinah Room Sharing Capacity</label>
+                    <label class="control-label">Madinah Room Sharing Capacity <span class="text-danger">*</span></label>
                     <select class="select2-single" name="madinah_room_sharing" id="madinah_room_sharing"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -165,7 +165,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Food</label>
+                    <label class="control-label">Food <span class="text-danger">*</span></label>
                     <select class="select2-single" name="food_type_id" id="food_type_id"
                         onchange="getPackagePricing()">
                         <option></option>
@@ -178,7 +178,7 @@
 
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label">Ticket</label>
+                    <label class="control-label">Ticket <span class="text-danger">*</span></label>
                     <select class="select2-single" name="ticket_id" id="ticket" onchange="getPackagePricing()">
                         <option></option>
                         @foreach ($tickets as $ticket)

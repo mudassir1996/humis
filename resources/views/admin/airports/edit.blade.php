@@ -20,7 +20,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Airport Name</label>
+                                        <label class="control-label">Airport Name <span class="text-danger">*</span></label>
                                         <input id="airport_name" name="airport_name" value="{{ $airport->airport_name }}"
                                             class="form-control" placeholder="Enter Airport Name" type="text">
 
@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">Country Code</label>
+                                        <label class="control-label">Country Code <span class="text-danger">*</span></label>
                                         <select class="select2-single" name="airport_country_code"
                                             id="airport_country_code">
                                             <option></option>
