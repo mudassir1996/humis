@@ -30,6 +30,7 @@
                                     <th>S.No</th>
                                     <th>Company Name</th>
                                     <th>Booking No.</th>
+                                    <th>No of Hujjaj</th>
                                     <th>Surname</th>
                                     <th>Given Name</th>
                                     <th>Package</th>
@@ -41,6 +42,7 @@
                                         <td>{{$booking->id }}</td>
                                         <td>{{$booking->company_name}}</td>
                                         <td>{{$booking->booking_number}}</td>
+                                        <td>{{$booking->num_of_hujjaj}}</td>
                                         <td>{{$booking->contact_surname}}</td>
                                         <td>{{$booking->contact_name}}</td>
                                         <td>{{$booking->package_name}}</td>

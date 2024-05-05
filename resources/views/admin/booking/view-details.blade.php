@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/prismjs/themes/prism.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-
     <!-- end plugin css for this page -->
 @endsection
 @section('content')
@@ -18,56 +17,60 @@
                         <div class="col-lg-12">
                             <div class="row justify-content-between px-2 mb-2">
                                 <h4>Initial Information</h4>
-                                {{-- <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
-                                </button> --}}
+                                <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
+                                </button>
                             </div>
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Booking Number
+                                    <span>{{ $initial_info->booking_number }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Company
-                                    <span>{{$initial_info->company_name}}</span>
+                                    <span>{{ $initial_info->company_name }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Booking Office Country
-                                    <span>{{$initial_info->booking_office_name}}</span>
+                                    <span>{{ $initial_info->booking_office_name }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Client Country
-                                    <span>{{$initial_info->client_country}}</span>
+                                    <span>{{ $initial_info->client_country }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Booking Nature
-                                    <span>{{$initial_info->booking_nature=='WA'?'With Agent':'Without Agent'}}</span>
+                                    <span>{{ $initial_info->booking_nature == 'WA' ? 'With Agent' : 'Without Agent' }}</span>
                                 </li>
-                                @if ($initial_info->booking_nature=='WA')
+                                @if ($initial_info->booking_nature == 'WA')
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Agent Name
-                                    <span>{{$initial_info->agent_name}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Agent Commission
-                                    <span>{{$initial_info->agent_commission}}</span>
-                                </li>
+                                        Agent Name
+                                        <span>{{ $initial_info->agent_name }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Agent Commission
+                                        <span>{{ $initial_info->agent_commission }}</span>
+                                    </li>
                                 @endif
-                                
+
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Number of Hujjaj
-                                    <span>{{$initial_info->num_of_hujjaj}}</span>
+                                    <span>{{ $initial_info->num_of_hujjaj }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Individual/Family
-                                    <span>{{$initial_info->companion}}</span>
+                                    <span>{{ $initial_info->companion }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact Given Name
-                                    <span>{{$initial_info->contact_name}}</span>
+                                    <span>{{ $initial_info->contact_name }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact Surname
-                                    <span>{{$initial_info->contact_surname}}</span>
+                                    <span>{{ $initial_info->contact_surname }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Contact Mobile
-                                    <span>{{$initial_info->contact_mobile}}</span>
+                                    <span>{{ $initial_info->contact_mobile }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -92,47 +95,47 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Package Category
-                                    <span>{{$package->package_type}}</span>
+                                    <span>{{ $package->package_type }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Maktab Category
-                                    <span>{{$package->maktab_name}}</span>
+                                    <span>{{ $package->maktab_name }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Duration of Stay
-                                    <span>{{$package->duration_of_stay}}</span>
+                                    <span>{{ $package->duration_of_stay }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Nature
-                                    <span>{{$package->nature}}</span>
+                                    <span>{{ $package->nature }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Aziziah Accomodation
-                                    <span>{{$package->aziziyah_accomodation}}</span>
+                                    <span>{{ $package->aziziyah_accomodation }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Makkah Accomodation
-                                    <span>{{$package->makkah_accomodation}}</span>
+                                    <span>{{ $package->makkah_accomodation }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Madinah Accomodation
-                                    <span>{{$package->madinah_accomodation}}</span>
+                                    <span>{{ $package->madinah_accomodation }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Makkah Room Sharing Capacity
-                                    <span>{{$package->makkah_room_sharing}}</span>
+                                    <span>{{ $package->makkah_room_sharing }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Madinah Room Sharing Capacity
-                                    <span>{{$package->madinah_room_sharing}}</span>
+                                    <span>{{ $package->madinah_room_sharing }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Food
-                                    <span>{{$package->food_type_name}}</span>
+                                    <span>{{ $package->food_type_name }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Special Transport
-                                    <span>{{$package->special_transport}}</span>
+                                    <span>{{ $package->special_transport }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -166,19 +169,19 @@
                                     <th>Surname</th>
                                     <th>Passport</th>
                                     <th>Gender</th>
-                                    {{-- <th>Action</th> --}}
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($applications as $application)
                                     <tr>
-                                        <td>{{$application->booking_number}}</td>
-                                        <td>{{$application->application_number}}</td>
-                                        <td>{{$application->given_name}}</td>
-                                        <td>{{$application->surname}}</td>
-                                        <td>{{$application->passport}}</td>
-                                        <td>{{$application->gender}}</td>
-                                        {{-- <td>
+                                        <td>{{ $application->booking_number }}</td>
+                                        <td>{{ $application->application_number }}</td>
+                                        <td>{{ $application->given_name }}</td>
+                                        <td>{{ $application->surname }}</td>
+                                        <td>{{ $application->passport }}</td>
+                                        <td>{{ $application->gender }}</td>
+                                        <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -197,15 +200,25 @@
                                                 </button>
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
-                                                    <a class="dropdown-item d-flex align-items-center p-2" href="#"><i
-                                                            data-feather="edit-2" class="icon-md mr-2"></i> <span
-                                                            class="">Edit</span></a>
-                                                   
-
-
+                                                    <a class="dropdown-item d-flex align-items-center p-2"
+                                                        href="{{ route('view-application-details', $application->id) }}"><i
+                                                            data-feather="eye" class="icon-md mr-2"></i> <span
+                                                            class="">View Detail</span></a>
+                                                    <form action="{{ route('applications.destroy', $application->id) }}"
+                                                        id="delete_item_from{{ $application->id }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a type="button"
+                                                            class="dropdown-item d-flex align-items-center p-2"
+                                                            title="Delete"
+                                                            onclick="deleteConfirmation('delete_item_from{{ $application->id }}')"><i
+                                                                data-feather="trash-2" class="icon-md mr-2"></i> <span
+                                                                class="">Delete</span></a>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </td> --}}
+                                        </td>
+
                                     </tr>
                                 @endforeach
 
@@ -236,10 +249,11 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($applications as $application)
-                                            <tr>
-                                                <td>{{$application->given_name." ".$application->surname}}</td>
-                                                <td>PKR {{number_format($application->cost_per_person)}}</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>{{ $application->given_name . ' ' . $application->surname }}</td>
+                                                    <td>{{ $initial_info->currency }}
+                                                        {{ number_format($application->cost_per_person) }}</td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -251,19 +265,19 @@
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Total Discount</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            {{$initial_info->currency}} {{number_format($initial_info->discount)}}
+                                            {{ $initial_info->currency }} {{ number_format($initial_info->discount) }}
                                         </div>
                                     </div>
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Net Total Cost</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            {{$initial_info->currency}} {{number_format($initial_info->net_total)}}
+                                            {{ $initial_info->currency }} {{ number_format($initial_info->net_total) }}
                                         </div>
                                     </div>
                                     <div class="form-group row align-items-center justify-content-between">
                                         <label for="exampleInputUsername2" class="col-sm-7 col-4">Commission</label>
                                         <div class="col-sm-5 col-8 text-right">
-                                            {{$initial_info->currency}} {{number_format($initial_info->commission)}}
+                                            {{ $initial_info->currency }} {{ number_format($initial_info->commission) }}
                                         </div>
                                     </div>
                                     {{-- <div class="form-group row align-items-center justify-content-between">
@@ -282,7 +296,8 @@
                                                         <h5>Total</h5>
                                                     </td>
                                                     <td class="text-bold-800 text-right">
-                                                        <h5>{{$initial_info->currency}} {{number_format($initial_info->grand_total)}}</h5>
+                                                        <h5>{{ $initial_info->currency }}
+                                                            {{ number_format($initial_info->grand_total) }}</h5>
                                                         <input type="hidden" id="total" />
                                                     </td>
                                                 </tr>

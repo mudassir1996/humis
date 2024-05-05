@@ -191,6 +191,20 @@
 
 
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label">Qurbani Cost <span class="text-danger">*</span></label>
+                    <select class="select2-single" name="qurbani_cost_id" id="qurbani_cost_id">
+                        <option></option>
+                        @foreach ($qurbani_costs as $qurbani_cost)
+                            <option value="{{ $qurbani_cost->id }}">
+                                {{ $qurbani_cost->cost_title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">

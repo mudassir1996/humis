@@ -20,13 +20,13 @@ class RecieptController extends Controller
     public function index()
     {
         if(Auth::user()->role=="ADMIN"){
-            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj','agents.agent_name','bookings.currency')->leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin('agents', 'bookings.agent_name', 'agents.id')->get();
+            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj','agents.agent_name','bookings.currency')->leftJoin('companies', 'companies.id', 'bookings.company_id')->leftJoin('agents', 'bookings.agent_id', 'agents.id')->get();
             $companies=Company::all();
             $agents=Agent::all();
         }else{
             $agents=Agent::where('company_id', auth()->user()->company_id)->get();
             $companies = Company::where('id', auth()->user()->company_id)->get();
-            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj','agents.agent_name','bookings.currency')->leftJoin('companies', 'companies.id', 'bookings.company_id')->where('company_id', auth()->user()->company_id)->leftJoin('agents', 'bookings.agent_name', 'agents.id')->get();
+            $bookings = Booking::filterReciept()->select('bookings.id', 'companies.company_name','booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'num_of_hujjaj','agents.agent_name','bookings.currency')->leftJoin('companies', 'companies.id', 'bookings.company_id')->where('company_id', auth()->user()->company_id)->leftJoin('agents', 'bookings.agent_id', 'agents.id')->get();
 
         }
         $booking_ids = $bookings->pluck('id');
@@ -79,7 +79,7 @@ class RecieptController extends Controller
      */
     public function view_details(Request $request)
     {
-        $booking = Booking::select('bookings.id', 'booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'agents.agent_name', 'bookings.currency')->where('bookings.id', $request->booking_id)->leftJoin('agents', 'bookings.agent_name', 'agents.id')->first();
+        $booking = Booking::select('bookings.id', 'booking_number', 'contact_name', 'contact_surname','contact_mobile', 'grand_total as total_receivable', 'agents.agent_name', 'bookings.currency')->where('bookings.id', $request->booking_id)->leftJoin('agents', 'bookings.agent_id', 'agents.id')->first();
         $total_paid = RecieptVoucher::where("booking_id", $booking->id)->sum('amount');
         $booking->amount_received = $total_paid;
         $booking->balance_receivable = $booking->total_receivable - $total_paid;
@@ -123,7 +123,7 @@ class RecieptController extends Controller
         $reciept_voucher->bank_account = $request->bank_account ?? "";
         $reciept_voucher->check_num = $request->check_num ?? "";
         $reciept_voucher->amount = $request->amount;
-        $reciept_voucher->amount_in_words = "";
+        $reciept_voucher->amount_in_words = $request->amount_in_words;
         $reciept_voucher->transaction_charges = $request->transaction_charges ?? 0;
         $reciept_voucher->reciever_name = $request->reciever_name;
 
@@ -135,10 +135,24 @@ class RecieptController extends Controller
         }
         $reciept_voucher->created_by = auth()->user()->id;
 
-
+        //setting up success message
         if ($reciept_voucher->save()) {
-            return redirect()->route('reciepts.index');
+            $notification = array(
+                'message' => 'Reciept Added successfully!',
+                'alert-type' => 'success'
+            );
         }
+        //setting up error message
+        else {
+            $notification = array(
+                'message' => 'Something went wrong!',
+                'alert-type' => 'error'
+            );
+        }
+
+        //redirecting to the page with notification message
+        return redirect()->route('view-reciept-details', ['booking_id' => $request->booking_id])->with($notification);
+
     }
 
     /**

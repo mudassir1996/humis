@@ -16,8 +16,8 @@ class OtherCostController extends Controller
      */
     public function index()
     {
-        $other_cost = OtherCost::where('cost_key','qurbani_cost')->first();
-        return view('admin.other-costs.edit', compact('other_cost'));
+        $other_costs = OtherCost::all();
+        return view('admin.other-costs.index', compact('other_costs'));
         
     }
 
@@ -61,7 +61,8 @@ class OtherCostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $other_cost = OtherCost::find($id);
+        return view('admin.other-costs.edit', compact('other_cost'));
     }
 
     /**

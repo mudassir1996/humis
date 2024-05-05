@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accomodation;
 use App\Models\FoodType;
 use App\Models\MaktabCategory;
+use App\Models\OtherCost;
 use App\Models\Package;
 use App\Models\SpecialTransport;
 use App\Models\StayDuration;
@@ -137,9 +138,10 @@ class PackageController extends Controller
         $makkah_accomodations = $accomodations->where('accomodation_type', 'MAKKAH');
         $madinah_accomodations = $accomodations->where('accomodation_type', 'MADINAH');
         $tickets = Ticket::all();
+        $qurbani_costs = OtherCost::all();
         $stay_durations = StayDuration::all();
         $food_types = FoodType::where('food_type_status', 'ACTIVE')->select('id', 'food_type_name', 'food_type_cost')->get();
-        return view('admin.packages.create', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types','tickets', 'stay_durations'));
+        return view('admin.packages.create', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types','tickets', 'stay_durations', 'qurbani_costs'));
     }
 
 
@@ -158,6 +160,7 @@ class PackageController extends Controller
         $package->makkah_room_sharing = $request->makkah_room_sharing ?? "SHARING";
         $package->madinah_room_sharing = $request->madinah_room_sharing ?? "SHARING";
         $package->ticket_id = $request->ticket_id;
+        $package->qurbani_cost_id = $request->qurbani_cost_id;
         $package->food_type_id = $request->food_type_id;
         $package->special_transport = $request->special_transport??"INCLUDED";
         $package->cost_per_person = $request->cost_per_person;
@@ -186,10 +189,11 @@ class PackageController extends Controller
         $food_types = FoodType::where('food_type_status', 'ACTIVE')->select('id', 'food_type_name', 'food_type_cost')->get();
         $package = Package::find($id);
         $tickets = Ticket::all();
+        $qurbani_costs = OtherCost::all();
         $stay_durations = StayDuration::all();
 
 
-        return view('admin.packages.edit', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types', 'package', 'tickets', 'stay_durations'));
+        return view('admin.packages.edit', compact('maktab_categories', 'aziziyah_accomodations', 'makkah_accomodations', 'madinah_accomodations', 'food_types', 'package', 'tickets', 'stay_durations', 'qurbani_costs'));
     }
 
     public function update(Request $request, $id)
@@ -207,8 +211,9 @@ class PackageController extends Controller
         $package->makkah_room_sharing = $request->makkah_room_sharing ?? "SHARING";
         $package->madinah_room_sharing = $request->madinah_room_sharing ?? "SHARING";
         $package->ticket_id = $request->ticket_id;
+        $package->qurbani_cost_id = $request->qurbani_cost_id;
         $package->food_type_id = $request->food_type_id;
-        $package->special_transport = $request->special_transport;
+        $package->special_transport = "INCLUDED";
         $package->cost_per_person = $request->cost_per_person;
         if ($package->save()) {
             $notification = array(

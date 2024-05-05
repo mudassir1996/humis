@@ -156,6 +156,12 @@ $(function() {
         ticket_id:{
           required:true,
         },
+        package_name:{
+          required:true,
+        },
+        qurbani_cost_id:{
+          required:true,
+        },
        
       },
       errorPlacement: function (label, element) {
@@ -323,6 +329,48 @@ $(function() {
         password_confirmation:"Please re-enter the new password"
       },
       
+      highlight: function (element, errorClass) {
+        console.log(errorClass);
+        $(element).parent().addClass('has-danger')
+        $(element).addClass('form-control-danger')
+      },
+      unhighlight: function (element, errorClass, validClass){
+        $(element).parent().removeClass('has-danger')
+        $(element).removeClass('form-control-danger')
+      }
+    });
+    $("#reciept-form").validate({
+      rules: {
+        reciept_date: {
+          required: true,
+        },
+        payment_mode: {
+          required: true,
+        },
+        bank_account: {
+          required: true,
+        },
+        check_num: {
+          required: true,
+        },
+        amount: {
+          required: true,
+          greaterThan:0
+        },
+        reciever_name: {
+          required: true,
+        },
+      },
+      
+      errorPlacement: function (label, element) {
+        // console.log(element);
+        label.addClass('mt-2 text-danger');
+        if (element.hasClass('select2-single') && element.next('.select2-container').length) {
+          label.insertAfter(element.next('.select2-container'));
+        } else {
+          label.insertAfter(element);
+        }
+      },
       highlight: function (element, errorClass) {
         console.log(errorClass);
         $(element).parent().addClass('has-danger')

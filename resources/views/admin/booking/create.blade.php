@@ -154,6 +154,7 @@
                 $('#madinah_room_sharing').prop('disabled', disable);
                 $('#food_type_id').prop('disabled', disable);
                 $('#ticket').prop('disabled', disable);
+                $('#qurbani_cost_id').prop('disabled', disable);
             }
 
             $(document).ready(() => {
@@ -205,6 +206,8 @@
                             $('#madinah_room_sharing').val(data.madinah_room_sharing);
                             $('#food_type_id').val(data.food_type_id);
                             $('#ticket').val(data.ticket_id);
+                            $('#qurbani_cost_id').val(data.qurbani_cost_id);
+
 
 
                             $('#maktab_category').trigger("change");
@@ -217,6 +220,7 @@
                             $('#madinah_room_sharing').trigger("change");
                             $('#food_type_id').trigger("change");
                             $('#ticket').trigger("change");
+                            $('#qurbani_cost_id').trigger("change");
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching booking offices:', error);

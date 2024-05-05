@@ -52,19 +52,19 @@ class ApplicationController extends Controller
             'applications.document_ticket',
             'applications.document_visa'
         )->leftJoin('bookings', 'bookings.id', 'applications.booking_id')
-        ->leftJoin(
-            'packages',
-            function ($join) {
-                $join->on('bookings.package_id', '=', 'packages.id')
-                ->where('bookings.package_type', '=', 'STANDARD');
-            }
-        )->leftJoin(
-            'custom_packages',
-            function ($join) {
-                $join->on('bookings.package_id', '=', 'custom_packages.id')
-                ->where('bookings.package_type', '=', 'CUSTOM');
-            }
-        )
+            ->leftJoin(
+                'packages',
+                function ($join) {
+                    $join->on('bookings.package_id', '=', 'packages.id')
+                        ->where('bookings.package_type', '=', 'STANDARD');
+                }
+            )->leftJoin(
+                'custom_packages',
+                function ($join) {
+                    $join->on('bookings.package_id', '=', 'custom_packages.id')
+                        ->where('bookings.package_type', '=', 'CUSTOM');
+                }
+            )
             ->leftJoin('companies', 'companies.id', 'bookings.company_id')
             ->get();
         return view('admin.application.index', compact(
@@ -108,8 +108,8 @@ class ApplicationController extends Controller
     public function edit($id)
     {
         $application = Application::find($id);
-        $booking = Booking::select('booking_number','company_id')->where('id', $application->booking_id)->first();
-        if (auth()->user()->role!="ADMIN" && $booking->company_id != auth()->user()->company_id){
+        $booking = Booking::select('booking_number', 'company_id')->where('id', $application->booking_id)->first();
+        if (auth()->user()->role != "ADMIN" && $booking->company_id != auth()->user()->company_id) {
             $notification = array(
                 'message' => 'You do not have access to this record!',
                 'alert-type' => 'success'
@@ -228,7 +228,7 @@ class ApplicationController extends Controller
             $ticket_cost = 0;
             if ($request->qurbani == 'INCLUDED') {
                 $other_cost = OtherCost::where('cost_key', 'qurbani_cost')->select('cost')->first();
-                $qurbani_fee= $other_cost->cost ?? 0;
+                $qurbani_fee = $other_cost->cost ?? 0;
             }
 
             if ($request->ticket == 'NOT_INCLUDED') {
@@ -303,7 +303,6 @@ class ApplicationController extends Controller
 
                 $booking->save();
             }
-       
         });
 
         //setting up success message
@@ -323,5 +322,46 @@ class ApplicationController extends Controller
 
         //redirecting to the page with notification message
         return redirect()->route('applications')->with($notification);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Application  $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Application $application)
+    {
+        DB::transaction(
+            function () use ($application) {
+                $old_application_cost_per_person = $application->cost_per_person;
+                if ($application->delete()) {
+                    $booking = Booking::find($application->booking_id);
+                    $booking_net_total = $booking->net_total;
+                    $booking_net_total = $booking_net_total - $old_application_cost_per_person;
+                    $booking->net_total = $booking_net_total;
+                    $booking->grand_total = $booking_net_total;
+                    $booking->num_of_hujjaj = $booking->num_of_hujjaj - 1;
+                    $booking->save();
+                }
+            }
+        );
+        //setting up success message
+        if (DB::transactionLevel() == 0) {
+            $notification = array(
+                'message' => 'Application deleted successfully!',
+                'alert-type' => 'success'
+            );
+        }
+        //setting up error message
+        else {
+            $notification = array(
+                'message' => 'Something went wrong!',
+                'alert-type' => 'error'
+            );
+        }
+
+        //redirecting to the page with notification message
+        return redirect()->back()->with($notification);
     }
 }

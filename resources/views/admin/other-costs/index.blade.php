@@ -14,16 +14,16 @@
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between py-3">
-                        <h3>Ticket List</h3>
+                        <h3>Qurbani Costs</h3>
                         {{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal"filter
                             data-target="#filterModal">
                             <i data-feather="filter" class="icon-md mr-2"></i> <span class="">Filter</span>
                         </button> --}}
-                        <a href="{{ route('tickets.create') }}">
+                        {{-- <a href="{{ route('tickets.create') }}">
                             <button type="button" class="btn btn-primary">
                                 <i data-feather="plus" class="icon-md mr-2"></i> <span class="">Add New</span>
                             </button>
-                        </a>
+                        </a> --}}
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
                             DataTables
@@ -33,17 +33,17 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Ticket Type</th>
+                                    <th>Title</th>
                                     <th>Cost</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tickets as $ticket)
+                                @foreach ($other_costs as $other_cost)
                                     <tr>
-                                        <td>{{ $ticket->id }}</td>
-                                        <td>{{ $ticket->ticket_type }}</td>
-                                        <td>{{ $ticket->ticket_cost }}</td>
+                                        <td>{{ $other_cost->id }}</td>
+                                        <td>{{ $other_cost->cost_title }}</td>
+                                        <td>{{ $other_cost->cost }}</td>
                                         
                                         
                                         
@@ -68,21 +68,10 @@
                                                 <div class="dropdown-menu border rounded"
                                                     aria-labelledby="dropdownMenuButton3">
                                                     <a class="dropdown-item d-flex align-items-center p-2"
-                                                        href="{{ route('tickets.edit', $ticket->id) }}"><i
+                                                        href="{{ route('other-costs.edit', $other_cost->id) }}"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
-                                                    <form action="{{ route('tickets.destroy', $ticket->id) }}"
-                                                        id="delete_item_from{{ $ticket->id }}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a type="button" class="dropdown-item d-flex align-items-center p-2"
-                                                            title="Delete"
-                                                            onclick="deleteConfirmation('delete_item_from{{ $ticket->id }}')"><i
-                                                                data-feather="trash-2" class="icon-md mr-2"></i> <span
-                                                                class="">Delete</span></a>
-
-
-                                                    </form>
+                                                    
                                                     
 
 

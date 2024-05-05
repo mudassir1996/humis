@@ -130,6 +130,7 @@
                                     <th>Reciept No.</th>
                                     <th>Date</th>
                                     <th>Payment Mode</th>
+                                    <th>Bank Account</th>
                                     <th>Amount</th>
                                     <th>Action</th>
                                 </tr>
@@ -140,7 +141,8 @@
                                         <td>{{$reciept_voucher->id}}</td>
                                         <td>{{$reciept_voucher->reciept_number}}</td>
                                         <td>{{$reciept_voucher->reciept_date}}</td>
-                                        <td>{{$reciept_voucher->payment_mode}}</td>
+                                        <td>{{ucfirst($reciept_voucher->payment_mode)}}</td>
+                                        <td>{{$reciept_voucher->bank_account==''?"N/A":$reciept_voucher->bank_account}}</td>
                                         <td>{{number_format($reciept_voucher->amount)}}</td>
 
                                         <td>

@@ -57,7 +57,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label">Agent Name</label>
-                <select class="select2-single" id="agentsDropdown" name="agent_name">
+                <select class="select2-single" id="agentsDropdown" name="agent_id">
                     <option></option>
                     @if (Auth::user()->role == 'COMPANY')
                         @foreach ($agents as $agent)

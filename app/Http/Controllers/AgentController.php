@@ -15,7 +15,7 @@ class AgentController extends Controller
      */
     public function index()
     {
-        $agents = Agent::where('company_id',auth()->user()->company_id)->get();
+        $agents = Agent::withSum('bookings as total_commission','agent_commission')->where('company_id',auth()->user()->company_id)->get();
         return view('company.agents.index', compact('agents'));
     }
 

@@ -35,6 +35,7 @@
                                     <th>ID</th>
                                     <th>Agent Name</th>
                                     <th>Agent Contact</th>
+                                    <th>Total Commission</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,10 +45,7 @@
                                         <td>{{ $agent->id }}</td>
                                         <td>{{ $agent->agent_name }}</td>
                                         <td>{{ $agent->agent_contact }}</td>
-                                        
-                                        
-                                        
-
+                                        <td>{{ $agent->total_commission }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton3"
@@ -71,11 +69,16 @@
                                                         href="{{ route('agents.edit', $agent->id) }}"><i
                                                             data-feather="edit-2" class="icon-md mr-2"></i> <span
                                                             class="">Edit</span></a>
+                                                    <a target="_blank" class="dropdown-item d-flex align-items-center p-2"
+                                                        href="{{ route('complete-list', ['agent_id'=>$agent->id]) }}"><i
+                                                            data-feather="eye" class="icon-md mr-2"></i> <span
+                                                            class="">View Bookings</span></a>
                                                     <form action="{{ route('agents.destroy', $agent->id) }}"
                                                         id="delete_item_from{{ $agent->id }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a type="button" class="dropdown-item d-flex align-items-center p-2"
+                                                        <a type="button"
+                                                            class="dropdown-item d-flex align-items-center p-2"
                                                             title="Delete"
                                                             onclick="deleteConfirmation('delete_item_from{{ $agent->id }}')"><i
                                                                 data-feather="trash-2" class="icon-md mr-2"></i> <span
@@ -83,7 +86,7 @@
 
 
                                                     </form>
-                                                    
+
 
 
                                                 </div>

@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications');
     Route::get('/applications/{id}/edit', [ApplicationController::class, 'edit'])->name('applications.edit');
+    Route::delete('/applications/{application}', [ApplicationController::class, 'destroy'])->name('applications.destroy');
     Route::put('/applications/{id}/update', [ApplicationController::class, 'update'])->name('applications.update');
     Route::get('/applications/{id}/view-details', [ApplicationController::class, 'view_details'])->name('view-application-details');
 
@@ -91,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/companies/{id}/booking-offices', [CompanyController::class, 'getBookingOffices']);
         Route::get('/companies/{id}/agents', [CompanyController::class, 'getAgents']);
-        Route::resource('/other-costs', OtherCostController::class)->except(['create','store','edit','destroy']);
+        Route::resource('/other-costs', OtherCostController::class)->except(['create','store','destroy']);
         Route::resource('/companies', CompanyController::class);
         Route::resource('/additional-facilities', AdditionalFacilityController::class);
         Route::resource('/stay-durations', StayDurationController::class);

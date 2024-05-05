@@ -54,7 +54,7 @@ class Application extends Model
                 $query->where('bookings.company_id', request()->company_id);
             }
             if (request()->agent_id != '') {
-                $query->where('bookings.agent_name', request()->agent_id);
+                $query->where('bookings.agent_id', request()->agent_id);
             }
             
         });
@@ -104,7 +104,7 @@ class Application extends Model
                 $query->where('bookings.company_id', request()->company_id);
             }
             if (request()->agent_id != '') {
-                $query->where('bookings.agent_name', request()->agent_id);
+                $query->where('bookings.agent_id', request()->agent_id);
             }
         });
 

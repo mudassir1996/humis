@@ -6,10 +6,10 @@
 @endsection
 @section('content')
     <div class="d-flex justify-content-center align-items-center flex-wrap grid-margin">
-        <h4>Edit {{ucfirst($other_cost->cost_title)}} Cost</h4>
+        <h4>Edit Qurbani Cost</h4>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-6">
+        <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
                     <form class="step-2" method="post" action="{{ route('other-costs.update',$other_cost->id) }}">
@@ -18,11 +18,19 @@
                         <div id="standard_package">
                             <div class="row">
                                 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label">{{ucfirst($other_cost->cost_title)}} Cost</label>
+                                        <label class="control-label">Qurbani Cost Title</label>
+                                        <input id="cost" name="cost" value="{{$other_cost->cost_title}}" class="form-control"
+                                            placeholder="Enter Title" type="text">
+                                       
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Cost</label>
                                         <input id="cost" name="cost" value="{{$other_cost->cost}}" class="form-control"
-                                            placeholder="Enter {{ucfirst($other_cost->cost_title)}} Cost" type="number">
+                                            placeholder="Enter Cost" type="number">
                                        
                                     </div>
                                 </div>
