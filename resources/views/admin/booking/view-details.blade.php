@@ -17,8 +17,8 @@
                         <div class="col-lg-12">
                             <div class="row justify-content-between px-2 mb-2">
                                 <h4>Initial Information</h4>
-                                <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
-                                </button>
+                                {{-- <button type="button" class="btn btn-primary btn-sm"> <span class="">Edit</span>
+                                </button> --}}
                             </div>
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
